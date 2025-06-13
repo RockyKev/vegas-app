@@ -5,6 +5,11 @@ interface AppState {
   tipsStarred: Record<string, boolean>
   calendarDone: Record<string, boolean>
   peopleStatus: Record<string, 'not-met' | 'connected' | 'followed-up'>
+  errors: Array<{
+    message: string
+    timestamp: number
+    stack?: string
+  }>
 }
 
 export const useAppStore = defineStore('app', {
@@ -12,7 +17,8 @@ export const useAppStore = defineStore('app', {
     tipsRead: {},
     tipsStarred: {},
     calendarDone: {},
-    peopleStatus: {}
+    peopleStatus: {},
+    errors: []
   }),
 
   actions: {
@@ -39,13 +45,29 @@ export const useAppStore = defineStore('app', {
       this.saveToLocalStorage()
     },
 
+    // Error logging
+    logError(error: Error) {
+      console.error('Application Error:', error)
+      this.errors.push({
+        message: error.message,
+        timestamp: Date.now(),
+        stack: error.stack
+      })
+      // Keep only the last 10 errors
+      if (this.errors.length > 10) {
+        this.errors.shift()
+      }
+      this.saveToLocalStorage()
+    },
+
     // Local storage actions
     saveToLocalStorage() {
       const state = {
         tipsRead: this.tipsRead,
         tipsStarred: this.tipsStarred,
         calendarDone: this.calendarDone,
-        peopleStatus: this.peopleStatus
+        peopleStatus: this.peopleStatus,
+        errors: this.errors
       }
       localStorage.setItem('vegas-app-state', JSON.stringify(state))
     },
@@ -58,6 +80,7 @@ export const useAppStore = defineStore('app', {
         this.tipsStarred = state.tipsStarred || {}
         this.calendarDone = state.calendarDone || {}
         this.peopleStatus = state.peopleStatus || {}
+        this.errors = state.errors || []
       }
     }
   }

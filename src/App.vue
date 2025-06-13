@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import ErrorBoundary from './components/ErrorBoundary.vue'
 
 const isMenuOpen = ref(false)
 
@@ -13,24 +14,26 @@ const closeMenu = () => {
 </script>
 
 <template>
-  <div class="app">
-    <nav class="nav">
-      <button class="menu-button" @click="toggleMenu">
-        <span class="hamburger"></span>
-      </button>
-      <div class="menu" :class="{ 'menu-open': isMenuOpen }">
-        <router-link to="/" @click="closeMenu">Home</router-link>
-        <router-link to="/networking-tips" @click="closeMenu">Networking Tips</router-link>
-        <router-link to="/calendar" @click="closeMenu">Calendar</router-link>
-        <router-link to="/travel-info" @click="closeMenu">Travel Info</router-link>
-        <router-link to="/contacts" @click="closeMenu">Contacts</router-link>
-        <router-link to="/networking-targets" @click="closeMenu">Networking Targets</router-link>
-      </div>
-    </nav>
-    <main class="main">
-      <router-view></router-view>
-    </main>
-  </div>
+  <ErrorBoundary>
+    <div class="app">
+      <nav class="nav">
+        <button class="menu-button" @click="toggleMenu">
+          <span class="hamburger"></span>
+        </button>
+        <div class="menu" :class="{ 'menu-open': isMenuOpen }">
+          <router-link to="/" @click="closeMenu">Home</router-link>
+          <router-link to="/networking-tips" @click="closeMenu">Networking Tips</router-link>
+          <router-link to="/calendar" @click="closeMenu">Calendar</router-link>
+          <router-link to="/travel-info" @click="closeMenu">Travel Info</router-link>
+          <router-link to="/contacts" @click="closeMenu">Contacts</router-link>
+          <router-link to="/networking-targets" @click="closeMenu">Networking Targets</router-link>
+        </div>
+      </nav>
+      <main class="main">
+        <router-view></router-view>
+      </main>
+    </div>
+  </ErrorBoundary>
 </template>
 
 <style>
