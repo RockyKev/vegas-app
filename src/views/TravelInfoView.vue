@@ -4,52 +4,18 @@
       <h1>Travel Information</h1>
       
       <div class="info-grid">
-        <div class="map-section card">
-          <h2>Venue Map</h2>
-          <div class="map-container">
-            <img 
-              src="https://maps.googleapis.com/maps/api/staticmap?center=36.1215,-115.1694&zoom=15&size=600x400&maptype=roadmap&markers=color:red%7C36.1215,-115.1694&key=YOUR_API_KEY" 
-              alt="Venue Map"
-              class="map-image"
-            />
-          </div>
-          <p class="map-note">
-            Note: Replace YOUR_API_KEY with an actual Google Maps API key for production use.
-          </p>
-        </div>
-
-        <div class="notes-section card">
-          <h2>Important Notes</h2>
-          <div class="notes-list">
-            <div class="note-item">
-              <h3>Airport Information</h3>
-              <p>Harry Reid International Airport (LAS) is located about 5 miles from the Strip.</p>
-              <ul>
-                <li>Terminal 1: Domestic flights</li>
-                <li>Terminal 3: International flights</li>
-              </ul>
-            </div>
-
-            <div class="note-item">
-              <h3>Transportation</h3>
-              <p>Options for getting around:</p>
-              <ul>
-                <li>Rideshare (Uber/Lyft)</li>
-                <li>Monorail (runs along the Strip)</li>
-                <li>Bus (Deuce and SDX routes)</li>
-                <li>Taxi (available at hotels and airport)</li>
-              </ul>
-            </div>
-
-            <div class="note-item">
-              <h3>Weather</h3>
-              <p>Las Vegas has a desert climate:</p>
-              <ul>
-                <li>Summer: Hot (90-110°F)</li>
-                <li>Winter: Mild (50-70°F)</li>
-                <li>Low humidity year-round</li>
-              </ul>
-            </div>
+        <div v-for="info in travelInfo" :key="info.title" class="info-section">
+          <h2>{{ info.title }}</h2>
+          <img 
+            v-if="info.image" 
+            :src="info.image" 
+            :alt="info.title"
+            class="map-image"
+          />
+          <div v-if="info.content" class="content">
+            <ul>
+              <li v-for="(line, index) in info.content" :key="index">{{ line }}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -58,7 +24,25 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import Container from '../components/Container.vue'
+
+interface TravelInfo {
+  title: string
+  image?: string
+  content?: string[]
+}
+
+const travelInfo = ref<TravelInfo[]>([])
+
+onMounted(async () => {
+  try {
+    const response = await fetch('/data/travel_info.json')
+    travelInfo.value = await response.json()
+  } catch (error) {
+    console.error('Failed to load travel info:', error)
+  }
+})
 </script>
 
 <style scoped>
@@ -75,83 +59,46 @@ h1 {
 .info-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
-.card {
-  background: #fff;
+.info-section {
   padding: 1.5rem;
+  background: #ffffff;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   margin-bottom: 1rem;
   font-size: 1.25rem;
   color: var(--text-color);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 0.5rem;
-}
-
-.map-container {
-  width: 100%;
-  height: 300px;
-  background: #f8f9fa;
-  border-radius: 0.25rem;
-  overflow: hidden;
-  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .map-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
 }
 
-.map-note {
-  font-size: 0.875rem;
-  color: #666;
-  font-style: italic;
-}
-
-.notes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.note-item {
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.note-item:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
+.content {
   color: var(--text-color);
 }
 
-p {
-  margin: 0 0 0.5rem;
-  color: var(--text-color);
+.content li {
+  margin: 0 0 0.5rem 2rem;
 }
 
-ul {
-  margin: 0;
-  padding-left: 1.5rem;
-  color: var(--text-color);
-}
-
-li {
-  margin-bottom: 0.25rem;
-}
-
-li:last-child {
+.content li:last-child {
   margin-bottom: 0;
 }
 
@@ -163,12 +110,12 @@ li:last-child {
 
   .info-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
-  .map-container {
-    height: 400px;
+  .info-section:has(.map-image) {
+    grid-column: span 2;
   }
 }
 </style> 

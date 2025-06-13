@@ -1,0 +1,41 @@
+[
+	{
+		"title": "Vegas Map",
+		"image": "public/vegas_map.webp"
+	},
+	{
+		"title": "Airport Map",
+		"image": "public/airport_map.png"
+	},
+	{
+		"title": "Airport Information",
+		"content": [
+			"Harry Reid International Airport (LAS) is located about 5 miles from the Strip.",
+			"Terminal 1: Domestic flights",
+			"Terminal 3: International flights"
+		]
+	},
+	{
+		"title": "Transportation",
+		"content": [
+			"Options for getting around:",
+			"Taxi: Available at all terminals",
+			"Ride-sharing services: Uber and Lyft are widely available"
+		]
+	},
+	{
+		"title": "Parking",
+		"content": [
+			"Valet parking: Available at all terminals",
+			"Self-parking: Available at all terminals"
+		]
+	},
+	{
+		"title": "Weather",
+		"content": [
+			"Average temperature: 70-80°F (20-27°C)",
+			"Average humidity: 20-40%",
+			"Average precipitation: 0.1-0.3 inches (2.5-7.6 mm) per day"
+		]
+	}
+]

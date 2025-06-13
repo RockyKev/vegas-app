@@ -3,6 +3,18 @@
     "name": "Alex Johnson",
     "title": "Engineering Manager",
     "email": "alex@example.com",
-    "phone": "+1234567890"
-  }
+		"phone": "+1234567890"
+	},
+	{
+		"name": "Jane Smith",
+		"title": "Design Lead",
+		"email": "jane@example.com",
+		"phone": "+1234567890"
+	},
+	{
+		"name": "John Doe",
+		"title": "Software Engineer",
+		"email": "john@example.com",
+		"phone": "+1234567890"
+	}
 ]

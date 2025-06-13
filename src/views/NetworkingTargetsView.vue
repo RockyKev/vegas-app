@@ -3,114 +3,32 @@
     <div class="networking-targets">
       <h1>Networking Targets</h1>
       
-      <div class="targets-header">
-        <button class="add-target-button" @click="showAddTarget = true">
-          Add Target
-        </button>
-      </div>
-
       <div class="targets-list">
-        <div v-for="target in targets" :key="target.id" class="target-card card">
-          <div class="target-header">
+        <div v-for="target in targets" :key="target.id" class="target-item">
+          <div class="target-info">
             <h2>{{ target.name }}</h2>
-            <div class="target-actions">
-              <button 
-                class="action-button"
-                @click="toggleTargetStatus(target.id)"
-                :aria-label="getStatusLabel(target.id)"
-              >
-                {{ getStatusIcon(target.id) }}
-              </button>
-            </div>
+            <p v-if="target.title" class="target-title">{{ target.title }}</p>
+            <p v-if="target.company" class="target-company">{{ target.company }}</p>
           </div>
           
           <div class="target-details">
-            <p v-if="target.title" class="target-title">{{ target.title }}</p>
-            <p v-if="target.company" class="target-company">{{ target.company }}</p>
-            
             <div class="target-goals">
-              <h3>Goals</h3>
               <ul>
                 <li v-for="(goal, index) in target.goals" :key="index">
                   {{ goal }}
                 </li>
               </ul>
             </div>
-
-            <div class="target-notes">
-              <h3>Notes</h3>
-              <p>{{ target.notes }}</p>
-            </div>
+            <p v-if="target.notes" class="target-notes">{{ target.notes }}</p>
           </div>
-        </div>
-      </div>
 
-      <!-- Add Target Modal -->
-      <div v-if="showAddTarget" class="modal">
-        <div class="modal-content card">
-          <h2>Add New Target</h2>
-          <form @submit.prevent="addTarget" class="target-form">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                v-model="newTarget.name"
-                required
-                class="form-input"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input 
-                type="text" 
-                id="title" 
-                v-model="newTarget.title"
-                class="form-input"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="company">Company</label>
-              <input 
-                type="text" 
-                id="company" 
-                v-model="newTarget.company"
-                class="form-input"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="goals">Goals (one per line)</label>
-              <textarea 
-                id="goals" 
-                v-model="goalsText"
-                class="form-input"
-                rows="3"
-                placeholder="Enter goals, one per line"
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="notes">Notes</label>
-              <textarea 
-                id="notes" 
-                v-model="newTarget.notes"
-                class="form-input"
-                rows="3"
-              ></textarea>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" @click="showAddTarget = false" class="cancel-button">
-                Cancel
-              </button>
-              <button type="submit" class="submit-button">
-                Add Target
-              </button>
-            </div>
-          </form>
+          <button 
+            class="status-button"
+            @click="toggleTargetStatus(target.id)"
+            :class="getStatusClass(target.id)"
+          >
+            {{ getStatusLabel(target.id) }}
+          </button>
         </div>
       </div>
     </div>
@@ -118,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
 
@@ -132,20 +50,10 @@ interface NetworkingTarget {
 }
 
 const store = useAppStore()
-const showAddTarget = ref(false)
+const targets = ref<NetworkingTarget[]>([])
 
-const newTarget = ref<Partial<NetworkingTarget>>({
-  name: '',
-  title: '',
-  company: '',
-  goals: [],
-  notes: ''
-})
-
-const goalsText = ref('')
-
-// Mock data for now - will be replaced with actual data management
-const targets = ref<NetworkingTarget[]>([
+// Mock data for now - will be replaced with data/people_to_meet.json
+const mockTargets: NetworkingTarget[] = [
   {
     id: '1',
     name: 'Tech Industry Leaders',
@@ -170,29 +78,29 @@ const targets = ref<NetworkingTarget[]>([
     ],
     notes: 'Particularly interested in fintech and healthcare startups.'
   }
-])
-
-const getStatusIcon = (targetId: string) => {
-  const status = store.peopleStatus[targetId]
-  switch (status) {
-    case 'connected':
-      return '✓'
-    case 'followed-up':
-      return '★'
-    default:
-      return '○'
-  }
-}
+]
 
 const getStatusLabel = (targetId: string) => {
   const status = store.peopleStatus[targetId]
   switch (status) {
     case 'connected':
-      return 'Mark as not connected'
+      return 'Connected'
     case 'followed-up':
-      return 'Mark as not followed up'
+      return 'Followed Up'
     default:
-      return 'Mark as connected'
+      return 'Not Met'
+  }
+}
+
+const getStatusClass = (targetId: string) => {
+  const status = store.peopleStatus[targetId]
+  switch (status) {
+    case 'connected':
+      return 'status-connected'
+    case 'followed-up':
+      return 'status-followed-up'
+    default:
+      return 'status-not-met'
   }
 }
 
@@ -214,27 +122,10 @@ const toggleTargetStatus = (targetId: string) => {
   store.updatePersonStatus(targetId, newStatus)
 }
 
-const addTarget = () => {
-  const target: NetworkingTarget = {
-    id: Date.now().toString(),
-    name: newTarget.value.name || '',
-    title: newTarget.value.title,
-    company: newTarget.value.company,
-    goals: goalsText.value.split('\n').filter(goal => goal.trim()),
-    notes: newTarget.value.notes
-  }
-  
-  targets.value.push(target)
-  showAddTarget.value = false
-  newTarget.value = {
-    name: '',
-    title: '',
-    company: '',
-    goals: [],
-    notes: ''
-  }
-  goalsText.value = ''
-}
+onMounted(() => {
+  store.loadFromLocalStorage()
+  targets.value = mockTargets
+})
 </script>
 
 <style scoped>
@@ -248,212 +139,97 @@ h1 {
   color: var(--text-color);
 }
 
-.targets-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1.5rem;
-}
-
-.add-target-button {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: opacity 0.2s;
-}
-
-.add-target-button:hover {
-  opacity: 0.9;
-}
-
 .targets-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.target-card {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.target-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.25rem;
 }
 
-.target-header {
+.target-info {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 h2 {
   margin: 0;
-  font-size: 1.25rem;
-  color: var(--text-color);
-}
-
-.target-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.action-button {
-  background: none;
-  border: none;
-  padding: 0.25rem;
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: #666;
-  transition: color 0.2s;
-}
-
-.action-button:hover {
-  color: var(--primary-color);
-}
-
-.target-details {
+  font-size: 1.1rem;
   color: var(--text-color);
 }
 
 .target-title,
 .target-company {
-  margin: 0 0 0.5rem;
+  margin: 0;
   font-size: 0.875rem;
   color: #666;
 }
 
-.target-goals,
-.target-notes {
-  margin-top: 1rem;
-}
-
-h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
+.target-details {
+  font-size: 0.875rem;
   color: var(--text-color);
 }
 
-ul {
+.target-goals ul {
   margin: 0;
   padding-left: 1.5rem;
-  color: var(--text-color);
 }
 
-li {
+.target-goals li {
   margin-bottom: 0.25rem;
 }
 
-li:last-child {
+.target-goals li:last-child {
   margin-bottom: 0;
 }
 
-.target-notes p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #666;
+.target-notes {
+  margin: 0.5rem 0 0;
   font-style: italic;
+  color: #666;
 }
 
-/* Modal styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  margin: 1rem;
-}
-
-.target-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-label {
-  font-size: 0.875rem;
-  color: var(--text-color);
-  font-weight: 500;
-}
-
-.form-input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-}
-
-textarea.form-input {
-  resize: vertical;
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.cancel-button {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 1rem;
-  color: var(--text-color);
-  transition: all 0.2s;
-}
-
-.cancel-button:hover {
-  background: #f8f9fa;
-}
-
-.submit-button {
-  background: var(--primary-color);
-  color: #fff;
+.status-button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
   border: none;
-  padding: 0.75rem 1.5rem;
   border-radius: 0.25rem;
+  font-size: 0.875rem;
   cursor: pointer;
-  font-size: 1rem;
   transition: opacity 0.2s;
 }
 
-.submit-button:hover {
+.status-button:hover {
   opacity: 0.9;
+}
+
+.status-not-met {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.status-connected {
+  background: #28a745;
+  color: white;
+}
+
+.status-followed-up {
+  background: #17a2b8;
+  color: white;
 }
 
 /* Tablet and up */
 @media (min-width: 768px) {
   h1 {
     font-size: 2rem;
-  }
-
-  .targets-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
   }
 }
 </style> 

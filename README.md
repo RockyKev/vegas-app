@@ -91,7 +91,6 @@ vegas-app/
 - Display:
   - Name, job title
   - `mailto:` and `tel:` links
-  - Optional notes
 - No editing via UI
 
 ---
@@ -99,26 +98,14 @@ vegas-app/
 ### 🧠 6. Networking Targets
 - Source: `data/people_to_meet.json`
 
-Example format:
-```json
-{
-  "name": "Jane Smith",
-  "title": "Design Lead at GlowCo",
-  "details": "Spoke at FigmaConf. Into creative tooling.",
-  "questions": [
-    "Ask about remote design ops",
-    "Mention your mentorship series"
-  ],
-  "status": "not-met"
-}
-```
 UI:
-
-Show name, title, details, questions
+Show name, title, details, questions, status
 
 Let user mark status: not-met, connected, followed-up
+- State saved in `localStorage`:
+  - `people_status`: `{ [person_id]: "connected" }`
 
-Save to localStorage: people_status: { [person_id]: "connected" }
+
 
 ## 🔁 Import/Export State
 All app state (read tips, checklist, favorites, etc.) saved to localStorage
