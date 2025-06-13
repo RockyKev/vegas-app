@@ -26,12 +26,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Container from '../components/Container.vue'
-
-interface TravelInfo {
-  title: string
-  image?: string
-  content?: string[]
-}
+import type { TravelInfo } from '../types/types'
 
 const travelInfo = ref<TravelInfo[]>([])
 

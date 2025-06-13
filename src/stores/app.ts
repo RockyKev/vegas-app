@@ -1,19 +1,14 @@
 import { defineStore } from 'pinia'
+import type { AppState } from '../types/types'
 
-interface AppState {
-  tipsRead: Record<string, boolean>
-  tipsStarred: Record<string, boolean>
-  calendarDone: Record<string, boolean>
-  peopleStatus: Record<string, 'not-met' | 'connected' | 'followed-up'>
-  errors: Array<{
-    message: string
-    timestamp: number
-    stack?: string
-  }>
+interface Error {
+  message: string
+  timestamp: number
+  stack?: string
 }
 
 export const useAppStore = defineStore('app', {
-  state: (): AppState => ({
+  state: (): AppState & { errors: Error[] } => ({
     tipsRead: {},
     tipsStarred: {},
     calendarDone: {},
@@ -82,6 +77,57 @@ export const useAppStore = defineStore('app', {
         this.peopleStatus = state.peopleStatus || {}
         this.errors = state.errors || []
       }
+    },
+
+    // Import/Export actions
+    exportState(): string {
+      const state = {
+        tipsRead: this.tipsRead,
+        tipsStarred: this.tipsStarred,
+        calendarDone: this.calendarDone,
+        peopleStatus: this.peopleStatus
+      }
+      return JSON.stringify(state, null, 2)
+    },
+
+    importState(jsonString: string): boolean {
+      try {
+        const state = JSON.parse(jsonString)
+        
+        // Validate the imported state
+        if (!this.validateState(state)) {
+          throw new Error('Invalid state format')
+        }
+
+        // Update the store with imported state
+        this.tipsRead = state.tipsRead || {}
+        this.tipsStarred = state.tipsStarred || {}
+        this.calendarDone = state.calendarDone || {}
+        this.peopleStatus = state.peopleStatus || {}
+        
+        // Save to localStorage
+        this.saveToLocalStorage()
+        return true
+      } catch (error) {
+        const appError: Error = {
+          message: error instanceof Error ? error.message : 'Failed to import state',
+          timestamp: Date.now(),
+          stack: error instanceof Error ? error.stack : undefined
+        }
+        this.logError(appError)
+        return false
+      }
+    },
+
+    validateState(state: any): state is AppState {
+      return (
+        typeof state === 'object' &&
+        state !== null &&
+        typeof state.tipsRead === 'object' &&
+        typeof state.tipsStarred === 'object' &&
+        typeof state.calendarDone === 'object' &&
+        typeof state.peopleStatus === 'object'
+      )
     }
   }
 }) 

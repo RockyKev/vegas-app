@@ -24,12 +24,15 @@
           <p>Track your networking goals and progress</p>
         </router-link>
       </div>
+
+      <StateManager class="state-manager-section" />
     </div>
   </Container>
 </template>
 
 <script setup lang="ts">
 import Container from '../components/Container.vue'
+import StateManager from '../components/StateManager.vue'
 </script>
 
 <style scoped>
@@ -89,5 +92,12 @@ p {
   .nav-cards {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.state-manager-section {
+  margin-top: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style> 

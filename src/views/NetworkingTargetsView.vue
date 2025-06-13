@@ -62,18 +62,7 @@
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
-
-interface NetworkingTarget {
-  id: string
-  name: string
-  title?: string
-  department?: string
-  connections?: string[]
-  personal_details?: string[]
-  work_details?: string[]
-  questions?: string[]
-  status?: 'not-met' | 'connected' | 'followed-up'
-}
+import type { NetworkingTarget } from '../types/types'
 
 const store = useAppStore()
 const targets = ref<NetworkingTarget[]>([])

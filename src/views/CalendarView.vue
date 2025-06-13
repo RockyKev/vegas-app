@@ -38,14 +38,7 @@
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
-
-interface CalendarEvent {
-  uid: string
-  summary: string
-  start: string
-  end: string
-  location?: string
-}
+import type { CalendarEvent } from '../types/types'
 
 const store = useAppStore()
 

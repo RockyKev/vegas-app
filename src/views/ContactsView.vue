@@ -30,14 +30,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Container from '../components/Container.vue'
-
-interface Contact {
-  id: string
-  name: string
-  title?: string
-  email?: string
-  phone?: string
-}
+import type { Contact } from '../types/types'
 
 const contacts = ref<Contact[]>([])
 

@@ -30,13 +30,7 @@
 import { ref, onMounted } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
-
-interface NetworkingTip {
-  id: string
-  content: string
-  source?: string
-  source_link?: string
-}
+import type { NetworkingTip } from '../types/types'
 
 const store = useAppStore()
 const tips = ref<NetworkingTip[]>([])
