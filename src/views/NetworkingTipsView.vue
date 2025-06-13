@@ -4,20 +4,19 @@
       <h1>Networking Tips</h1>
       <div class="tips-list">
         <div v-for="tip in tips" :key="tip.id" class="tip-item">
-          <p class="tip-content">{{ tip.content }}</p>
+          <div class="tip-content-container">
+            <p class="tip-content">{{ tip.content }}</p>
+            <p v-if="tip.source" class="tip-source">Source: <a :href="tip.source_link" target="_blank">{{ tip.source
+                }}</a></p>
+
+          </div>
+
           <div class="tip-actions">
-            <button 
-              class="action-button"
-              @click="toggleTipStar(tip.id)"
-              :aria-label="isTipStarred(tip.id) ? 'Unstar tip' : 'Star tip'"
-            >
+            <button class="action-button" @click="toggleTipStar(tip.id)"
+              :aria-label="isTipStarred(tip.id) ? 'Unstar tip' : 'Star tip'">
               {{ isTipStarred(tip.id) ? '⭐' : '☆' }}
             </button>
-            <button 
-              v-if="!isTipRead(tip.id)"
-              class="action-button"
-              @click="markTipAsRead(tip.id)"
-            >
+            <button v-if="!isTipRead(tip.id)" class="action-button" @click="markTipAsRead(tip.id)">
               ✓
             </button>
           </div>
@@ -35,26 +34,12 @@ import Container from '../components/Container.vue'
 interface NetworkingTip {
   id: string
   content: string
+  source?: string
+  source_link?: string
 }
 
 const store = useAppStore()
 const tips = ref<NetworkingTip[]>([])
-
-// Mock data for now - will be replaced with data/networking_tips.json
-const mockTips: NetworkingTip[] = [
-  {
-    id: '1',
-    content: 'Make eye contact, smile, and offer a firm handshake. Your first impression sets the tone for the entire conversation.'
-  },
-  {
-    id: '2',
-    content: 'Focus on understanding rather than responding. Ask follow-up questions to show genuine interest.'
-  },
-  {
-    id: '3',
-    content: 'Send a personalized message within 24 hours of meeting someone. Reference specific points from your conversation.'
-  }
-]
 
 const isTipRead = (tipId: string) => {
   return store.tipsRead[tipId] || false
@@ -72,9 +57,13 @@ const toggleTipStar = (tipId: string) => {
   store.toggleTipStar(tipId)
 }
 
-onMounted(() => {
-  store.loadFromLocalStorage()
-  tips.value = mockTips
+onMounted(async () => {
+  try {
+    const response = await fetch('/data/networking_tips.json')
+    tips.value = await response.json()
+  } catch (error) {
+    console.error('Failed to load networking tips:', error)
+  }
 })
 </script>
 
@@ -110,6 +99,11 @@ h1 {
   line-height: 1.6;
   flex: 1;
 }
+.tip-source {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
 
 .tip-actions {
   display: flex;
@@ -136,4 +130,4 @@ h1 {
     font-size: 2rem;
   }
 }
-</style> 
+</style>

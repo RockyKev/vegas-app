@@ -41,26 +41,13 @@ interface Contact {
 
 const contacts = ref<Contact[]>([])
 
-// Mock data for now - will be replaced with data/contacts.json
-const mockContacts: Contact[] = [
-  {
-    id: '1',
-    name: 'John Smith',
-    title: 'Senior Developer',
-    email: 'john@techcorp.com',
-    phone: '+1 (555) 123-4567'
-  },
-  {
-    id: '2',
-    name: 'Sarah Johnson',
-    title: 'Product Manager',
-    email: 'sarah@innovate.com',
-    phone: '+1 (555) 987-6543'
+onMounted(async () => {
+  try {
+    const response = await fetch('/data/contacts.json')
+    contacts.value = await response.json()
+  } catch (error) {
+    console.error('Failed to load contacts:', error)
   }
-]
-
-onMounted(() => {
-  contacts.value = mockContacts
 })
 </script>
 

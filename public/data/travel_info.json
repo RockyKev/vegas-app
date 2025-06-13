@@ -1,11 +1,11 @@
 [
 	{
 		"title": "Vegas Map",
-		"image": "public/vegas_map.webp"
+		"image": "/vegas_map.webp"
 	},
 	{
 		"title": "Airport Map",
-		"image": "public/airport_map.png"
+		"image": "/airport_map.png"
 	},
 	{
 		"title": "Airport Information",
