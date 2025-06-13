@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-A minimalist, mobile-friendly web app to organize a 3-day work trip to Vegas (July 10–13).
+A minimalist, mobile-friendly web app to organize a 3-day work trip to Vegas (July 10–13). Written with AI.
 
 - Works offline (optional PWA)
 - Designed for personal use, but can be shared
