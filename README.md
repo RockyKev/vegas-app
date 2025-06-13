@@ -27,22 +27,20 @@ vegas-app/
 │   ├── types/ # TypeScript interfaces
 │   ├── views/ # Page components
 │   └── App.vue # Root component
-├── assets/ # Static assets
-│   ├── airport_map.jpg
-│   └── vegas_map.jpg
 ├── public/ # Public assets
 │   ├── airport_map.jpg
 │   ├── vegas_map.jpg
-|   └── data/ # Read-only inputs
-|       ├── calendar.ics
-|       ├── contacts.json
-|       ├── networking_tips.json
-|       └── people_to_meet.json
+│   └── data/ # Read-only inputs
+│       ├── calendar.ics
+│       ├── contacts.json
+│       ├── networking_tips.json
+│       └── people_to_meet.json
 ├── manifest.json # PWA manifest
 ├── service-worker.js # Offline cache logic
+├── tsconfig.json # TypeScript configuration
+├── vite.config.ts # Vite configuration
 ├── TODO.md # Roadmap
 ├── AI_GUIDE.md # Instructions for AI Agent
-├── service-worker.js # Offline cache logic
 └── README.md # Project specs
 
 ---
