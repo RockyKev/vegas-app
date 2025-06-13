@@ -15,16 +15,16 @@
   - [x] Add error state to store
 
 ## Phase 2: Core Structure
-- [ ] Create mobile-first layout
-  - [ ] Implement hamburger menu
-  - [ ] Set up responsive container
+- [x] Create mobile-first layout
+  - [x] Implement hamburger menu
+  - [x] Set up responsive container
 - [ ] Set up main routes:
-  - [ ] Home Screen
-  - [ ] Networking Tips
-  - [ ] Calendar
-  - [ ] Travel Info
-  - [ ] Contacts
-  - [ ] Networking Targets
+  - [x] Home Screen
+  - [x] Networking Tips
+  - [x] Calendar
+  - [x] Travel Info
+  - [x] Contacts
+  - [x] Networking Targets
 
 ## Phase 3: Data Management
 - [ ] Create TypeScript interfaces

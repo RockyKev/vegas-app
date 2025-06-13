@@ -17,16 +17,15 @@ const closeMenu = () => {
   <ErrorBoundary>
     <div class="app">
       <nav class="nav">
-        <button class="menu-button" @click="toggleMenu">
-          <span class="hamburger"></span>
-        </button>
-        <div class="menu" :class="{ 'menu-open': isMenuOpen }">
-          <router-link to="/" @click="closeMenu">Home</router-link>
-          <router-link to="/networking-tips" @click="closeMenu">Networking Tips</router-link>
-          <router-link to="/calendar" @click="closeMenu">Calendar</router-link>
-          <router-link to="/travel-info" @click="closeMenu">Travel Info</router-link>
-          <router-link to="/contacts" @click="closeMenu">Contacts</router-link>
-          <router-link to="/networking-targets" @click="closeMenu">Networking Targets</router-link>
+        <div class="nav-content">
+          <router-link to="/" class="nav-logo">Vegas App</router-link>
+          <div class="nav-links">
+            <router-link to="/calendar">Calendar</router-link>
+            <router-link to="/networking-tips">Networking Tips</router-link>
+            <router-link to="/travel-info">Travel Info</router-link>
+            <router-link to="/contacts">Contacts</router-link>
+            <router-link to="/networking-targets">Networking Targets</router-link>
+          </div>
         </div>
       </nav>
       <main class="main">
@@ -37,6 +36,26 @@ const closeMenu = () => {
 </template>
 
 <style>
+:root {
+  --primary-color: #e63946;
+  --text-color: #2c3e50;
+  --background-color: #f8f9fa;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
 .app {
   min-height: 100vh;
   display: flex;
@@ -44,82 +63,58 @@ const closeMenu = () => {
 }
 
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-
-.menu-button {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: none;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.hamburger {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: #333;
-  position: relative;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background: #333;
-  left: 0;
-}
-
-.hamburger::before {
-  top: -6px;
-}
-
-.hamburger::after {
-  bottom: -6px;
-}
-
-.menu {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: -250px;
-  width: 250px;
-  height: 100vh;
-  background: #fff;
-  padding: 4rem 1rem 1rem;
-  transition: left 0.3s ease;
-  box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+  z-index: 100;
 }
 
-.menu-open {
-  left: 0;
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.menu a {
-  display: block;
-  padding: 0.5rem 0;
-  color: #333;
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
   text-decoration: none;
-  font-size: 1.1rem;
 }
 
-.menu a:hover {
-  color: #666;
+.nav-links {
+  display: none;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
 }
 
 .main {
-  margin-top: 4rem;
   flex: 1;
-  padding: 1rem;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .nav-content {
+    padding: 1rem 2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

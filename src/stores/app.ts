@@ -35,7 +35,7 @@ export const useAppStore = defineStore('app', {
 
     // Calendar actions
     markEventAsDone(eventId: string) {
-      this.calendarDone[eventId] = true
+      this.calendarDone[eventId] = !this.calendarDone[eventId]
       this.saveToLocalStorage()
     },
 

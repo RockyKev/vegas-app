@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import CalendarView from '../views/CalendarView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: HomeView
     },
     {
       path: '/networking-tips',
@@ -16,7 +18,7 @@ const router = createRouter({
     {
       path: '/calendar',
       name: 'calendar',
-      component: () => import('../views/CalendarView.vue')
+      component: CalendarView
     },
     {
       path: '/travel-info',
