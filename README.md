@@ -10,28 +10,35 @@ A minimalist, mobile-friendly web app to organize a 3-day work trip to Vegas (Ju
 - UI state saved in `localStorage`
 - Manual import/export of UI state as JSON file
 
----
+## 🛠 Technical Stack
+
+- Vue 3 + TypeScript + Vite
+- Pinia for state management
+- Mobile-first design with hamburger menu
+- PWA features (implemented after core functionality)
+- Hosted on Vercel
 
 ## 📁 File Structure
 
 vegas-app/
-├── index.html # App entry point
-├── styles.css # Mobile-friendly styles
-├── app.js # Core logic & localStorage state handling
+├── src/ # Main source code
+│   ├── components/ # Vue components
+│   ├── stores/ # Pinia stores
+│   ├── types/ # TypeScript interfaces
+│   ├── views/ # Page components
+│   └── App.vue # Root component
 ├── data/ # Read-only inputs
-│ ├── calendar.ics
-│ ├── contacts.json
-│ ├── networking_tips.json
-│ └── people_to_meet.json
-├── state/
-│ └── saved_state.json # Optional export/import of app state
-├── assets/
-│ ├── airport_map.jpg
-│ └── vegas_map.jpg
-├── manifest.json # (optional) PWA manifest
-├── service-worker.js # (optional) Offline cache logic
-└── README.md # Project specs (this file)
-
+│   ├── calendar.ics
+│   ├── contacts.json
+│   ├── networking_tips.json
+│   └── people_to_meet.json
+├── assets/ # Static assets
+│   ├── airport_map.jpg
+│   └── vegas_map.jpg
+├── public/ # Public assets
+├── manifest.json # PWA manifest
+├── service-worker.js # Offline cache logic
+└── README.md # Project specs
 
 ---
 
@@ -42,7 +49,7 @@ vegas-app/
   - **Before July 10**: show checklist + networking prep tips
   - **July 10–13**: show agenda, checklist, daily tip, shortcuts
   - **After July 13**: prompt for follow-ups + recap
-- Renders a “daily dashboard” view
+- Renders a "daily dashboard" view
 
 ---
 
@@ -130,47 +137,56 @@ Upload file and rehydrate UI state
 ```
 
 ## 🚧 Build Roadmap
+
 ### ✅ Version 0.1: Core Setup
- Scaffold file structure
- Set up index.html with shell layout and nav
- Load + display networking tips
- Add read/fav buttons using localStorage
+- Initialize Vue 3 + TypeScript project
+- Set up Pinia store
+- Create mobile-first layout
+- Implement basic routing
 
 ### ✅ Version 0.2: Features
- Parse .ics and display today’s events
- Add check-off calendar UI
- Build home screen with date awareness (pre/during/post)
- Load and render networking targets
- Load and render known contacts
+- Implement all core features
+- Add state management
+- Create import/export functionality
 
-## ✅ Final Polish (Optional)
- Export/import state as JSON
-
- Add Service Worker for offline caching
-
- Create PWA manifest and install prompt
-
- Host on Netlify, GitHub Pages, or ZIP it
+### ✅ Version 0.3: PWA
+- Add service worker
+- Implement offline caching
+- Create PWA manifest
 
 ## ⚠️ Rules to Follow
-Do not mutate .json or .ics files—read-only only
+- Keep it simple - no unnecessary features
+- Mobile-first design
+- All state in localStorage
+- No server-side logic
+- No complex UI libraries
+- No search/filter functionality
+- No map interactivity
+- No infinite scroll (except networking tips)
 
-All editable state = in localStorage
+## 🔄 State Management
+All app state saved to localStorage:
+- Tips read/favorite status
+- Calendar completion status
+- Networking target status
+- User preferences
 
-All logic should degrade gracefully offline
+Export/Import:
+- Simple file upload/download
+- Basic JSON validation
+- No complex migration needed
 
-Do not use server-side logic or databases
+## 📱 Mobile Design
+- Hamburger menu navigation
+- List-based layouts
+- Simple text-based calendar
+- Static map images
+- No complex interactions
 
-Avoid hallucinating new modules—only build what's above
-
-## ✅ Cursor IDE Guidance
-Only work with index.html, app.js, and data inside /data
-
-Treat README.md as source of truth
-
-Use only static data files unless user asks to add more
-
-State should always be saved and retrieved from localStorage
+## 🚀 Deployment
+- Hosted on Vercel
+- Automatic deployments
+- No complex CI/CD needed
 
 ## 🤝 License
 MIT – disposable app, feel free to reuse or throw away.
