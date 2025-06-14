@@ -15,17 +15,29 @@
         <label for="calendar-import" class="import-button">
           Import Calendar (ICS)
         </label>
+        <span v-if="error" class="error-message">{{ error }}</span>
       </div>
 
-      <div class="calendar-content">
+      <!-- Loading State -->
+      <div v-if="isLoading" class="loading-message">
+        Loading calendar events...
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Calendar Content -->
+      <div v-else class="calendar-content">
         <div v-for="(events, date) in groupedEvents" :key="date" class="day-card card">
           <h2>{{ formatDate(date) }}</h2>
           <div class="events-list">
             <div 
               v-for="event in events" 
-              :key="event.uid"
+              :key="event.id"
               class="event-item"
-              :class="{ 'completed': isEventDone(event.uid) }"
+              :class="{ 'completed': event.status === 'completed' }"
             >
               <div class="event-time">{{ formatTime(event.start) }}</div>
               <div class="event-details">
@@ -36,10 +48,10 @@
               </div>
               <button 
                 class="check-button"
-                @click="toggleEventDone(event.uid)"
-                :aria-label="isEventDone(event.uid) ? 'Mark as not done' : 'Mark as done'"
+                @click="toggleEventStatus(event.id)"
+                :aria-label="event.status === 'completed' ? 'Mark as not done' : 'Mark as done'"
               >
-                {{ isEventDone(event.uid) ? '✓' : '○' }}
+                {{ event.status === 'completed' ? '✓' : '○' }}
               </button>
             </div>
           </div>
@@ -50,43 +62,74 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { useAppStore } from '../stores/app'
+import { onMounted, computed } from 'vue'
 import Container from '../components/Container.vue'
 import type { CalendarEvent } from '../types/types'
+import { useCalendarData } from '../composables/useCalendarData'
+import { useAppStore } from '../stores/app'
 
+// Initialize composables
 const store = useAppStore()
+const {
+  events,
+  isLoading,
+  error,
+  loadDefaultCalendar,
+  handleImportedCalendar,
+  initializeFromStore
+} = useCalendarData()
 
-// Mock data for now - will be replaced with ICS parsing
-const defaultEvents: CalendarEvent[] = [
-  {
-    uid: '1',
-    summary: 'Arrival at Las Vegas Airport',
-    start: '2024-07-10T14:00:00',
-    end: '2024-07-10T15:00:00',
-    location: 'LAS Terminal 1'
-  },
-  {
-    uid: '2',
-    summary: 'Conference Registration',
-    start: '2024-07-10T16:00:00',
-    end: '2024-07-10T17:00:00',
-    location: 'Venetian Convention Center'
-  },
-  {
-    uid: '3',
-    summary: 'Welcome Reception',
-    start: '2024-07-10T18:00:00',
-    end: '2024-07-10T20:00:00',
-    location: 'Wynn Las Vegas'
-  }
-]
-
-const importedEvents = ref<CalendarEvent[]>([])
+// Group events by date
 const groupedEvents = computed(() => {
-  const allEvents = [...defaultEvents, ...importedEvents.value]
-  return groupEventsByDate(allEvents)
+  const grouped: Record<string, CalendarEvent[]> = {}
+  events.value.forEach(event => {
+    const date = event.start instanceof Date 
+      ? event.start.toISOString().split('T')[0]
+      : new Date(event.start).toISOString().split('T')[0]
+    if (!grouped[date]) {
+      grouped[date] = []
+    }
+    grouped[date].push(event)
+  })
+  return grouped
 })
+
+// Custom ICS file handling
+const handleFileImport = async (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) {
+    console.log('No file selected')
+    return
+  }
+
+  try {
+    await handleImportedCalendar(file)
+  } catch (err) {
+    console.error('Error importing calendar:', err)
+  }
+}
+
+const toggleEventStatus = (eventId: string) => {
+  const event = events.value.find(e => e.id === eventId)
+  if (!event) return
+
+  const newStatus = event.status === 'completed' ? 'pending' : 'completed'
+  event.status = newStatus
+  
+  // Update store state
+  if (!store.customData) {
+    store.customData = {}
+  }
+  if (!store.customData.calendar) {
+    store.customData.calendar = []
+  }
+  
+  const storeEvent = store.customData.calendar.find(e => e.id === eventId)
+  if (storeEvent) {
+    storeEvent.status = newStatus
+  }
+  store.saveToLocalStorage()
+}
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
@@ -97,147 +140,30 @@ const formatDate = (dateStr: string) => {
   })
 }
 
-const formatTime = (dateStr: string) => {
-  const date = new Date(dateStr)
-  return date.toLocaleTimeString('en-US', {
+const formatTime = (date: Date | string) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date
+  if (isNaN(dateObj.getTime())) {
+    console.error('Invalid date:', date)
+    return 'Invalid Time'
+  }
+  return dateObj.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit'
   })
 }
 
-const isEventDone = (eventId: string) => {
-  return store.calendarDone[eventId] || false
-}
-
-const toggleEventDone = (eventId: string) => {
-  store.markEventAsDone(eventId)
-}
-
-const groupEventsByDate = (events: CalendarEvent[]) => {
-  const grouped: Record<string, CalendarEvent[]> = {}
-  events.forEach(event => {
-    const date = event.start.split('T')[0]
-    if (!grouped[date]) {
-      grouped[date] = []
-    }
-    grouped[date].push(event)
-  })
-  return grouped
-}
-
-// Parse ICS file content
-const parseICS = (content: string): CalendarEvent[] => {
-  console.log('Starting ICS parsing...')
-  const events: CalendarEvent[] = []
-  const lines = content.split('\n')
-  let currentEvent: Partial<CalendarEvent> = {}
-  
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim()
+onMounted(async () => {
+  console.log('CalendarView mounted')
+  try {
+    console.log('Loading default calendar...')
+    await loadDefaultCalendar()
+    console.log('Default calendar loaded:', events.value)
     
-    if (line === 'BEGIN:VEVENT') {
-      currentEvent = {}
-    } else if (line === 'END:VEVENT') {
-      if (currentEvent.uid && currentEvent.summary && currentEvent.start && currentEvent.end) {
-        console.log('Found complete event:', currentEvent)
-        events.push(currentEvent as CalendarEvent)
-      }
-      currentEvent = {}
-    } else if (line.startsWith('UID:')) {
-      currentEvent.uid = line.substring(4)
-    } else if (line.startsWith('SUMMARY:')) {
-      currentEvent.summary = line.substring(8)
-    } else if (line.startsWith('DTSTART')) {
-      // Handle both with and without timezone
-      const dateStr = line.includes(';') 
-        ? line.split(':')[1] 
-        : line.substring(8)
-      currentEvent.start = formatICSDate(dateStr)
-    } else if (line.startsWith('DTEND')) {
-      // Handle both with and without timezone
-      const dateStr = line.includes(';') 
-        ? line.split(':')[1] 
-        : line.substring(6)
-      currentEvent.end = formatICSDate(dateStr)
-    } else if (line.startsWith('LOCATION:')) {
-      currentEvent.location = line.substring(9)
-    }
-  }
-  
-  console.log('Parsed events:', events)
-  return events
-}
-
-// Format ICS date to ISO string
-const formatICSDate = (dateStr: string): string => {
-  // Remove any timezone identifier
-  dateStr = dateStr.replace(/[A-Z]$/, '')
-  
-  // Handle both date-only and date-time formats
-  if (dateStr.length === 8) {
-    // Date only (YYYYMMDD)
-    return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6, 8)}T00:00:00`
-  } else {
-    // Date-time (YYYYMMDDTHHMMSS)
-    const date = dateStr.slice(0, 8)
-    const time = dateStr.slice(9)
-    return `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}T${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4, 6)}`
-  }
-}
-
-// Handle file import
-const handleFileImport = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) {
-    console.log('No file selected')
-    return
-  }
-
-  console.log('File selected:', file.name)
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    try {
-      const content = e.target?.result as string
-      console.log('File content loaded, length:', content.length)
-      const events = parseICS(content)
-      
-      // Add custom prefix to IDs to avoid conflicts
-      const processedEvents = events.map(event => ({
-        ...event,
-        uid: `custom_${event.uid}`
-      }))
-      
-      console.log('Processed events:', processedEvents)
-      importedEvents.value = processedEvents
-      
-      // Update store state
-      if (!store.customData) {
-        store.customData = {}
-      }
-      store.customData.calendar = processedEvents
-      store.saveToLocalStorage()
-      
-      // Verify the save
-      const verifyState = localStorage.getItem('vegas-app-state')
-      console.log('Verified saved state:', verifyState)
-    } catch (error) {
-      console.error('Failed to parse ICS file:', error)
-    }
-  }
-  reader.onerror = (error) => {
-    console.error('Error reading file:', error)
-  }
-  reader.readAsText(file)
-}
-
-onMounted(() => {
-  // Load store state
-  store.loadFromLocalStorage()
-  
-  // Initialize imported events from store
-  if (store.customData?.calendar) {
-    console.log('Loading calendar events from store:', store.customData.calendar)
-    importedEvents.value = store.customData.calendar
+    console.log('Initializing from store...')
+    initializeFromStore()
+    console.log('Store initialized, all events:', events.value)
+  } catch (err) {
+    console.error('Error in onMounted:', err)
   }
 })
 </script>
@@ -275,6 +201,24 @@ h1 {
   background-color: var(--primary-color-dark);
 }
 
+.loading-message,
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.loading-message {
+  background-color: #f8f9fa;
+  color: #666;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c00;
+}
+
 .calendar-content {
   display: flex;
   flex-direction: column;
@@ -299,7 +243,7 @@ h2 {
 .events-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .event-item {

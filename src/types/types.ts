@@ -37,11 +37,13 @@ export interface TravelInfo {
 
 // Calendar Event interface
 export interface CalendarEvent {
-  uid: string
+  id: string
   summary: string
-  start: string
-  end: string
+  start: Date
+  end: Date
   location?: string
+  description?: string
+  status?: 'pending' | 'completed'
 }
 
 // App State interface

@@ -26,6 +26,7 @@ export function useImportableData<T extends { id: string }>(options: ImportableD
     console.log('Loading default data from:', options.defaultDataPath)
     isLoading.value = true
     error.value = null
+
     try {
       const response = await fetch(options.defaultDataPath)
       if (!response.ok) {
@@ -57,7 +58,7 @@ export function useImportableData<T extends { id: string }>(options: ImportableD
     console.log('Handling imported data:', data)
     const processedData = options.processImportedData?.(data) || data
     importedData.value = processedData
-
+    
     // Update store state
     if (!store.customData) {
       store.customData = {}
