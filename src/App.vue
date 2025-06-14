@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ErrorBoundary from './components/ErrorBoundary.vue'
+import OfflineIndicator from './components/OfflineIndicator.vue'
 
 </script>
 
@@ -21,6 +22,7 @@ import ErrorBoundary from './components/ErrorBoundary.vue'
       <main class="main">
         <router-view></router-view>
       </main>
+      <OfflineIndicator />
     </div>
   </ErrorBoundary>
 </template>
