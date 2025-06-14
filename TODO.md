@@ -50,11 +50,11 @@
   - [x] I can import my own tips in the json format, and it follows the shape of networking_tips.json
   - [x] The tips I imported are saved in localStorage in "customData > networkingTips" 
   - [x] Both custom data tips and the default networking_tips.json are showing.
-- [ ] Calendar
-  - [ ] I can import a ics file
-  - [ ] ICS file parsing
-  - [ ] The ICS event I imported are saved in localStorage in "customData > calendar" 
-  - [ ] Check-off functionality
+- [x] Calendar
+  - [x] I can import a ics file
+  - [x] ICS file parsing
+  - [x] The ICS event I imported are saved in localStorage in "customData > calendar" 
+  - [x] Check-off functionality
 - [ ] Contacts
   - [ ] I can import my own contacts in the json format, and it follows the shape of contacts.json
   - [ ] The contacts I imported are saved in localStorage in "customData > contacts" 

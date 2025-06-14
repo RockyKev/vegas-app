@@ -2,6 +2,21 @@
   <Container>
     <div class="calendar">
       <h1>Calendar</h1>
+
+      <!-- Import Section -->
+      <div class="import-section">
+        <input 
+          type="file" 
+          accept=".ics" 
+          @change="handleFileImport" 
+          class="file-input"
+          id="calendar-import"
+        >
+        <label for="calendar-import" class="import-button">
+          Import Calendar (ICS)
+        </label>
+      </div>
+
       <div class="calendar-content">
         <div v-for="(events, date) in groupedEvents" :key="date" class="day-card card">
           <h2>{{ formatDate(date) }}</h2>
@@ -35,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
 import type { CalendarEvent } from '../types/types'
@@ -43,7 +58,7 @@ import type { CalendarEvent } from '../types/types'
 const store = useAppStore()
 
 // Mock data for now - will be replaced with ICS parsing
-const mockEvents: CalendarEvent[] = [
+const defaultEvents: CalendarEvent[] = [
   {
     uid: '1',
     summary: 'Arrival at Las Vegas Airport',
@@ -67,7 +82,11 @@ const mockEvents: CalendarEvent[] = [
   }
 ]
 
-const groupedEvents = ref<Record<string, CalendarEvent[]>>({})
+const importedEvents = ref<CalendarEvent[]>([])
+const groupedEvents = computed(() => {
+  const allEvents = [...defaultEvents, ...importedEvents.value]
+  return groupEventsByDate(allEvents)
+})
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
@@ -106,9 +125,120 @@ const groupEventsByDate = (events: CalendarEvent[]) => {
   return grouped
 }
 
+// Parse ICS file content
+const parseICS = (content: string): CalendarEvent[] => {
+  console.log('Starting ICS parsing...')
+  const events: CalendarEvent[] = []
+  const lines = content.split('\n')
+  let currentEvent: Partial<CalendarEvent> = {}
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim()
+    
+    if (line === 'BEGIN:VEVENT') {
+      currentEvent = {}
+    } else if (line === 'END:VEVENT') {
+      if (currentEvent.uid && currentEvent.summary && currentEvent.start && currentEvent.end) {
+        console.log('Found complete event:', currentEvent)
+        events.push(currentEvent as CalendarEvent)
+      }
+      currentEvent = {}
+    } else if (line.startsWith('UID:')) {
+      currentEvent.uid = line.substring(4)
+    } else if (line.startsWith('SUMMARY:')) {
+      currentEvent.summary = line.substring(8)
+    } else if (line.startsWith('DTSTART')) {
+      // Handle both with and without timezone
+      const dateStr = line.includes(';') 
+        ? line.split(':')[1] 
+        : line.substring(8)
+      currentEvent.start = formatICSDate(dateStr)
+    } else if (line.startsWith('DTEND')) {
+      // Handle both with and without timezone
+      const dateStr = line.includes(';') 
+        ? line.split(':')[1] 
+        : line.substring(6)
+      currentEvent.end = formatICSDate(dateStr)
+    } else if (line.startsWith('LOCATION:')) {
+      currentEvent.location = line.substring(9)
+    }
+  }
+  
+  console.log('Parsed events:', events)
+  return events
+}
+
+// Format ICS date to ISO string
+const formatICSDate = (dateStr: string): string => {
+  // Remove any timezone identifier
+  dateStr = dateStr.replace(/[A-Z]$/, '')
+  
+  // Handle both date-only and date-time formats
+  if (dateStr.length === 8) {
+    // Date only (YYYYMMDD)
+    return `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6, 8)}T00:00:00`
+  } else {
+    // Date-time (YYYYMMDDTHHMMSS)
+    const date = dateStr.slice(0, 8)
+    const time = dateStr.slice(9)
+    return `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}T${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4, 6)}`
+  }
+}
+
+// Handle file import
+const handleFileImport = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) {
+    console.log('No file selected')
+    return
+  }
+
+  console.log('File selected:', file.name)
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    try {
+      const content = e.target?.result as string
+      console.log('File content loaded, length:', content.length)
+      const events = parseICS(content)
+      
+      // Add custom prefix to IDs to avoid conflicts
+      const processedEvents = events.map(event => ({
+        ...event,
+        uid: `custom_${event.uid}`
+      }))
+      
+      console.log('Processed events:', processedEvents)
+      importedEvents.value = processedEvents
+      
+      // Update store state
+      if (!store.customData) {
+        store.customData = {}
+      }
+      store.customData.calendar = processedEvents
+      store.saveToLocalStorage()
+      
+      // Verify the save
+      const verifyState = localStorage.getItem('vegas-app-state')
+      console.log('Verified saved state:', verifyState)
+    } catch (error) {
+      console.error('Failed to parse ICS file:', error)
+    }
+  }
+  reader.onerror = (error) => {
+    console.error('Error reading file:', error)
+  }
+  reader.readAsText(file)
+}
+
 onMounted(() => {
+  // Load store state
   store.loadFromLocalStorage()
-  groupedEvents.value = groupEventsByDate(mockEvents)
+  
+  // Initialize imported events from store
+  if (store.customData?.calendar) {
+    console.log('Loading calendar events from store:', store.customData.calendar)
+    importedEvents.value = store.customData.calendar
+  }
 })
 </script>
 
@@ -121,6 +251,28 @@ h1 {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
   color: var(--text-color);
+}
+
+.import-section {
+  margin-bottom: 2rem;
+}
+
+.file-input {
+  display: none;
+}
+
+.import-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.import-button:hover {
+  background-color: var(--primary-color-dark);
 }
 
 .calendar-content {

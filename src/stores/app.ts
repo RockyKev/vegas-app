@@ -7,13 +7,23 @@ interface Error {
   stack?: string
 }
 
+interface ExtendedAppState extends AppState {
+  customData?: {
+    calendar?: any[]
+    networkingTips?: any[]
+    contacts?: any[]
+    networking?: any[]
+  }
+}
+
 export const useAppStore = defineStore('app', {
-  state: (): AppState & { errors: Error[] } => ({
+  state: (): ExtendedAppState & { errors: Error[] } => ({
     tipsRead: {},
     tipsStarred: {},
     calendarDone: {},
     peopleStatus: {},
-    errors: []
+    errors: [],
+    customData: {}
   }),
 
   actions: {
@@ -62,7 +72,8 @@ export const useAppStore = defineStore('app', {
         tipsStarred: this.tipsStarred,
         calendarDone: this.calendarDone,
         peopleStatus: this.peopleStatus,
-        errors: this.errors
+        errors: this.errors,
+        customData: this.customData
       }
       localStorage.setItem('vegas-app-state', JSON.stringify(state))
     },
@@ -76,6 +87,7 @@ export const useAppStore = defineStore('app', {
         this.calendarDone = state.calendarDone || {}
         this.peopleStatus = state.peopleStatus || {}
         this.errors = state.errors || []
+        this.customData = state.customData || {}
       }
     },
 
@@ -85,7 +97,8 @@ export const useAppStore = defineStore('app', {
         tipsRead: this.tipsRead,
         tipsStarred: this.tipsStarred,
         calendarDone: this.calendarDone,
-        peopleStatus: this.peopleStatus
+        peopleStatus: this.peopleStatus,
+        customData: this.customData
       }
       return JSON.stringify(state, null, 2)
     },
@@ -104,6 +117,7 @@ export const useAppStore = defineStore('app', {
         this.tipsStarred = state.tipsStarred || {}
         this.calendarDone = state.calendarDone || {}
         this.peopleStatus = state.peopleStatus || {}
+        this.customData = state.customData || {}
         
         // Save to localStorage
         this.saveToLocalStorage()
@@ -119,14 +133,15 @@ export const useAppStore = defineStore('app', {
       }
     },
 
-    validateState(state: any): state is AppState {
+    validateState(state: any): state is ExtendedAppState {
       return (
         typeof state === 'object' &&
         state !== null &&
         typeof state.tipsRead === 'object' &&
         typeof state.tipsStarred === 'object' &&
         typeof state.calendarDone === 'object' &&
-        typeof state.peopleStatus === 'object'
+        typeof state.peopleStatus === 'object' &&
+        (!state.customData || typeof state.customData === 'object')
       )
     }
   }
