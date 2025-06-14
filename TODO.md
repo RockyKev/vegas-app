@@ -55,13 +55,12 @@
   - [x] ICS file parsing
   - [x] The ICS event I imported are saved in localStorage in "customData > calendar" 
   - [x] Check-off functionality
-- [ ] Contacts
-  - [ ] I can import my own contacts in the json format, and it follows the shape of contacts.json
-  - [ ] The contacts I imported are saved in localStorage in "customData > contacts" 
-- [ ] Networking Targets
-  - [ ] I can import my own networking targets in the json format, and it follows the shape of networking_targets.json
-  - [ ] The contacts I imported are saved in localStorage in "customData > networking" 
-
+- [x] Contacts
+  - [x] I can import my own contacts in the json format, and it follows the shape of contacts.json
+  - [x] The contacts I imported are saved in localStorage in "customData > contacts" 
+- [x] Networking Targets
+  - [x] I can import my own networking targets in the json format, and it follows the shape of networking_targets.json
+  - [x] The contacts I imported are saved in localStorage in "customData > networking" 
 
 ## Phase 5: PWA Features
 - [ ] Service Worker implementation
