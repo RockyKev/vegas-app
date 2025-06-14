@@ -71,45 +71,44 @@
 ### 2. PWA Manifest & Icons
 - [x] Configure basic manifest (name, description, colors)
 - [x] Add PWA icons (192x192, 512x512)
-- [ ] Add maskable icons for better Android support
-- [ ] Add splash screen images for iOS
-- [ ] Add theme color meta tags
+- [x] Add maskable icons for better Android support
+- [x] Add theme color meta tags
 
 ### 3. Service Worker & Caching
-- [ ] Implement offline fallback page (simple "You're offline" message)
-- [ ] Cache static assets (images, CSS, JS)
-- [ ] Cache imported files (JSON/ICS, with 2MB size limit)
-- [ ] Add error handling for:
-  - [ ] File size limits (2MB)
-  - [ ] Storage quota exceeded
-  - [ ] Invalid file formats
-  - [ ] Failed imports when offline
+- [x] Implement offline fallback page (simple "You're offline" message)
+- [x] Cache static assets (images, CSS, JS)
+- [x] Cache imported files (JSON/ICS, with 2MB size limit)
+- [x] Add error handling for:
+  - [x] File size limits (2MB)
+  - [x] Storage quota exceeded
+  - [x] Invalid file formats
+  - [x] Failed imports when offline
 
 ### 4. Offline Functionality
-- [ ] Add offline detection
-- [ ] Add offline indicator UI (non-intrusive)
-- [ ] Add offline fallback content for:
-  - [ ] Home screen
-  - [ ] Networking tips
-  - [ ] Calendar
-  - [ ] Contacts
-  - [ ] Networking targets
-- [ ] Add storage usage indicator (optional)
+- [x] Add offline detection
+- [x] Add offline indicator UI (non-intrusive)
+- [x] Add offline fallback content for:
+  - [x] Home screen
+  - [x] Networking tips
+  - [x] Calendar
+  - [x] Contacts
+  - [x] Networking targets
+- [x] Add storage usage indicator in footer
 
 ### 5. Installation Experience
-- [ ] Add install prompt UI
-- [ ] Add "Add to Home Screen" instructions
-- [ ] Test installation on different devices
-- [ ] Add installation success feedback
+- [x] Add install prompt UI
+- [x] Add "Add to Home Screen" instructions
+- [x] Test installation on different devices
+- [x] Add installation success feedback
 
 ### 6. Testing & Validation
-- [ ] Test on Chrome desktop
-- [ ] Test on Android devices
-- [ ] Test on iOS devices
-- [ ] Validate PWA requirements
-- [ ] Test offline functionality
-- [ ] Test file imports in offline mode
-- [ ] Test localStorage persistence
+- [x] Test on Chrome desktop
+- [x] Test on Android devices
+- [x] Test on iOS devices
+- [x] Validate PWA requirements
+- [x] Test offline functionality
+- [x] Test file imports in offline mode
+- [x] Test localStorage persistence
 
 ## Phase 6: Polish
 - [ ] Rename "Networking Targets" to "Networking"
@@ -120,3 +119,4 @@
 - [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
 - [ ] Add github link, and how to fix issues.
 - [ ] Deployment 
+- [ ] Improve UI Experience (needs notes here)

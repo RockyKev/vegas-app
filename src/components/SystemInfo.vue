@@ -1,6 +1,6 @@
 <template>
-  <div class="state-manager">
-    <h2>State Management</h2>
+  <div>
+    <h2>System Information</h2>
     
     <div class="actions">
       <button @click="exportState" class="action-button">
@@ -24,16 +24,66 @@
     <div v-if="error" class="error-message">
       {{ error }}
     </div>
+
+    <div class="info-section">
+      <div class="info-item">
+        <p class="value">Build: {{ buildTime }}</p>
+        <p class="value">Storage:{{ storageUsage }}</p>
+        <p class="value">Last Updated: {{ lastUpdated }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useAppStore } from '../stores/app'
 
 const store = useAppStore()
 const fileInput = ref<HTMLInputElement | null>(null)
 const error = ref<string>('')
+
+// Get build time from environment variable
+const buildTime = import.meta.env.VITE_BUILD_TIME 
+  ? new Date(import.meta.env.VITE_BUILD_TIME).toLocaleString()
+  : 'Build time not available'
+
+// Storage usage calculation
+const storageUsage = ref('')
+const calculateStorageUsage = () => {
+  try {
+    let totalSize = 0
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key) {
+        const value = localStorage.getItem(key)
+        if (value) {
+          totalSize += value.length * 2 // Approximate size in bytes (2 bytes per character)
+        }
+      }
+    }
+    // Convert to KB and round to 1 decimal place
+    const sizeInKB = (totalSize / 1024).toFixed(1)
+    storageUsage.value = `${sizeInKB} KB`
+  } catch (error) {
+    console.error('Error calculating storage usage:', error)
+    storageUsage.value = 'Error'
+  }
+}
+
+// Last updated time
+const lastUpdated = ref(new Date().toLocaleString())
+
+// Calculate storage usage on mount and when data changes
+onMounted(() => {
+  calculateStorageUsage()
+  // Add event listener for storage changes
+  window.addEventListener('storage', calculateStorageUsage)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('storage', calculateStorageUsage)
+})
 
 const exportState = () => {
   try {
@@ -51,6 +101,7 @@ const exportState = () => {
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
+    lastUpdated.value = new Date().toLocaleString()
   } catch (e) {
     console.error('Export error:', e)
     error.value = 'Failed to export state'
@@ -73,6 +124,7 @@ const handleFileSelect = async (event: Event) => {
       error.value = 'Invalid state file format'
     } else {
       error.value = ''
+      lastUpdated.value = new Date().toLocaleString()
     }
   } catch (e) {
     error.value = 'Failed to import state'
@@ -84,11 +136,12 @@ const handleFileSelect = async (event: Event) => {
 </script>
 
 <style scoped>
-.state-manager {
+.system-info-card {
   padding: 1rem;
   background: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
 }
 
 h2 {
@@ -101,6 +154,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .import-section {
@@ -135,6 +189,25 @@ h2 {
   color: #c00;
   border-radius: 0.25rem;
   font-size: 0.875rem;
+}
+
+.info-section {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.info-item {
+  /* display: flex;
+  justify-content: space-between; */
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+
+.label {
+  font-weight: 500;
 }
 
 /* Tablet and up */

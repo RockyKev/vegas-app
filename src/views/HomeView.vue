@@ -14,6 +14,10 @@
           <h2>Networking Tips</h2>
           <p>Get advice on making the most of your networking opportunities</p>
         </router-link>
+        <router-link to="/networking-targets" class="nav-card">
+          <h2>Networking Targets</h2>
+          <p>Track your networking goals and progress</p>
+        </router-link>
         <router-link to="/travel-info" class="nav-card">
           <h2>Travel Info</h2>
           <p>Access important travel information and resources</p>
@@ -21,10 +25,6 @@
         <router-link to="/contacts" class="nav-card">
           <h2>Contacts</h2>
           <p>Manage your conference contacts</p>
-        </router-link>
-        <router-link to="/networking-targets" class="nav-card">
-          <h2>Networking Targets</h2>
-          <p>Track your networking goals and progress</p>
         </router-link>
         <StateManager class="nav-card" />
       </div>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import Container from '../components/Container.vue'
-import StateManager from '../components/StateManager.vue'
+import StateManager from '../components/SystemInfo.vue'
 import DynamicChecklist from '../components/DynamicChecklist.vue'
 import { useAppStore } from '../stores/app'
 import { onMounted } from 'vue'
