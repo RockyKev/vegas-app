@@ -96,7 +96,6 @@ const {
 })
 
 const {
-  isImporting,
   importError,
   handleFileImport: baseHandleFileImport
 } = useImportData<NetworkingTip>({

@@ -93,7 +93,6 @@ import { useImportableData } from '../composables/useImportableData'
 import { useErrorHandler } from '../composables/useErrorHandler'
 import { useLoadingState } from '../composables/useLoadingState'
 import { useTargetStatus } from '../composables/useTargetStatus'
-import { useAppStore } from '../stores/app'
 
 // Type guard for NetworkingTarget array
 const isNetworkingTargetArray = (data: unknown): data is NetworkingTarget[] => {
@@ -113,7 +112,6 @@ const processImportedTargets = (targets: NetworkingTarget[]): NetworkingTarget[]
 }
 
 // Initialize composables
-const store = useAppStore()
 const { error, handleError } = useErrorHandler()
 const { isLoading, withLoading } = useLoadingState()
 const { getStatusLabel, getStatusClass, toggleTargetStatus, getTargetStatus } = useTargetStatus()
@@ -131,7 +129,6 @@ const {
 })
 
 const {
-  isImporting,
   importError,
   handleFileImport: baseHandleFileImport
 } = useImportData<NetworkingTarget>({

@@ -1,11 +1,5 @@
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useAppStore } from '../stores/app'
-import type { Ref } from 'vue'
-
-interface ChecklistItem {
-  sectionTitle: string
-  itemText: string
-}
 
 export function useChecklistState() {
   const store = useAppStore()

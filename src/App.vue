@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import ErrorBoundary from './components/ErrorBoundary.vue'
 
-const isMenuOpen = ref(false)
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
-const closeMenu = () => {
-  isMenuOpen.value = false
-}
 </script>
 
 <template>
   <ErrorBoundary>
     <div class="app">
-      <nav class="nav">
+      <!-- <nav class="nav">
         <div class="nav-content">
           <router-link to="/" class="nav-logo">Vegas App</router-link>
           <div class="nav-links">
@@ -27,7 +17,7 @@ const closeMenu = () => {
             <router-link to="/networking-targets">Networking Targets</router-link>
           </div>
         </div>
-      </nav>
+      </nav> -->
       <main class="main">
         <router-view></router-view>
       </main>

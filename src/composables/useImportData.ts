@@ -1,5 +1,4 @@
 import { ref } from 'vue'
-import type { Ref } from 'vue'
 
 interface ImportOptions<T> {
   validator: (data: unknown) => data is T[]

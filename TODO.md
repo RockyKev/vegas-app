@@ -67,17 +67,19 @@
   - [ ] Install vite-plugin-pwa
   - [ ] Configure PWA plugin in vite.config.ts
   - [ ] Set up basic caching strategies
-- [ ] Fix the HomeView Export State/import State
+- [x] Fix the HomeView Export State/import State
 - [ ] Service Worker implementation
   - [ ] Cache user state
   - [ ] Cache uploaded files
 - [ ] PWA manifest
 - [ ] Install prompt
 - [ ] Offline functionality
+- [ ] Clearly identify if it's in OFFLINE MODE
 
 ## Phase 6: Polish
-- [ ] Mobile UI refinements
-- [ ] Basic error handling
-- [ ] Loading states
-- [ ] Final testing
+- [ ] Rename "Networking Targets" to "Networking"
+- [ ] Rename "Networking tips" to "social tips"
+- [ ] Add a tab to explain how to use it, and that tab can be minimized.
+- [ ] Make it more like a app. So menu on the bottom.
+- [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
 - [ ] Deployment 

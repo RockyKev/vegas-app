@@ -16,12 +16,20 @@ const error = ref<Error | null>(null)
 
 onErrorCaptured((err) => {
   error.value = err
-  store.logError(err)
+  handleError(err)
   return false // prevent error from propagating
 })
 
 const handleReset = () => {
   error.value = null
+}
+
+const handleError = (err: Error) => {
+  store.logError({
+    message: err.message,
+    timestamp: Date.now(),
+    stack: err.stack
+  })
 }
 </script>
 

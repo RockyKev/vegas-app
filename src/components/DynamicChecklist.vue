@@ -1,28 +1,27 @@
 <template>
-  <div class="dynamic-checklist">
+  <div class="dynamic-checklist bruh">
+
     <div v-if="loading" class="loading">
       Loading checklist...
     </div>
-    <div v-else-if="visibleSections.length === 0" class="no-sections">
-      No sections available for today ({{ currentDate }}).
-    </div>
+
+
     <div v-else v-for="section in visibleSections" :key="section.title" class="checklist-section">
       <h2>{{ section.title }}</h2>
       <ul class="checklist">
         <li v-for="item in section.checklist" :key="item" class="checklist-item">
           <label class="checkbox-label">
-            <input
-              type="checkbox"
-              :checked="isItemCompleted(section.title, item)"
-              @change="toggleItem(section.title, item)"
-            >
+            <input type="checkbox" :checked="isItemCompleted(section.title, item)"
+              @change="toggleItem(section.title, item)">
             <span :class="{ completed: isItemCompleted(section.title, item) }">
               {{ item }}
             </span>
           </label>
         </li>
       </ul>
+
     </div>
+
   </div>
 </template>
 
@@ -89,18 +88,16 @@ onMounted(async () => {
 <style scoped>
 .dynamic-checklist {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 2rem;
 }
 
 .checklist-section {
   background: #fff;
   padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
 }
 
-  /* border: 1px solid #ccc; */
 
 
 h2 {
@@ -142,10 +139,11 @@ input[type="checkbox"] {
   opacity: 0.6;
 }
 
-.loading, .no-sections {
+.loading,
+.no-sections {
   text-align: center;
   padding: 2rem;
   color: var(--text-color);
   opacity: 0.8;
 }
-</style> 
+</style>

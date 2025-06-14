@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { useAppStore } from '../stores/app'
-import type { Ref } from 'vue'
 
 type CustomDataKey = 'calendar' | 'networkingTips' | 'contacts' | 'networking'
 

@@ -35,7 +35,7 @@ export function useCalendarData() {
       } else if (inEvent && currentEvent) {
         const [fullKey, ...valueParts] = line.split(':')
         const value = valueParts.join(':')
-        const [key, ...params] = fullKey.split(';')
+        const key = fullKey.split(';')[0]
         
         if (key === 'DTSTART') {
           const dateTime = value.match(/(\d{8}T\d{6})/)?.[1]

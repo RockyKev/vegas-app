@@ -1,9 +1,9 @@
 <template>
   <Container>
     <div class="home">
-      <h1>Vegas App</h1>
+      <h1>2025 Vegas App</h1>
       
-      <DynamicChecklist class="checklist-section" />
+      <DynamicChecklist class="checklist-section-wrapper" />
 
       <div class="nav-cards">
         <router-link to="/calendar" class="nav-card">
@@ -26,9 +26,9 @@
           <h2>Networking Targets</h2>
           <p>Track your networking goals and progress</p>
         </router-link>
+        <StateManager class="nav-card" />
       </div>
 
-      <StateManager class="state-manager-section" />
     </div>
   </Container>
 </template>
@@ -51,7 +51,7 @@ h1 {
   text-align: center;
 }
 
-.checklist-section {
+.checklist-section-wrapper {
   margin-bottom: 2rem;
 }
 
@@ -102,10 +102,4 @@ p {
   }
 }
 
-.state-manager-section {
-  margin-top: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
 </style> 
