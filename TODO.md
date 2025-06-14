@@ -48,19 +48,19 @@
 - [x] Networking Tips
   - [x] List view with infinite scroll
   - [x] I can import my own tips in the json format, and it follows the shape of networking_tips.json
-  - [x] The tips I imported are saved in localStorage in "custom_data > networking_tips" 
+  - [x] The tips I imported are saved in localStorage in "customData > networkingTips" 
   - [x] Both custom data tips and the default networking_tips.json are showing.
 - [ ] Calendar
   - [ ] I can import a ics file
   - [ ] ICS file parsing
-  - [ ] The ICS event I imported are saved in localStorage in "custom_data > calendar" 
+  - [ ] The ICS event I imported are saved in localStorage in "customData > calendar" 
   - [ ] Check-off functionality
 - [ ] Contacts
   - [ ] I can import my own contacts in the json format, and it follows the shape of contacts.json
-  - [ ] The contacts I imported are saved in localStorage in "custom_data > contacts" 
+  - [ ] The contacts I imported are saved in localStorage in "customData > contacts" 
 - [ ] Networking Targets
   - [ ] I can import my own networking targets in the json format, and it follows the shape of networking_targets.json
-  - [ ] The contacts I imported are saved in localStorage in "custom_data > networking" 
+  - [ ] The contacts I imported are saved in localStorage in "customData > networking" 
 
 
 ## Phase 5: PWA Features
