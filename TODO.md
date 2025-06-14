@@ -41,15 +41,15 @@
   - [x] Basic JSON validation
 
 ## Phase 4: Core Features
-- [ ] Home Screen
-  - [ ] Pull data from data/home_todo.json
-  - [ ] Date-aware content based on data/home_todo.json
-  - [ ] Dynamic checklist
-- [ ] Networking Tips
-  - [ ] List view with infinite scroll
-  - [ ] I can import my own tips in the json format, and it follows the shape of networking_tips.json
-  - [ ] The tips I imported are saved in localStorage in "custom_data > networking_tips" 
-  - [ ] Both custom data tips and the default networking_tips.json are showing.
+- [x] Home Screen
+  - [x] Pull data from data/home_todo.json
+  - [x] Date-aware content based on data/home_todo.json
+  - [x] Dynamic checklist
+- [x] Networking Tips
+  - [x] List view with infinite scroll
+  - [x] I can import my own tips in the json format, and it follows the shape of networking_tips.json
+  - [x] The tips I imported are saved in localStorage in "custom_data > networking_tips" 
+  - [x] Both custom data tips and the default networking_tips.json are showing.
 - [ ] Calendar
   - [ ] I can import a ics file
   - [ ] ICS file parsing
