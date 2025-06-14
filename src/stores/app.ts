@@ -15,6 +15,7 @@ interface ExtendedAppState extends AppState {
     networking?: any[]
   }
   homeCompletedItems?: Record<string, boolean>
+  useDefaultData?: boolean
 }
 
 export const useAppStore = defineStore('app', {
@@ -25,7 +26,8 @@ export const useAppStore = defineStore('app', {
     peopleStatus: {},
     errors: [],
     customData: {},
-    homeCompletedItems: {}
+    homeCompletedItems: {},
+    useDefaultData: true // Default to true to maintain current behavior
   }),
 
   actions: {
@@ -49,6 +51,12 @@ export const useAppStore = defineStore('app', {
     // People status actions
     updatePersonStatus(personId: string, status: 'not-met' | 'connected' | 'followed-up') {
       this.peopleStatus[personId] = status
+      this.saveToLocalStorage()
+    },
+
+    // Data mode toggle
+    toggleDefaultDataMode() {
+      this.useDefaultData = !this.useDefaultData
       this.saveToLocalStorage()
     },
 
@@ -76,7 +84,8 @@ export const useAppStore = defineStore('app', {
         peopleStatus: this.peopleStatus,
         errors: this.errors,
         customData: this.customData,
-        homeCompletedItems: this.homeCompletedItems
+        homeCompletedItems: this.homeCompletedItems,
+        useDefaultData: this.useDefaultData
       }
       localStorage.setItem('vegas-app-state', JSON.stringify(state))
     },
@@ -92,6 +101,7 @@ export const useAppStore = defineStore('app', {
         this.errors = state.errors || []
         this.customData = state.customData || {}
         this.homeCompletedItems = state.homeCompletedItems || {}
+        this.useDefaultData = state.useDefaultData !== undefined ? state.useDefaultData : true
       }
     },
 
@@ -103,7 +113,8 @@ export const useAppStore = defineStore('app', {
         calendarDone: this.calendarDone,
         peopleStatus: this.peopleStatus,
         customData: this.customData,
-        homeCompletedItems: this.homeCompletedItems
+        homeCompletedItems: this.homeCompletedItems,
+        useDefaultData: this.useDefaultData
       }
       return JSON.stringify(state, null, 2)
     },
@@ -124,6 +135,7 @@ export const useAppStore = defineStore('app', {
         this.peopleStatus = state.peopleStatus || {}
         this.customData = state.customData || {}
         this.homeCompletedItems = state.homeCompletedItems || {}
+        this.useDefaultData = state.useDefaultData !== undefined ? state.useDefaultData : true
         
         // Save to localStorage
         this.saveToLocalStorage()
@@ -148,7 +160,8 @@ export const useAppStore = defineStore('app', {
         typeof state.calendarDone === 'object' &&
         typeof state.peopleStatus === 'object' &&
         (!state.customData || typeof state.customData === 'object') &&
-        (!state.homeCompletedItems || typeof state.homeCompletedItems === 'object')
+        (!state.homeCompletedItems || typeof state.homeCompletedItems === 'object') &&
+        (state.useDefaultData === undefined || typeof state.useDefaultData === 'boolean')
       )
     }
   }

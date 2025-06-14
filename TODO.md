@@ -111,9 +111,9 @@
 - [x] Test localStorage persistence
 
 ## Phase 6: Polish
-- [ ] Rename "Networking Targets" to "Networking"
-- [ ] Rename "Networking tips" to "social tips"
-- [ ] Make sure that imports, if it doesn't match the right shape, does get a error warning.
+- [x] Rename "Networking Targets" to "Networking"
+- [x] Rename "Networking tips" to "social tips"
+- [x] Make sure that imports, if it doesn't match the right shape, does get a error warning.
 - [ ] Add a tab to explain how to use it, and that tab can be minimized.
 - [ ] Make it more like a app. So menu on the bottom.
 - [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.

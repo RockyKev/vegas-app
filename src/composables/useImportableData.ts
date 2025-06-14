@@ -17,8 +17,11 @@ export function useImportableData<T extends { id: string }>(options: ImportableD
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 
-  // Combine default and imported data, prioritizing imported data
+  // Combine default and imported data based on useDefaultData setting
   const allData = computed(() => {
+    if (!store.useDefaultData) {
+      return importedData.value
+    }
     const importedIds = new Set(importedData.value.map(item => item.id))
     const uniqueDefaultData = defaultData.value.filter(item => !importedIds.has(item.id))
     return [...importedData.value, ...uniqueDefaultData]
@@ -26,6 +29,12 @@ export function useImportableData<T extends { id: string }>(options: ImportableD
 
   // Load default data
   const loadDefaultData = async () => {
+    // Skip loading default data if useDefaultData is false
+    if (!store.useDefaultData) {
+      console.log('Skipping default data load - useDefaultData is false')
+      return
+    }
+
     console.log('Loading default data from:', options.defaultDataPath)
     isLoading.value = true
     error.value = null

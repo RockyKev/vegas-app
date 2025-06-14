@@ -1,7 +1,20 @@
 <template>
   <Container>
     <div class="travel-info">
-      <h1>Travel Information</h1>
+      <div class="header-row">
+        <h1>Travel Information</h1>
+        <HelpToggle>
+          <h3>Travel Info Help</h3>
+          <p>This section provides important information about:</p>
+          <ul>
+            <li>Venue locations and maps</li>
+            <li>Transportation options</li>
+            <li>Local amenities</li>
+            <li>Emergency contacts</li>
+          </ul>
+          <p>Hover over sections to see more details.</p>
+        </HelpToggle>
+      </div>
       
       <div class="info-grid">
         <div v-for="info in travelInfo" :key="info.title" class="info-section">
@@ -26,6 +39,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Container from '../components/Container.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import type { TravelInfo } from '../types/types'
 
 const travelInfo = ref<TravelInfo[]>([])
@@ -45,8 +59,14 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 1.75rem;
   color: var(--text-color);
 }

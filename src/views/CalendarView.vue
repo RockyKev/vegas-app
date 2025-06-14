@@ -1,7 +1,16 @@
 <template>
   <Container>
     <div class="calendar">
-      <h1>Calendar</h1>
+      <div class="header-row">
+        <h1>Calendar</h1>
+        <HelpToggle>
+          <h3>Calendar Help</h3>
+          <p>Import your calendar events by clicking the "Import Calendar" button and selecting an ICS file.</p>
+          <p>You can mark events as completed by clicking the circle next to each event.</p>
+          <p>Events are automatically sorted by date and time.</p>
+          <p>If you don't import any events, default events will be shown.</p>
+        </HelpToggle>
+      </div>
 
       <!-- Import Section -->
       <div class="import-section">
@@ -53,6 +62,7 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import Container from '../components/Container.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import type { CalendarEvent } from '../types/types'
 import { useCalendarData } from '../composables/useCalendarData'
 import { useAppStore } from '../stores/app'
@@ -147,8 +157,14 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 1.75rem;
   color: var(--text-color);
 }

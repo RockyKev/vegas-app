@@ -1,7 +1,16 @@
 <template>
   <Container>
     <div class="home">
-      <h1>2025 Vegas App</h1>
+      <div class="header-row">
+        <h1>2025 Vegas App</h1>
+        <HelpToggle>
+          <h3>Welcome to Vegas App!</h3>
+          <p>This app helps you manage your conference experience in Las Vegas.</p>
+          <p>Use the checklist to track your preparation tasks.</p>
+          <p>Import your own data or use the default data provided.</p>
+          <p>Toggle between default and custom data modes in the System Info section.</p>
+        </HelpToggle>
+      </div>
       
       <DynamicChecklist class="checklist-section-wrapper" />
 
@@ -37,6 +46,7 @@
 import Container from '../components/Container.vue'
 import StateManager from '../components/SystemInfo.vue'
 import DynamicChecklist from '../components/DynamicChecklist.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import { useAppStore } from '../stores/app'
 import { onMounted } from 'vue'
 
@@ -52,8 +62,15 @@ onMounted(() => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 2rem;
   color: var(--text-color);
   text-align: center;

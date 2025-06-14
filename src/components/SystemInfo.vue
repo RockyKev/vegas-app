@@ -31,6 +31,19 @@
         <p class="value">Storage:{{ storageUsage }}</p>
         <p class="value">Last Updated: {{ lastUpdated }}</p>
       </div>
+
+      <div class="mode-toggle">
+        <label class="toggle-label">
+          <input
+            type="checkbox"
+            :checked="store.useDefaultData"
+            @change="store.toggleDefaultDataMode"
+          />
+          <span class="toggle-text">
+            {{ store.useDefaultData ? 'Using Default + Custom Data' : 'Using Custom Data Only' }}
+          </span>
+        </label>
+      </div>
     </div>
   </div>
 </template>
@@ -198,16 +211,29 @@ h2 {
 }
 
 .info-item {
-  /* display: flex;
-  justify-content: space-between; */
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
   color: #666;
 }
 
+.mode-toggle {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 0.25rem;
+}
 
-.label {
-  font-weight: 500;
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+.toggle-text {
+  flex: 1;
 }
 
 /* Tablet and up */

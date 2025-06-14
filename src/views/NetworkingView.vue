@@ -1,7 +1,20 @@
 <template>
   <Container>
     <div class="networking">
-      <h1>Networking</h1>
+      <div class="header-row">
+        <h1>Networking</h1>
+        <HelpToggle>
+          <h3>Networking Help</h3>
+          <p>Import your networking targets by clicking the "Import Networking Contacts" button and selecting a JSON file.</p>
+          <p>Track your progress with each contact using the status buttons:</p>
+          <ul>
+            <li>Not Met: Initial state</li>
+            <li>Connected: After meeting them</li>
+            <li>Followed Up: After sending a follow-up</li>
+          </ul>
+          <p>If you don't import any targets, default targets will be shown.</p>
+        </HelpToggle>
+      </div>
 
       <!-- Import Section -->
       <div class="import-section">
@@ -13,14 +26,14 @@
           id="targets-import"
         >
         <label for="targets-import" class="import-button">
-          Import Targets (JSON)
+          Import Networking Contacts (JSON)
         </label>
         <span v-if="importError" class="error-message">{{ importError }}</span>
       </div>
 
       <!-- Loading State -->
       <div v-if="isLoading" class="loading-message">
-        Loading networking targets...
+        Loading networking Contacts...
       </div>
 
       <!-- Error State -->
@@ -87,6 +100,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import Container from '../components/Container.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import type { NetworkingTarget } from '../types/types'
 import { useImportData } from '../composables/useImportData'
 import { useImportableData } from '../composables/useImportableData'
@@ -168,8 +182,14 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 1.75rem;
   color: var(--text-color);
 }

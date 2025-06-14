@@ -1,7 +1,17 @@
 <template>
   <Container>
     <div class="social-tips">
-      <h1>Social Tips</h1>
+      <div class="header-row">
+        <h1>Social Tips</h1>
+        <HelpToggle>
+          <h3>Social Tips Help</h3>
+          <p>Import your own tips by clicking the "Import Custom Tips" button and selecting a JSON file.</p>
+          <p>Star important tips by clicking the star icon.</p>
+          <p>Mark tips as read by clicking the checkmark.</p>
+          <p>Tips are loaded automatically as you scroll.</p>
+          <p>If you don't import any tips, default tips will be shown.</p>
+        </HelpToggle>
+      </div>
       
       <!-- Import Section -->
       <div class="import-section">
@@ -55,6 +65,7 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import type { NetworkingTip } from '../types/types'
 import { useImportData } from '../composables/useImportData'
 import { useImportableData } from '../composables/useImportableData'
@@ -187,8 +198,14 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 1.75rem;
   color: var(--text-color);
 }

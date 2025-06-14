@@ -1,7 +1,16 @@
 <template>
   <Container>
     <div class="contacts">
-      <h1>Contacts</h1>
+      <div class="header-row">
+        <h1>Contacts</h1>
+        <HelpToggle>
+          <h3>Contacts Help</h3>
+          <p>Import your contacts by clicking the "Import Contacts" button and selecting a JSON file.</p>
+          <p>Click the email icon to send an email.</p>
+          <p>Click the phone icon to make a call.</p>
+          <p>If you don't import any contacts, default contacts will be shown.</p>
+        </HelpToggle>
+      </div>
 
       <!-- Import Section -->
       <div class="import-section">
@@ -56,6 +65,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import Container from '../components/Container.vue'
+import HelpToggle from '../components/HelpToggle.vue'
 import type { Contact } from '../types/types'
 import { useImportData } from '../composables/useImportData'
 import { useImportableData } from '../composables/useImportableData'
@@ -133,8 +143,14 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-h1 {
+.header-row {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
   font-size: 1.75rem;
   color: var(--text-color);
 }
