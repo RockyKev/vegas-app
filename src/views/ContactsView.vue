@@ -15,10 +15,22 @@
         <label for="contacts-import" class="import-button">
           Import Contacts (JSON)
         </label>
+        <span v-if="importError" class="error-message">{{ importError }}</span>
       </div>
       
-      <div class="contacts-list">
-        <div v-for="contact in allContacts" :key="contact.id" class="contact-item">
+      <!-- Loading State -->
+      <div v-if="isLoading" class="loading-message">
+        Loading contacts...
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Contacts List -->
+      <div v-else class="contacts-list">
+        <div v-for="contact in allData" :key="contact.id" class="contact-item">
           <span class="contact-name">{{ contact.name }}</span>
           <span class="contact-title">{{ contact.title }}</span>
           <a 
@@ -42,83 +54,75 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { useAppStore } from '../stores/app'
+import { onMounted } from 'vue'
 import Container from '../components/Container.vue'
 import type { Contact } from '../types/types'
+import { useImportData } from '../composables/useImportData'
+import { useImportableData } from '../composables/useImportableData'
+import { useErrorHandler } from '../composables/useErrorHandler'
+import { useLoadingState } from '../composables/useLoadingState'
 
-const store = useAppStore()
-const defaultContacts = ref<Contact[]>([])
-const importedContacts = ref<Contact[]>([])
+// Type guard for Contact array
+const isContactArray = (data: unknown): data is Contact[] => {
+  return Array.isArray(data) && data.every(item => 
+    typeof item === 'object' && 
+    item !== null && 
+    'name' in item
+  )
+}
 
-// Combine default and imported contacts
-const allContacts = computed(() => [...defaultContacts.value, ...importedContacts.value])
+// Process imported contacts to ensure they have unique IDs
+const processImportedContacts = (contacts: Contact[]): Contact[] => {
+  return contacts.map(contact => ({
+    ...contact,
+    id: contact.id || `default_${Math.random().toString(36).substr(2, 9)}`
+  }))
+}
 
-// Handle file import
+// Initialize composables
+const { error, handleError } = useErrorHandler()
+const { isLoading, withLoading } = useLoadingState()
+
+const {
+  allData,
+  loadDefaultData,
+  handleImportedData,
+  initializeFromStore
+} = useImportableData<Contact>({
+  defaultDataPath: '/data/contacts.json',
+  storeKey: 'contacts',
+  validator: isContactArray,
+  processImportedData: processImportedContacts
+})
+
+const {
+  isImporting,
+  importError,
+  handleFileImport: baseHandleFileImport
+} = useImportData<Contact>({
+  validator: isContactArray,
+  onSuccess: handleImportedData,
+  onError: handleError
+})
+
+// Wrap the file import handler to use loading state
 const handleFileImport = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) {
-    console.log('No file selected')
-    return
-  }
-
-  console.log('File selected:', file.name)
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    try {
-      const content = e.target?.result as string
-      const contacts = JSON.parse(content)
-      
-      // Validate contacts format
-      if (!Array.isArray(contacts)) {
-        throw new Error('Invalid contacts format: expected an array')
-      }
-      
-      // Add custom prefix to IDs to avoid conflicts
-      const processedContacts = contacts.map(contact => ({
-        ...contact,
-        id: `custom_${contact.id || Math.random().toString(36).substr(2, 9)}`
-      }))
-      
-      console.log('Processed contacts:', processedContacts)
-      importedContacts.value = processedContacts
-      
-      // Update store state
-      if (!store.customData) {
-        store.customData = {}
-      }
-      store.customData.contacts = processedContacts
-      store.saveToLocalStorage()
-      
-      // Verify the save
-      const verifyState = localStorage.getItem('vegas-app-state')
-      console.log('Verified saved state:', verifyState)
-    } catch (error) {
-      console.error('Failed to parse contacts file:', error)
-    }
-  }
-  reader.onerror = (error) => {
-    console.error('Error reading file:', error)
-  }
-  reader.readAsText(file)
+  withLoading(Promise.resolve(baseHandleFileImport(event)))
 }
 
 onMounted(async () => {
+  console.log('ContactsView mounted')
   try {
-    // Load default contacts
-    const response = await fetch('/data/contacts.json')
-    defaultContacts.value = await response.json()
+    console.log('Loading default data...')
+    await withLoading(loadDefaultData())
+    console.log('Default data loaded:', allData.value)
     
-    // Load store state
-    store.loadFromLocalStorage()
-    
-    // Initialize imported contacts from store
-    if (store.customData?.contacts) {
-      console.log('Loading contacts from store:', store.customData.contacts)
-      importedContacts.value = store.customData.contacts
-    }
-  } catch (error) {
-    console.error('Failed to load contacts:', error)
+    console.log('Initializing from store...')
+    initializeFromStore()
+    console.log('Store initialized, all data:', allData.value)
+  } catch (err) {
+    console.error('Error in onMounted:', err)
+    handleError(err)
   }
 })
 </script>
@@ -154,6 +158,24 @@ h1 {
 
 .import-button:hover {
   background-color: var(--primary-color-dark);
+}
+
+.loading-message,
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.loading-message {
+  background-color: #f8f9fa;
+  color: #666;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c00;
 }
 
 .contacts-list {
