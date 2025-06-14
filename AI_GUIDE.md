@@ -44,6 +44,122 @@
 
 ## AI Development Guide
 
+## Overview
+This guide outlines the development approach and best practices for this project. The application is built using Vue 3 with TypeScript, focusing on a clean, maintainable architecture.
+
+## Architecture
+
+### Core Principles
+- **Type Safety**: TypeScript is used throughout the application to ensure type safety and better development experience.
+- **Component-Based**: The application is built using Vue 3's Composition API with TypeScript.
+- **State Management**: Uses Pinia for state management with a focus on type-safe stores.
+
+### Key Components
+- **App.vue**: Main application component
+- **SystemInfo.vue**: Handles system information display and state management
+  - Shows build time, storage usage, and last updated time
+  - Provides state import/export functionality
+  - Updates automatically when state changes
+- **AppHeader.vue**: Application header with navigation
+- **AppFooter.vue**: Application footer with system information
+
+### State Management
+- Uses Pinia for state management
+- State can be exported/imported via JSON
+- State changes are tracked and displayed in the UI
+- Storage usage is monitored and displayed
+
+## Development Guidelines
+
+### Component Structure
+- Use TypeScript for all components
+- Follow Vue 3 Composition API patterns
+- Keep components focused and single-responsibility
+- Use proper typing for props and emits
+
+### State Management
+- Use Pinia stores for global state
+- Keep store logic clean and well-typed
+- Implement proper state persistence
+- Provide state import/export functionality
+
+### Styling
+- Use scoped CSS in components
+- Follow responsive design principles
+- Use CSS variables for theming
+- Maintain consistent spacing and typography
+
+### Error Handling
+- Implement proper error boundaries
+- Show user-friendly error messages
+- Log errors appropriately
+- Handle edge cases gracefully
+
+## Best Practices
+
+### Code Organization
+- Keep components small and focused
+- Use proper file naming conventions
+- Maintain clear component hierarchy
+- Document complex logic
+
+### Performance
+- Implement proper component lifecycle management
+- Use efficient state updates
+- Monitor storage usage
+- Optimize asset loading
+
+### User Experience
+- Provide clear feedback for actions
+- Show loading states appropriately
+- Handle errors gracefully
+- Maintain responsive design
+
+### Testing
+- Write unit tests for components
+- Test state management logic
+- Verify error handling
+- Test responsive behavior
+
+## Deployment
+- Build process includes environment variables
+- Proper error handling for production
+- Optimized asset loading
+- Responsive design implementation
+
+## Maintenance
+- Regular dependency updates
+- Code quality monitoring
+- Performance optimization
+- Security updates
+
+## Future Considerations
+- Enhanced state management features
+- Improved error handling
+- Additional testing coverage
+- Performance optimizations
+
+## File Structure
+- `/src` - Main source code
+- `/data` - Static JSON and ICS files
+- `/assets` - Static images (maps)
+- `/public` - Public assets
+
+## State Management
+- All user state in localStorage
+- Simple JSON import/export for state
+- No server-side state
+
+## Development Rules
+- Keep it simple
+- Mobile-first design
+- No unnecessary features
+- Focus on core functionality first
+- PWA features come last
+- Do not mess with CSS stylings/Semantic HTML directly. Always ask first.
+
+## AI Development Guide
+
 ### Project Overview
 This is a Vue.js application for managing networking targets and contacts. The application uses a modern tech stack including Vue 3, TypeScript, and Vite.
 
