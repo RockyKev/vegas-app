@@ -40,6 +40,7 @@
 - No unnecessary features
 - Focus on core functionality first
 - PWA features come last
+- Do not mess with CSS stylings/Semantic HTML directly. Always ask first.
 
 ## AI Development Guide
 
