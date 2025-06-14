@@ -1,0 +1,87 @@
+[
+	{
+		"type": "recurring",
+		"date_before": "2025-06-28",
+		"date_on": null,
+		"date_after": null,
+		"title": "Prep for the trip",
+		"checklist": [
+			"Book a flight",
+			"Book a hotel",
+			"Pack for the trip"
+		]
+	},
+	{
+		"type": "recurring",
+		"date_before": "2025-07-10",
+		"date_on": null,
+		"date_after": null,
+		"title": "Packing",
+		"checklist": [
+			"Suitcase with clothes",
+			"laptop",
+			"toiletries",
+			"wallet",
+			"passport",
+			"cash",
+			"credit cards",
+			"phone charger"
+		]
+	},
+	{
+		"type": "one-time",
+		"date_before": null,
+		"date_on": "2025-07-10",
+		"date_after": null,
+		"title": "Arriving in Vegas",
+		"checklist": [
+			"Book a flight",
+			"Book a hotel",
+			"Pack for the trip"
+		]
+	},
+	{
+		"type": "one-time",
+		"date_before": null,
+		"date_on": "2025-07-11",
+		"date_after": null,
+		"title": "Networking Day 1",
+		"checklist": [
+			"Attend the conference",
+			"Meet with John Doe",
+			"eat a pickle"
+		]
+	},
+	{
+		"type": "one-time",
+		"date_before": null,
+		"date_on": "2025-07-12",
+		"date_after": null,
+		"title": "Networking Day 2",
+		"checklist": [
+			"Attend the conference",
+			"dance"
+		]
+	},
+	{
+		"type": "one-time",
+		"date_before": null,
+		"date_on": "2025-07-13",
+		"date_after": null,
+		"title": "Networking Day 3",
+		"checklist": [
+			"Attend the conference"
+		]
+	},
+	{
+		"type": "recurring",
+		"date_before": null,
+		"date_on": null,
+		"date_after": "2025-07-13",
+		"title": "Follow up",
+		"checklist": [
+			"Follow up with John Doe",
+			"Follow up with Jane Doe"
+		]
+	},
+]

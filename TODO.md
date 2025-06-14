@@ -42,24 +42,26 @@
 
 ## Phase 4: Core Features
 - [ ] Home Screen
-  - [ ] Date-aware content display
-  - [ ] Daily dashboard layout
+  - [ ] Pull data from data/home_todo.json
+  - [ ] Date-aware content based on data/home_todo.json
   - [ ] Dynamic checklist
 - [ ] Networking Tips
   - [ ] List view with infinite scroll
-  - [ ] Read/favorite functionality
-  - [ ] State persistence
+  - [ ] I can import my own tips in the json format, and it follows the shape of networking_tips.json
+  - [ ] The tips I imported are saved in localStorage in "custom_data > networking_tips" 
+  - [ ] Both custom data tips and the default networking_tips.json are showing.
 - [ ] Calendar
-  - [ ] Simple text-based event display
+  - [ ] I can import a ics file
   - [ ] ICS file parsing
+  - [ ] The ICS event I imported are saved in localStorage in "custom_data > calendar" 
   - [ ] Check-off functionality
-- [ ] Travel Info
-  - [ ] Static map display
-  - [ ] Basic notes section
-- [ ] Contacts & Networking Targets
-  - [ ] List views
-  - [ ] Status tracking
-  - [ ] Contact links (mailto/tel)
+- [ ] Contacts
+  - [ ] I can import my own contacts in the json format, and it follows the shape of contacts.json
+  - [ ] The contacts I imported are saved in localStorage in "custom_data > contacts" 
+- [ ] Networking Targets
+  - [ ] I can import my own networking targets in the json format, and it follows the shape of networking_targets.json
+  - [ ] The contacts I imported are saved in localStorage in "custom_data > networking" 
+
 
 ## Phase 5: PWA Features
 - [ ] Service Worker implementation

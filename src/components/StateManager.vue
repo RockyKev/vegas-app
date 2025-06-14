@@ -37,9 +37,13 @@ const error = ref<string>('')
 
 const exportState = () => {
   try {
+    console.log('Starting export...')
     const state = store.exportState()
+    console.log('State from store:', state)
     const blob = new Blob([state], { type: 'application/json' })
+    console.log('Blob created:', blob)
     const url = URL.createObjectURL(blob)
+    console.log('URL created:', url)
     const a = document.createElement('a')
     a.href = url
     a.download = 'vegas-app-state.json'
@@ -48,6 +52,7 @@ const exportState = () => {
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
   } catch (e) {
+    console.error('Export error:', e)
     error.value = 'Failed to export state'
   }
 }
