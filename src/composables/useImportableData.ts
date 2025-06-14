@@ -18,8 +18,12 @@ export function useImportableData<T extends { id: string }>(options: ImportableD
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 
-  // Combine default and imported data
-  const allData = computed(() => [...defaultData.value, ...importedData.value])
+  // Combine default and imported data, prioritizing imported data
+  const allData = computed(() => {
+    const importedIds = new Set(importedData.value.map(item => item.id))
+    const uniqueDefaultData = defaultData.value.filter(item => !importedIds.has(item.id))
+    return [...importedData.value, ...uniqueDefaultData]
+  })
 
   // Load default data
   const loadDefaultData = async () => {

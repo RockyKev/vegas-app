@@ -36,9 +36,9 @@
               <span v-if="target.title" class="target-title"> | {{ target.title }}</span>
               <span v-if="target.department" class="target-department"> | {{ target.department }} Dept</span>
             </h2>
-            <button class="status-button" @click="toggleTargetStatus(target.id)"
-              :class="getStatusClass(target.status || 'not-met')">
-              {{ getStatusLabel(target.status || 'not-met') }}
+            <button class="status-button" @click="toggleTargetStatus(target)"
+              :class="getStatusClass(getTargetStatus(target))">
+              {{ getStatusLabel(getTargetStatus(target)) }}
             </button>
           </div>
 
@@ -92,6 +92,7 @@ import { useImportData } from '../composables/useImportData'
 import { useImportableData } from '../composables/useImportableData'
 import { useErrorHandler } from '../composables/useErrorHandler'
 import { useLoadingState } from '../composables/useLoadingState'
+import { useTargetStatus } from '../composables/useTargetStatus'
 import { useAppStore } from '../stores/app'
 
 // Type guard for NetworkingTarget array
@@ -115,6 +116,7 @@ const processImportedTargets = (targets: NetworkingTarget[]): NetworkingTarget[]
 const store = useAppStore()
 const { error, handleError } = useErrorHandler()
 const { isLoading, withLoading } = useLoadingState()
+const { getStatusLabel, getStatusClass, toggleTargetStatus, getTargetStatus } = useTargetStatus()
 
 const {
   allData,
@@ -141,50 +143,6 @@ const {
 // Wrap the file import handler to use loading state
 const handleFileImport = (event: Event) => {
   withLoading(Promise.resolve(baseHandleFileImport(event)))
-}
-
-const getStatusLabel = (status: string) => {
-  switch (status) {
-    case 'connected':
-      return 'Connected'
-    case 'followed-up':
-      return 'Followed Up'
-    default:
-      return 'Not Met'
-  }
-}
-
-const getStatusClass = (status: string) => {
-  switch (status) {
-    case 'connected':
-      return 'status-connected'
-    case 'followed-up':
-      return 'status-followed-up'
-    default:
-      return 'status-not-met'
-  }
-}
-
-const toggleTargetStatus = (targetId: string) => {
-  const target = allData.value.find(t => t.id === targetId)
-  if (!target) return
-
-  const currentStatus = target.status || 'not-met'
-  let newStatus: 'not-met' | 'connected' | 'followed-up'
-
-  switch (currentStatus) {
-    case 'connected':
-      newStatus = 'followed-up'
-      break
-    case 'followed-up':
-      newStatus = 'not-met'
-      break
-    default:
-      newStatus = 'connected'
-  }
-
-  target.status = newStatus
-  store.updatePersonStatus(targetId, newStatus)
 }
 
 onMounted(async () => {
