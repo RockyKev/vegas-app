@@ -2,6 +2,9 @@
   <Container>
     <div class="home">
       <h1>Vegas App</h1>
+      
+      <DynamicChecklist class="checklist-section" />
+
       <div class="nav-cards">
         <router-link to="/calendar" class="nav-card">
           <h2>Calendar</h2>
@@ -33,6 +36,7 @@
 <script setup lang="ts">
 import Container from '../components/Container.vue'
 import StateManager from '../components/StateManager.vue'
+import DynamicChecklist from '../components/DynamicChecklist.vue'
 </script>
 
 <style scoped>
@@ -45,6 +49,10 @@ h1 {
   font-size: 2rem;
   color: var(--text-color);
   text-align: center;
+}
+
+.checklist-section {
+  margin-bottom: 2rem;
 }
 
 .nav-cards {
