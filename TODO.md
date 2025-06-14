@@ -63,22 +63,58 @@
   - [x] The contacts I imported are saved in localStorage in "customData > networking" 
 
 ## Phase 5: PWA Features
-- [ ] Set up Vite PWA plugin
-  - [ ] Install vite-plugin-pwa
-  - [ ] Configure PWA plugin in vite.config.ts
-  - [ ] Set up basic caching strategies
-- [x] Fix the HomeView Export State/import State
-- [ ] Service Worker implementation
-  - [ ] Cache user state
-  - [ ] Cache uploaded files
-- [ ] PWA manifest
-- [ ] Install prompt
-- [ ] Offline functionality
-- [ ] Clearly identify if it's in OFFLINE MODE
+### 1. Basic PWA Setup
+- [x] Install vite-plugin-pwa
+- [x] Configure PWA plugin in vite.config.ts
+- [x] Set up basic caching strategies
+
+### 2. PWA Manifest & Icons
+- [x] Configure basic manifest (name, description, colors)
+- [x] Add PWA icons (192x192, 512x512)
+- [ ] Add maskable icons for better Android support
+- [ ] Add splash screen images for iOS
+- [ ] Add theme color meta tags
+
+### 3. Service Worker & Caching
+- [ ] Implement offline fallback page (simple "You're offline" message)
+- [ ] Cache static assets (images, CSS, JS)
+- [ ] Cache imported files (JSON/ICS, with 2MB size limit)
+- [ ] Add error handling for:
+  - [ ] File size limits (2MB)
+  - [ ] Storage quota exceeded
+  - [ ] Invalid file formats
+  - [ ] Failed imports when offline
+
+### 4. Offline Functionality
+- [ ] Add offline detection
+- [ ] Add offline indicator UI (non-intrusive)
+- [ ] Add offline fallback content for:
+  - [ ] Home screen
+  - [ ] Networking tips
+  - [ ] Calendar
+  - [ ] Contacts
+  - [ ] Networking targets
+- [ ] Add storage usage indicator (optional)
+
+### 5. Installation Experience
+- [ ] Add install prompt UI
+- [ ] Add "Add to Home Screen" instructions
+- [ ] Test installation on different devices
+- [ ] Add installation success feedback
+
+### 6. Testing & Validation
+- [ ] Test on Chrome desktop
+- [ ] Test on Android devices
+- [ ] Test on iOS devices
+- [ ] Validate PWA requirements
+- [ ] Test offline functionality
+- [ ] Test file imports in offline mode
+- [ ] Test localStorage persistence
 
 ## Phase 6: Polish
 - [ ] Rename "Networking Targets" to "Networking"
 - [ ] Rename "Networking tips" to "social tips"
+- [ ] Make sure that imports, if it doesn't match the right shape, does get a error warning.
 - [ ] Add a tab to explain how to use it, and that tab can be minimized.
 - [ ] Make it more like a app. So menu on the bottom.
 - [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
