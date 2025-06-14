@@ -43,17 +43,23 @@ const todoData = ref<TodoSection[]>([])
 const completedItems = ref<Record<string, boolean>>({})
 const currentDate = ref(new Date().toISOString().split('T')[0])
 
-// Load completed items from localStorage
+// Load completed items from app state
 const loadCompletedItems = () => {
-  const saved = localStorage.getItem('home_completed_items')
-  if (saved) {
-    completedItems.value = JSON.parse(saved)
+  const savedState = localStorage.getItem('vegas-app-state')
+  if (savedState) {
+    const state = JSON.parse(savedState)
+    if (state.homeCompletedItems) {
+      completedItems.value = state.homeCompletedItems
+    }
   }
 }
 
-// Save completed items to localStorage
+// Save completed items to app state
 const saveCompletedItems = () => {
-  localStorage.setItem('home_completed_items', JSON.stringify(completedItems.value))
+  const savedState = localStorage.getItem('vegas-app-state')
+  const state = savedState ? JSON.parse(savedState) : {}
+  state.homeCompletedItems = completedItems.value
+  localStorage.setItem('vegas-app-state', JSON.stringify(state))
 }
 
 // Compare dates in YYYY-MM-DD format

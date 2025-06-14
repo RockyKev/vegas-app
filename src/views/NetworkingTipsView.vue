@@ -70,8 +70,8 @@ onMounted(async () => {
     const savedState = localStorage.getItem('vegas-app-state')
     if (savedState) {
       const state = JSON.parse(savedState)
-      if (state.custom_data?.networking_tips) {
-        customTips.value = state.custom_data.networking_tips
+      if (state.customData?.networkingTips) {
+        customTips.value = state.customData.networkingTips
       }
     }
 
@@ -110,9 +110,9 @@ const handleFileImport = (event: Event) => {
         // Save to app state
         const savedState = localStorage.getItem('vegas-app-state')
         const state = savedState ? JSON.parse(savedState) : {}
-        state.custom_data = {
-          ...state.custom_data,
-          networking_tips: processedTips
+        state.customData = {
+          ...state.customData,
+          networkingTips: processedTips
         }
         localStorage.setItem('vegas-app-state', JSON.stringify(state))
       }
