@@ -24,15 +24,7 @@
     <div v-if="error" class="error-message">
       {{ error }}
     </div>
-
-    <div class="info-section">
-      <div class="info-item">
-        <p class="value">Build: {{ buildTime }}</p>
-        <p class="value">Storage:{{ storageUsage }}</p>
-        <p class="value">Last Updated: {{ lastUpdated }}</p>
-      </div>
-
-      <div class="mode-toggle">
+    <div class="mode-toggle">
         <label class="toggle-label">
           <input
             type="checkbox"
@@ -44,6 +36,35 @@
           </span>
         </label>
       </div>
+
+    <div class="info-section">
+      <div class="info-item">
+        <p class="value">Build: {{ buildTime }}</p>
+        <p class="value">Storage:{{ storageUsage }}</p>
+        <p class="value">Last Updated: {{ lastUpdated }}</p>
+        <p class="value flex">
+        <a 
+          href="https://github.com/RockyKev/vegas-app" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="github-link"
+          title="View on GitHub"
+        >
+          <span class="icon">📦</span>
+          GitHub
+        </a>
+        <a 
+          href="https://github.com/RockyKev/vegas-app/issues" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="issues-link"
+          title="Report an Issue"
+        >
+          Report Issues
+        </a></p>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -163,6 +184,13 @@ h2 {
   color: var(--text-color);
 }
 
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
 .actions {
   display: flex;
   flex-direction: column;
@@ -236,6 +264,8 @@ h2 {
   flex: 1;
 }
 
+
+
 /* Tablet and up */
 @media (min-width: 768px) {
   .actions {
@@ -246,6 +276,11 @@ h2 {
   .import-section {
     flex-direction: row;
     align-items: center;
+  }
+
+  .github-links {
+    flex-direction: row;
+    justify-content: center;
   }
 }
 </style> 

@@ -114,9 +114,9 @@
 - [x] Rename "Networking Targets" to "Networking"
 - [x] Rename "Networking tips" to "social tips"
 - [x] Make sure that imports, if it doesn't match the right shape, does get a error warning.
-- [ ] Add a tab to explain how to use it, and that tab can be minimized.
-- [ ] Make it more like a app. So menu on the bottom.
-- [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
-- [ ] Add github link, and how to fix issues.
+- [x] Add a tab to explain how to use it, and that tab can be minimized.
+- [x] Make it more like a app. So menu on the bottom.
+- [x] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
+- [x] Add github link, and how to fix issues.
 - [ ] Deployment 
 - [ ] Improve UI Experience (needs notes here)
