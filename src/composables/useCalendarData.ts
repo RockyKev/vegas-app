@@ -1,17 +1,21 @@
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useAppStore } from '../stores/app'
 import type { CalendarEvent } from '../types/types'
 import { useFileValidation } from './useFileValidation'
 
 export function useCalendarData() {
   const store = useAppStore()
-  const events = ref<CalendarEvent[]>([])
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
   const { validateFile, validationError } = useFileValidation()
 
-  // Load store data from localStorage
-  store.loadFromLocalStorage()
+  // Single source of truth - computed from store
+  const events = computed(() => {
+    if (!store.customData?.calendar) return []
+    return store.customData.calendar.map(event => ({
+      ...event,
+      start: new Date(event.start),
+      end: new Date(event.end)
+    }))
+  })
 
   const parseICS = (content: string): CalendarEvent[] => {
     const events: CalendarEvent[] = []
@@ -67,9 +71,6 @@ export function useCalendarData() {
   }
 
   const loadDefaultCalendar = async () => {
-    isLoading.value = true
-    error.value = null
-
     try {
       const response = await fetch('/data/calendar.ics')
       if (!response.ok) {
@@ -80,22 +81,34 @@ export function useCalendarData() {
       if (parsedEvents.length === 0) {
         throw new Error('No events found in calendar')
       }
-      events.value = parsedEvents
+
+      // Initialize store if needed
+      if (!store.customData) {
+        store.customData = {}
+      }
+      if (!store.customData.calendar) {
+        store.customData.calendar = []
+      }
+
+      // Add new events with pending status
+      const eventsWithStatus = parsedEvents.map(event => ({
+        ...event,
+        status: 'pending' as const
+      }))
+
+      // Merge with existing events, avoiding duplicates
+      const existingIds = new Set(store.customData.calendar.map(e => e.id))
+      const newEvents = eventsWithStatus.filter(e => !existingIds.has(e.id))
+      store.customData.calendar = [...store.customData.calendar, ...newEvents]
+      store.saveToLocalStorage()
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Failed to load calendar'
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
   const handleImportedCalendar = async (file: File) => {
-    isLoading.value = true
-    error.value = null
-
     // Validate file before processing
     if (!validateFile(file, ['.ics', 'text/calendar'])) {
-      error.value = validationError.value
       throw new Error(validationError.value || 'File validation failed')
     }
 
@@ -107,55 +120,51 @@ export function useCalendarData() {
         throw new Error('No events found in imported calendar')
       }
 
-      // Update store
+      // Initialize store if needed
       if (!store.customData) {
         store.customData = {}
       }
       if (!store.customData.calendar) {
         store.customData.calendar = []
       }
-      store.customData.calendar = [...store.customData.calendar, ...parsedEvents]
-      store.saveToLocalStorage()
 
-      // Update local state
-      events.value = [...events.value, ...parsedEvents]
+      // Add new events with pending status
+      const eventsWithStatus = parsedEvents.map(event => ({
+        ...event,
+        status: 'pending' as const
+      }))
+
+      // Merge with existing events, avoiding duplicates
+      const existingIds = new Set(store.customData.calendar.map(e => e.id))
+      const newEvents = eventsWithStatus.filter(e => !existingIds.has(e.id))
+      store.customData.calendar = [...store.customData.calendar, ...newEvents]
+      store.saveToLocalStorage()
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Failed to import calendar'
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
-  const initializeFromStore = () => {
-    // Reload from localStorage to ensure we have the latest data
-    store.loadFromLocalStorage()
+  const toggleEventStatus = (eventId: string) => {
+    if (!store.customData?.calendar) return
+
+    const eventIndex = store.customData.calendar.findIndex(e => e.id === eventId)
+    if (eventIndex === -1) return
+
+    const event = store.customData.calendar[eventIndex]
+    const newStatus = event.status === 'completed' ? 'pending' : 'completed'
     
-    if (store.customData?.calendar) {
-      const storeEvents = store.customData.calendar as CalendarEvent[]
-      if (Array.isArray(storeEvents)) {
-        // Convert date strings back to Date objects
-        const processedEvents = storeEvents.map(event => ({
-          ...event,
-          start: new Date(event.start),
-          end: new Date(event.end)
-        }))
-        
-        // Merge store events with existing events, avoiding duplicates
-        const existingIds = new Set(events.value.map(e => e.id))
-        const newEvents = processedEvents.filter(e => !existingIds.has(e.id))
-        events.value = [...events.value, ...newEvents]
-      }
+    store.customData.calendar[eventIndex] = {
+      ...event,
+      status: newStatus
     }
+    
+    store.saveToLocalStorage()
   }
 
   return {
     events,
-    isLoading,
-    error,
-    importError: error,
     loadDefaultCalendar,
     handleImportedCalendar,
-    initializeFromStore
+    toggleEventStatus
   }
 } 

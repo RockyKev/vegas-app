@@ -15,21 +15,10 @@
         <label for="calendar-import" class="import-button">
           Import Calendar (ICS)
         </label>
-        <span v-if="error" class="error-message">{{ error }}</span>
-      </div>
-
-      <!-- Loading State -->
-      <div v-if="isLoading" class="loading-message">
-        Loading calendar events...
-      </div>
-
-      <!-- Error State -->
-      <div v-else-if="error" class="error-message">
-        {{ error }}
       </div>
 
       <!-- Calendar Content -->
-      <div v-else class="calendar-content">
+      <div class="calendar-content">
         <div v-for="(events, date) in groupedEvents" :key="date" class="day-card card">
           <h2>{{ formatDate(date) }}</h2>
           <div class="events-list">
@@ -72,11 +61,9 @@ import { useAppStore } from '../stores/app'
 const store = useAppStore()
 const {
   events,
-  isLoading,
-  error,
   loadDefaultCalendar,
   handleImportedCalendar,
-  
+  toggleEventStatus
 } = useCalendarData()
 
 // Group events by date
@@ -119,28 +106,6 @@ const handleFileImport = async (event: Event) => {
   }
 }
 
-const toggleEventStatus = (eventId: string) => {
-  const event = events.value.find(e => e.id === eventId)
-  if (!event) return
-
-  const newStatus = event.status === 'completed' ? 'pending' : 'completed'
-  event.status = newStatus
-  
-  // Update store state
-  if (!store.customData) {
-    store.customData = {}
-  }
-  if (!store.customData.calendar) {
-    store.customData.calendar = []
-  }
-  
-  const storeEvent = store.customData.calendar.find(e => e.id === eventId)
-  if (storeEvent) {
-    storeEvent.status = newStatus
-  }
-  store.saveToLocalStorage()
-}
-
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
   return date.toLocaleDateString('en-US', { 
@@ -164,18 +129,12 @@ const formatTime = (date: Date | string) => {
 
 onMounted(async () => {
   try {
-    await loadDefaultCalendar()
+    // Load from localStorage first
     store.loadFromLocalStorage()
-    if (store.customData?.calendar) {
-      const storedEvents = store.customData.calendar
-      if (Array.isArray(storedEvents)) {
-        // Merge stored events with default events, preserving stored event statuses
-        const storedEventMap = new Map(storedEvents.map(e => [e.id, e]))
-        events.value = events.value.map(event => {
-          const storedEvent = storedEventMap.get(event.id)
-          return storedEvent ? { ...event, status: storedEvent.status } : event
-        })
-      }
+    
+    // Then load default calendar if no events exist
+    if (!store.customData?.calendar?.length) {
+      await loadDefaultCalendar()
     }
   } catch (err) {
     console.error('Error in onMounted:', err)
@@ -214,24 +173,6 @@ h1 {
 
 .import-button:hover {
   background-color: var(--primary-color-dark);
-}
-
-.loading-message,
-.error-message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.loading-message {
-  background-color: #f8f9fa;
-  color: #666;
-}
-
-.error-message {
-  background-color: #fee;
-  color: #c00;
 }
 
 .calendar-content {

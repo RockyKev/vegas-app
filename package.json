@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview --host",
+    "preview": "npm run build && vite preview --host",
     "deploy-to-vercel": "vercel --prod"
   },
   "dependencies": {

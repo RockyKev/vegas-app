@@ -3,28 +3,24 @@ import ErrorBoundary from './components/ErrorBoundary.vue'
 import OfflineIndicator from './components/OfflineIndicator.vue'
 import InstallPrompt from './components/InstallPrompt.vue'
 
+// Get build time from environment variable, with a fallback that's clearly wrong
+const buildTime = import.meta.env.VITE_BUILD_TIME 
+  ? new Date(import.meta.env.VITE_BUILD_TIME).toLocaleString()
+  : 'Build time not available'
 </script>
 
 <template>
   <ErrorBoundary>
     <div class="app">
-      <!-- <nav class="nav">
-        <div class="nav-content">
-          <router-link to="/" class="nav-logo">Vegas App</router-link>
-          <div class="nav-links">
-            <router-link to="/calendar">Calendar</router-link>
-            <router-link to="/networking-tips">Networking Tips</router-link>
-            <router-link to="/travel-info">Travel Info</router-link>
-            <router-link to="/contacts">Contacts</router-link>
-            <router-link to="/networking-targets">Networking Targets</router-link>
-          </div>
-        </div>
-      </nav> -->
+ 
       <main class="main">
         <router-view></router-view>
       </main>
       <OfflineIndicator />
       <InstallPrompt />
+      <div class="build-info">
+        Last updated: {{ buildTime }}
+      </div>
     </div>
   </ErrorBoundary>
 </template>
@@ -144,5 +140,14 @@ body {
     display: flex;
     align-items: center;
   }
+}
+
+.build-info {
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  color: #666;
+  background: #f8f9fa;
+  border-top: 1px solid #eee;
 }
 </style>

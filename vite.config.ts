@@ -66,20 +66,62 @@ export default defineConfig({
         id: '/'
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,json,ics}'],
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,webp,json,ics}',
+          'data/*.{json,ics}'
+        ],
         runtimeCaching: [
           {
-            urlPattern: /.*/,
+            urlPattern: /^https:\/\/localhost:5173\/.*/i,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'app-cache',
+              cacheName: 'dev-cache',
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
               }
             }
+          },
+          {
+            urlPattern: /^https:\/\/vegas-app.*\.vercel\.app\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'prod-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+              }
+            }
+          },
+          {
+            urlPattern: /\.(?:js|css|html|json|ics)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'static-resources',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+              }
+            }
+          },
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
+              }
+            }
           }
-        ]
+        ],
+        navigateFallback: 'index.html',
+        navigateFallbackAllowlist: [/^(?!\/__).*/],
+        navigateFallbackDenylist: [/\.(?:png|jpg|jpeg|svg|gif|webp)$/],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true
       },
       devOptions: {
         enabled: true,
