@@ -15,10 +15,16 @@
         <label for="tip-import" class="import-button">
           Import Custom Tips
         </label>
+        <span v-if="importError" class="error-message">{{ importError }}</span>
+      </div>
+
+      <!-- Error State -->
+      <div v-if="error" class="error-message">
+        {{ error }}
       </div>
 
       <!-- Tips List -->
-      <div class="tips-list" ref="tipsListRef">
+      <div v-else class="tips-list" ref="tipsListRef">
         <div v-for="tip in visibleTips" :key="tip.id" class="tip-item">
           <div class="tip-content-container">
             <p class="tip-content">{{ tip.content }}</p>
@@ -50,78 +56,69 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
 import type { NetworkingTip } from '../types/types'
+import { useImportData } from '../composables/useImportData'
+import { useImportableData } from '../composables/useImportableData'
+import { useErrorHandler } from '../composables/useErrorHandler'
+import { useLoadingState } from '../composables/useLoadingState'
 
+// Type guard for NetworkingTip array
+const isNetworkingTipArray = (data: unknown): data is NetworkingTip[] => {
+  return Array.isArray(data) && data.every(item => 
+    typeof item === 'object' && 
+    item !== null && 
+    'content' in item
+  )
+}
+
+// Process imported tips to ensure they have unique IDs
+const processImportedTips = (tips: NetworkingTip[]): NetworkingTip[] => {
+  return tips.map(tip => ({
+    ...tip,
+    id: tip.id || `custom_${Math.random().toString(36).substr(2, 9)}`
+  }))
+}
+
+// Initialize composables
 const store = useAppStore()
-const defaultTips = ref<NetworkingTip[]>([])
-const customTips = ref<NetworkingTip[]>([])
-const isLoading = ref(false)
+const { error, handleError } = useErrorHandler()
+const { isLoading, withLoading } = useLoadingState()
+
+const {
+  allData: allTips,
+  loadDefaultData,
+  handleImportedData,
+  initializeFromStore
+} = useImportableData<NetworkingTip>({
+  defaultDataPath: '/data/networking_tips.json',
+  storeKey: 'networkingTips',
+  validator: isNetworkingTipArray,
+  processImportedData: processImportedTips
+})
+
+const {
+  isImporting,
+  importError,
+  handleFileImport: baseHandleFileImport
+} = useImportData<NetworkingTip>({
+  validator: isNetworkingTipArray,
+  onSuccess: handleImportedData,
+  onError: handleError
+})
+
+// Wrap the file import handler to use loading state
+const handleFileImport = (event: Event) => {
+  withLoading(Promise.resolve(baseHandleFileImport(event)))
+}
+
+// Pagination
 const page = ref(1)
 const tipsPerPage = 10
 const tipsListRef = ref<HTMLElement | null>(null)
-
-// Load custom tips from localStorage on mount
-onMounted(async () => {
-  try {
-    // Load default tips
-    const response = await fetch('/data/networking_tips.json')
-    defaultTips.value = await response.json()
-
-    // Load custom tips from app state
-    const savedState = localStorage.getItem('vegas-app-state')
-    if (savedState) {
-      const state = JSON.parse(savedState)
-      if (state.customData?.networkingTips) {
-        customTips.value = state.customData.networkingTips
-      }
-    }
-
-    // Set up intersection observer for infinite scroll
-    setupInfiniteScroll()
-  } catch (error) {
-    console.error('Failed to load networking tips:', error)
-  }
-})
-
-// Combine default and custom tips
-const allTips = computed(() => [...defaultTips.value, ...customTips.value])
 
 // Compute visible tips based on current page
 const visibleTips = computed(() => {
   return allTips.value.slice(0, page.value * tipsPerPage)
 })
-
-// Handle file import
-const handleFileImport = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) return
-
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    try {
-      const importedTips = JSON.parse(e.target?.result as string)
-      if (Array.isArray(importedTips)) {
-        // Add custom prefix to IDs to avoid conflicts
-        const processedTips = importedTips.map(tip => ({
-          ...tip,
-          id: `custom_${tip.id}`
-        }))
-        customTips.value = processedTips
-        
-        // Save to app state
-        const savedState = localStorage.getItem('vegas-app-state')
-        const state = savedState ? JSON.parse(savedState) : {}
-        state.customData = {
-          ...state.customData,
-          networkingTips: processedTips
-        }
-        localStorage.setItem('vegas-app-state', JSON.stringify(state))
-      }
-    } catch (error) {
-      console.error('Failed to parse imported tips:', error)
-    }
-  }
-  reader.readAsText(file)
-}
 
 // Infinite scroll setup
 const setupInfiniteScroll = () => {
@@ -163,6 +160,25 @@ const markTipAsRead = (tipId: string) => {
 const toggleTipStar = (tipId: string) => {
   store.toggleTipStar(tipId)
 }
+
+onMounted(async () => {
+  console.log('NetworkingTipsView mounted')
+  try {
+    console.log('Loading default data...')
+    await withLoading(loadDefaultData())
+    console.log('Default data loaded:', allTips.value)
+    
+    console.log('Initializing from store...')
+    initializeFromStore()
+    console.log('Store initialized, all data:', allTips.value)
+
+    // Set up intersection observer for infinite scroll
+    setupInfiniteScroll()
+  } catch (err) {
+    console.error('Error in onMounted:', err)
+    handleError(err)
+  }
+})
 </script>
 
 <style scoped>
@@ -196,6 +212,15 @@ h1 {
 
 .import-button:hover {
   background-color: var(--primary-color-dark);
+}
+
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #fee;
+  color: #c00;
 }
 
 .tips-list {
