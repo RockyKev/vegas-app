@@ -8,6 +8,9 @@ export function useCalendarData() {
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 
+  // Load store data from localStorage
+  store.loadFromLocalStorage()
+
   const parseICS = (content: string): CalendarEvent[] => {
     const events: CalendarEvent[] = []
     let currentEvent: Partial<CalendarEvent> | null = null
@@ -62,6 +65,9 @@ export function useCalendarData() {
   }
 
   const loadDefaultCalendar = async () => {
+    isLoading.value = true
+    error.value = null
+
     try {
       const response = await fetch('/data/calendar.ics')
       if (!response.ok) {
@@ -76,11 +82,12 @@ export function useCalendarData() {
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to load calendar'
       throw err
+    } finally {
+      isLoading.value = false
     }
   }
 
   const handleImportedCalendar = async (file: File) => {
-    console.log('Handling imported calendar:', file.name)
     isLoading.value = true
     error.value = null
 
@@ -96,14 +103,15 @@ export function useCalendarData() {
       if (!store.customData) {
         store.customData = {}
       }
-      store.customData.calendar = parsedEvents
+      if (!store.customData.calendar) {
+        store.customData.calendar = []
+      }
+      store.customData.calendar = [...store.customData.calendar, ...parsedEvents]
       store.saveToLocalStorage()
 
       // Update local state
       events.value = [...events.value, ...parsedEvents]
-      console.log('Imported calendar loaded:', parsedEvents)
     } catch (err) {
-      console.error('Error importing calendar:', err)
       error.value = err instanceof Error ? err.message : 'Failed to import calendar'
       throw err
     } finally {
@@ -112,11 +120,23 @@ export function useCalendarData() {
   }
 
   const initializeFromStore = () => {
-    console.log('Initializing calendar from store:', store.customData)
+    // Reload from localStorage to ensure we have the latest data
+    store.loadFromLocalStorage()
+    
     if (store.customData?.calendar) {
       const storeEvents = store.customData.calendar as CalendarEvent[]
       if (Array.isArray(storeEvents)) {
-        events.value = [...events.value, ...storeEvents]
+        // Convert date strings back to Date objects
+        const processedEvents = storeEvents.map(event => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }))
+        
+        // Merge store events with existing events, avoiding duplicates
+        const existingIds = new Set(events.value.map(e => e.id))
+        const newEvents = processedEvents.filter(e => !existingIds.has(e.id))
+        events.value = [...events.value, ...newEvents]
       }
     }
   }
