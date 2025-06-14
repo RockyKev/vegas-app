@@ -128,5 +128,16 @@ export default defineConfig({
         type: 'module'
       }
     })
-  ]
+  ],
+  build: {
+    sourcemap: process.env.NODE_ENV === 'development',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['vue', 'vue-router', 'pinia'],
+          'pwa': ['vite-plugin-pwa']
+        }
+      }
+    }
+  }
 })

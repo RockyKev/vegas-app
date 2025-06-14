@@ -4,10 +4,6 @@ import OfflineIndicator from './components/OfflineIndicator.vue'
 import InstallPrompt from './components/InstallPrompt.vue'
 import BottomMenu from './components/BottomMenu.vue'
 
-// Get build time from environment variable, with a fallback that's clearly wrong
-const buildTime = import.meta.env.VITE_BUILD_TIME 
-  ? new Date(import.meta.env.VITE_BUILD_TIME).toLocaleString()
-  : 'Build time not available'
 </script>
 
 <template>
