@@ -76,7 +76,7 @@ const {
   error,
   loadDefaultCalendar,
   handleImportedCalendar,
-  initializeFromStore
+  
 } = useCalendarData()
 
 // Group events by date
@@ -165,7 +165,18 @@ const formatTime = (date: Date | string) => {
 onMounted(async () => {
   try {
     await loadDefaultCalendar()
-    initializeFromStore()
+    store.loadFromLocalStorage()
+    if (store.customData?.calendar) {
+      const storedEvents = store.customData.calendar
+      if (Array.isArray(storedEvents)) {
+        // Merge stored events with default events, preserving stored event statuses
+        const storedEventMap = new Map(storedEvents.map(e => [e.id, e]))
+        events.value = events.value.map(event => {
+          const storedEvent = storedEventMap.get(event.id)
+          return storedEvent ? { ...event, status: storedEvent.status } : event
+        })
+      }
+    }
   } catch (err) {
     console.error('Error in onMounted:', err)
   }

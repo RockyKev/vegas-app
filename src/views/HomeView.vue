@@ -37,6 +37,14 @@
 import Container from '../components/Container.vue'
 import StateManager from '../components/StateManager.vue'
 import DynamicChecklist from '../components/DynamicChecklist.vue'
+import { useAppStore } from '../stores/app'
+import { onMounted } from 'vue'
+
+const store = useAppStore()
+
+onMounted(() => {
+  store.loadFromLocalStorage()
+})
 </script>
 
 <style scoped>

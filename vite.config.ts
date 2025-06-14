@@ -66,40 +66,16 @@ export default defineConfig({
         id: '/'
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,json,ics}'],
         runtimeCaching: [
           {
-            urlPattern: ({ request }) => request.destination === 'document',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'pages',
-              expiration: {
-                maxEntries: 32,
-                maxAgeSeconds: 24 * 60 * 60 // 24 hours
-              }
-            }
-          },
-          {
-            urlPattern: ({ request }) =>
-              ['style', 'script', 'worker'].includes(request.destination),
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'assets',
-              expiration: {
-                maxEntries: 32,
-                maxAgeSeconds: 24 * 60 * 60 // 24 hours
-              }
-            }
-          },
-          {
-            urlPattern: ({ request }) =>
-              ['image', 'font'].includes(request.destination),
+            urlPattern: /.*/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'static',
+              cacheName: 'app-cache',
               expiration: {
-                maxEntries: 32,
-                maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
               }
             }
           }

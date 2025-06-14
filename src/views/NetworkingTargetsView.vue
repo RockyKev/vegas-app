@@ -85,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import Container from '../components/Container.vue'
 import type { NetworkingTarget } from '../types/types'
 import { useImportData } from '../composables/useImportData'
@@ -93,6 +93,8 @@ import { useImportableData } from '../composables/useImportableData'
 import { useErrorHandler } from '../composables/useErrorHandler'
 import { useLoadingState } from '../composables/useLoadingState'
 import { useTargetStatus } from '../composables/useTargetStatus'
+
+const networkingTargets = ref<NetworkingTarget[]>([])
 
 // Type guard for NetworkingTarget array
 const isNetworkingTargetArray = (data: unknown): data is NetworkingTarget[] => {
@@ -134,7 +136,9 @@ const {
 } = useImportData<NetworkingTarget>({
   validator: isNetworkingTargetArray,
   onSuccess: handleImportedData,
-  onError: handleError
+  onError: handleError,
+  allowedTypes: ['.json', 'application/json'],
+  hasExistingData: () => networkingTargets.value.length > 0
 })
 
 // Wrap the file import handler to use loading state
