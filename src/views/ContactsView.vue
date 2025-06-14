@@ -101,7 +101,9 @@ const {
 } = useImportData<Contact>({
   validator: isContactArray,
   onSuccess: handleImportedData,
-  onError: handleError
+  onError: handleError,
+  allowedTypes: ['.json', 'application/json'],
+  hasExistingData: () => allData.value.length > 0
 })
 
 // Wrap the file import handler to use loading state

@@ -1,12 +1,14 @@
 import { ref } from 'vue'
 import { useAppStore } from '../stores/app'
 import type { CalendarEvent } from '../types/types'
+import { useFileValidation } from './useFileValidation'
 
 export function useCalendarData() {
   const store = useAppStore()
   const events = ref<CalendarEvent[]>([])
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const { validateFile, validationError } = useFileValidation()
 
   // Load store data from localStorage
   store.loadFromLocalStorage()
@@ -90,6 +92,12 @@ export function useCalendarData() {
   const handleImportedCalendar = async (file: File) => {
     isLoading.value = true
     error.value = null
+
+    // Validate file before processing
+    if (!validateFile(file, ['.ics', 'text/calendar'])) {
+      error.value = validationError.value
+      throw new Error(validationError.value || 'File validation failed')
+    }
 
     try {
       const content = await file.text()

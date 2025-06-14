@@ -29,10 +29,44 @@ import OfflineIndicator from './components/OfflineIndicator.vue'
 
 <style>
 :root {
-  --primary-color: #e63946;
+  --primary-color: #42b883;
+  --primary-color-dark: #348e61;
   --text-color: #2c3e50;
   --background-color: #f8f9fa;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.6;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+} 
 
 * {
   box-sizing: border-box;

@@ -118,4 +118,5 @@
 - [ ] Add a tab to explain how to use it, and that tab can be minimized.
 - [ ] Make it more like a app. So menu on the bottom.
 - [ ] Create a mode where if default mode is on, it uses all the default data + import data. Else, it's blank and only relies on import data.
+- [ ] There's a src/style.css, a src/assets/main.css, and styling in the app.vue
 - [ ] Deployment 

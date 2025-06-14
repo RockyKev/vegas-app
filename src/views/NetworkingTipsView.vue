@@ -101,7 +101,9 @@ const {
 } = useImportData<NetworkingTip>({
   validator: isNetworkingTipArray,
   onSuccess: handleImportedData,
-  onError: handleError
+  onError: handleError,
+  allowedTypes: ['.json', 'application/json'],
+  hasExistingData: () => allTips.value.length > 0
 })
 
 // Wrap the file import handler to use loading state
