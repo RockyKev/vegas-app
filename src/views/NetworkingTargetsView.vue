@@ -3,8 +3,22 @@
     <div class="networking-targets">
       <h1>Networking Targets</h1>
 
+      <!-- Import Section -->
+      <div class="import-section">
+        <input 
+          type="file" 
+          accept=".json" 
+          @change="handleFileImport" 
+          class="file-input"
+          id="targets-import"
+        >
+        <label for="targets-import" class="import-button">
+          Import Targets (JSON)
+        </label>
+      </div>
+
       <div class="targets-list">
-        <div v-for="target in targets" :key="target.id" class="target-item">
+        <div v-for="target in allTargets" :key="target.id" class="target-item">
           <div class="target-info">
             <h2>{{ target.name }}
               <span v-if="target.title" class="target-title"> | {{ target.title }}</span>
@@ -59,13 +73,66 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useAppStore } from '../stores/app'
 import Container from '../components/Container.vue'
 import type { NetworkingTarget } from '../types/types'
 
 const store = useAppStore()
-const targets = ref<NetworkingTarget[]>([])
+const defaultTargets = ref<NetworkingTarget[]>([])
+const importedTargets = ref<NetworkingTarget[]>([])
+
+// Combine default and imported targets
+const allTargets = computed(() => [...defaultTargets.value, ...importedTargets.value])
+
+// Handle file import
+const handleFileImport = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) {
+    console.log('No file selected')
+    return
+  }
+
+  console.log('File selected:', file.name)
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    try {
+      const content = e.target?.result as string
+      const targets = JSON.parse(content)
+      
+      // Validate targets format
+      if (!Array.isArray(targets)) {
+        throw new Error('Invalid targets format: expected an array')
+      }
+      
+      // Add custom prefix to IDs to avoid conflicts
+      const processedTargets = targets.map(target => ({
+        ...target,
+        id: `custom_${target.id || Math.random().toString(36).substr(2, 9)}`
+      }))
+      
+      console.log('Processed targets:', processedTargets)
+      importedTargets.value = processedTargets
+      
+      // Update store state
+      if (!store.customData) {
+        store.customData = {}
+      }
+      store.customData.networking = processedTargets
+      store.saveToLocalStorage()
+      
+      // Verify the save
+      const verifyState = localStorage.getItem('vegas-app-state')
+      console.log('Verified saved state:', verifyState)
+    } catch (error) {
+      console.error('Failed to parse targets file:', error)
+    }
+  }
+  reader.onerror = (error) => {
+    console.error('Error reading file:', error)
+  }
+  reader.readAsText(file)
+}
 
 const getStatusLabel = (status: string) => {
   switch (status) {
@@ -90,7 +157,7 @@ const getStatusClass = (status: string) => {
 }
 
 const toggleTargetStatus = (targetId: string) => {
-  const target = targets.value.find(t => t.id === targetId)
+  const target = allTargets.value.find(t => t.id === targetId)
   if (!target) return
 
   const currentStatus = target.status || 'not-met'
@@ -113,8 +180,18 @@ const toggleTargetStatus = (targetId: string) => {
 
 onMounted(async () => {
   try {
+    // Load default targets
     const response = await fetch('/data/networking_targets.json')
-    targets.value = await response.json()
+    defaultTargets.value = await response.json()
+    
+    // Load store state
+    store.loadFromLocalStorage()
+    
+    // Initialize imported targets from store
+    if (store.customData?.networking) {
+      console.log('Loading targets from store:', store.customData.networking)
+      importedTargets.value = store.customData.networking
+    }
   } catch (error) {
     console.error('Failed to load networking targets:', error)
   }
@@ -130,6 +207,28 @@ h1 {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
   color: var(--text-color);
+}
+
+.import-section {
+  margin-bottom: 2rem;
+}
+
+.file-input {
+  display: none;
+}
+
+.import-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.import-button:hover {
+  background-color: var(--primary-color-dark);
 }
 
 .targets-list {
