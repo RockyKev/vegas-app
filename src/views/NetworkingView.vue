@@ -1,7 +1,7 @@
 <template>
   <Container>
-    <div class="networking-targets">
-      <h1>Networking Targets</h1>
+    <div class="networking">
+      <h1>Networking</h1>
 
       <!-- Import Section -->
       <div class="import-section">
@@ -147,7 +147,7 @@ const handleFileImport = (event: Event) => {
 }
 
 onMounted(async () => {
-  console.log('NetworkingTargetsView mounted')
+  console.log('NetworkingView mounted')
   try {
     console.log('Loading default data...')
     await withLoading(loadDefaultData())
@@ -164,7 +164,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.networking-targets {
+.networking {
   padding: 1rem 0;
 }
 
@@ -318,4 +318,4 @@ h3 {
     font-size: 2rem;
   }
 }
-</style>
+</style> 

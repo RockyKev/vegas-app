@@ -11,9 +11,9 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/networking-tips',
-      name: 'networking-tips',
-      component: () => import('../views/NetworkingTipsView.vue')
+      path: '/social-tips',
+      name: 'social-tips',
+      component: () => import('../views/SocialTipsView.vue')
     },
     {
       path: '/calendar',
@@ -31,9 +31,9 @@ const router = createRouter({
       component: () => import('../views/ContactsView.vue')
     },
     {
-      path: '/networking-targets',
-      name: 'networking-targets',
-      component: () => import('../views/NetworkingTargetsView.vue')
+      path: '/networking',
+      name: 'networking',
+      component: () => import('../views/NetworkingView.vue')
     }
   ]
 })

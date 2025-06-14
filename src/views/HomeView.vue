@@ -10,12 +10,12 @@
           <h2>Calendar</h2>
           <p>View and manage your conference schedule</p>
         </router-link>
-        <router-link to="/networking-tips" class="nav-card">
-          <h2>Networking Tips</h2>
+        <router-link to="/social-tips" class="nav-card">
+          <h2>Social Tips</h2>
           <p>Get advice on making the most of your networking opportunities</p>
         </router-link>
-        <router-link to="/networking-targets" class="nav-card">
-          <h2>Networking Targets</h2>
+        <router-link to="/networking" class="nav-card">
+          <h2>Networking</h2>
           <p>Track your networking goals and progress</p>
         </router-link>
         <router-link to="/travel-info" class="nav-card">

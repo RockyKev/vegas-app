@@ -1,7 +1,7 @@
 <template>
   <Container>
-    <div class="networking-tips">
-      <h1>Networking Tips</h1>
+    <div class="social-tips">
+      <h1>Social Tips</h1>
       
       <!-- Import Section -->
       <div class="import-section">
@@ -163,7 +163,7 @@ const toggleTipStar = (tipId: string) => {
 }
 
 onMounted(async () => {
-  console.log('NetworkingTipsView mounted')
+  console.log('SocialTipsView mounted')
   try {
     console.log('Loading default data...')
     await withLoading(loadDefaultData())
@@ -183,7 +183,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.networking-tips {
+.social-tips {
   padding: 1rem 0;
 }
 
@@ -283,4 +283,4 @@ h1 {
     font-size: 2rem;
   }
 }
-</style>
+</style> 
