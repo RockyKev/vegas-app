@@ -27,17 +27,20 @@ vegas-app/
 │   ├── types/ # TypeScript interfaces
 │   ├── views/ # Page components
 │   └── App.vue # Root component
-├── data/ # Read-only inputs
-│   ├── calendar.ics
-│   ├── contacts.json
-│   ├── networking_tips.json
-│   └── people_to_meet.json
-├── assets/ # Static assets
-│   ├── airport_map.jpg
-│   └── vegas_map.jpg
 ├── public/ # Public assets
+│   ├── airport_map.jpg
+│   ├── vegas_map.jpg
+│   └── data/ # Read-only inputs
+│       ├── calendar.ics
+│       ├── contacts.json
+│       ├── networking_tips.json
+│       └── people_to_meet.json
 ├── manifest.json # PWA manifest
 ├── service-worker.js # Offline cache logic
+├── tsconfig.json # TypeScript configuration
+├── vite.config.ts # Vite configuration
+├── TODO.md # Roadmap
+├── AI_GUIDE.md # Instructions for AI Agent
 └── README.md # Project specs
 
 ---
@@ -88,7 +91,6 @@ vegas-app/
 - Display:
   - Name, job title
   - `mailto:` and `tel:` links
-  - Optional notes
 - No editing via UI
 
 ---
@@ -96,26 +98,14 @@ vegas-app/
 ### 🧠 6. Networking Targets
 - Source: `data/people_to_meet.json`
 
-Example format:
-```json
-{
-  "name": "Jane Smith",
-  "title": "Design Lead at GlowCo",
-  "details": "Spoke at FigmaConf. Into creative tooling.",
-  "questions": [
-    "Ask about remote design ops",
-    "Mention your mentorship series"
-  ],
-  "status": "not-met"
-}
-```
 UI:
-
-Show name, title, details, questions
+Show name, title, details, questions, status
 
 Let user mark status: not-met, connected, followed-up
+- State saved in `localStorage`:
+  - `people_status`: `{ [person_id]: "connected" }`
 
-Save to localStorage: people_status: { [person_id]: "connected" }
+
 
 ## 🔁 Import/Export State
 All app state (read tips, checklist, favorites, etc.) saved to localStorage
