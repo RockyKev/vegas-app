@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ErrorBoundary from './components/ErrorBoundary.vue'
 import OfflineIndicator from './components/OfflineIndicator.vue'
+import InstallPrompt from './components/InstallPrompt.vue'
 
 </script>
 
@@ -23,6 +24,7 @@ import OfflineIndicator from './components/OfflineIndicator.vue'
         <router-view></router-view>
       </main>
       <OfflineIndicator />
+      <InstallPrompt />
     </div>
   </ErrorBoundary>
 </template>

@@ -7,7 +7,14 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon-16x16.png', 'favicon-32x32.png', 'robots.txt', 'pwa-192x192.png', 'pwa-512x512.png'],
+      includeAssets: [
+        'favicon-16x16.png',
+        'favicon-32x32.png',
+        'robots.txt',
+        'pwa-192x192.png',
+        'pwa-512x512.png',
+        'pwa-1024x1024.png'
+      ],
       manifest: {
         name: 'Vegas App',
         short_name: 'Vegas',
@@ -21,13 +28,31 @@ export default defineConfig({
             src: '/pwa-192x192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           },
           {
             src: '/pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
+          },
+          {
+            src: '/pwa-1024x1024.png',
+            sizes: '1024x1024',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: '/pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ],
         screenshots: [
