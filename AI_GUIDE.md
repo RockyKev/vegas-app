@@ -177,4 +177,183 @@ This is a Vue.js application for managing networking targets and contacts. The a
 - Use proper debugging tools
 - Follow proper version control practices
 - Implement proper deployment strategies
-- Use proper monitoring tools 
+- Use proper monitoring tools
+
+## Core Principles
+
+1. **Reuse Existing Composables**
+   - Use `useImportableData` for managing importable data
+   - Use `useImportData` for handling file imports
+   - Use `useErrorHandler` for error management
+   - Use `useLoadingState` for loading states
+   - Only create new composables when functionality is truly unique (e.g., `useCalendarData` for ICS parsing)
+
+2. **Keep It Simple**
+   - Avoid over-engineering solutions
+   - Don't split components unnecessarily
+   - Maintain single-file components when appropriate
+   - Focus on reusing existing patterns rather than creating new ones
+
+3. **Consistent Patterns**
+   - Use consistent error handling across views
+   - Use consistent loading states
+   - Use consistent data import/export patterns
+   - Use consistent type checking
+
+4. **Type Safety**
+   - Use TypeScript type guards for data validation
+   - Ensure proper typing for all composables
+   - Validate imported data before use
+
+5. **Store Integration**
+   - Use the app store for persistent data
+   - Handle store initialization consistently
+   - Manage store updates safely
+
+## Common Patterns
+
+1. **Data Import**
+   - See `useImportableData` composable for implementation
+   - Used in `ContactsView.vue`, `NetworkingTipsView.vue`, and `NetworkingTargetsView.vue`
+   - Handles default data loading, store initialization, and data validation
+
+2. **File Import**
+   - See `useImportData` composable for implementation
+   - Used in `ContactsView.vue`, `NetworkingTipsView.vue`, and `NetworkingTargetsView.vue`
+   - Handles file validation, import errors, and success callbacks
+
+3. **Error Handling**
+   - See `useErrorHandler` composable for implementation
+   - Used across all views for consistent error management
+   - Provides error state and handler function
+
+4. **Loading State**
+   - See `useLoadingState` composable for implementation
+   - Used across all views for consistent loading management
+   - Provides loading state and wrapper function
+
+5. **Type Guards**
+   - See type guards in each view (e.g., `isContactArray`, `isNetworkingTipArray`)
+   - Follow the pattern in `ContactsView.vue` for implementation
+   - Ensures type safety for imported data
+
+## When to Create New Composables
+
+1. **Unique Functionality**
+   - When handling unique file formats (e.g., ICS for calendar)
+   - When implementing complex business logic
+   - When managing specialized state
+
+2. **Reusable Logic**
+   - When logic is used across multiple components
+   - When logic is complex enough to warrant separation
+   - When logic needs to be tested independently
+
+3. **State Management**
+   - When managing complex state
+   - When state needs to be shared across components
+   - When state needs to be persisted
+
+## When to Keep It Simple
+
+1. **Single-File Components**
+   - When component logic is straightforward
+   - When component is not reused
+   - When component is specific to a view
+
+2. **Direct Store Usage**
+   - When store operations are simple
+   - When store operations are view-specific
+   - When no complex state management is needed
+
+3. **Inline Logic**
+   - When logic is simple and view-specific
+   - When logic is not reused
+   - When logic is easy to understand
+
+## Common Pitfalls to Avoid
+
+1. **Over-Engineering**
+   - Don't split components unnecessarily
+   - Don't create new composables when existing ones work
+   - Don't add complexity without clear benefit
+
+2. **Inconsistent Patterns**
+   - Don't mix different error handling approaches
+   - Don't use different loading state patterns
+   - Don't implement different data import patterns
+
+3. **Type Safety Issues**
+   - Don't skip type validation
+   - Don't use `any` types
+   - Don't ignore TypeScript errors
+
+4. **Store Management**
+   - Don't update store directly without proper checks
+   - Don't forget to handle store initialization
+   - Don't ignore store persistence
+
+5. **Error Handling**
+   - Don't swallow errors
+   - Don't show technical error messages to users
+   - Don't ignore error states
+
+## Testing Guidelines
+
+1. **Composable Testing**
+   - Test composable logic independently
+   - Test error handling
+   - Test loading states
+   - Test data validation
+
+2. **Component Testing**
+   - Test component rendering
+   - Test user interactions
+   - Test error states
+   - Test loading states
+
+3. **Integration Testing**
+   - Test composable integration
+   - Test store integration
+   - Test data flow
+   - Test error handling
+
+## Performance Considerations
+
+1. **Data Loading**
+   - Load data efficiently
+   - Handle loading states
+   - Cache data when appropriate
+   - Validate data before use
+
+2. **Component Rendering**
+   - Avoid unnecessary re-renders
+   - Use computed properties
+   - Use proper key attributes
+   - Optimize template complexity
+
+3. **Store Updates**
+   - Batch store updates
+   - Avoid unnecessary updates
+   - Handle updates efficiently
+   - Persist data appropriately
+
+## Security Considerations
+
+1. **Data Validation**
+   - Validate all imported data
+   - Sanitize user input
+   - Handle edge cases
+   - Prevent data injection
+
+2. **Error Handling**
+   - Don't expose sensitive information
+   - Handle errors gracefully
+   - Log errors appropriately
+   - Show user-friendly messages
+
+3. **Store Management**
+   - Validate store data
+   - Handle store errors
+   - Secure sensitive data
+   - Manage data persistence safely 
