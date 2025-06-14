@@ -9,157 +9,73 @@ export function useCalendarData() {
   const error = ref<string | null>(null)
 
   const parseICS = (content: string): CalendarEvent[] => {
-    console.log('Starting ICS parsing')
-    const parsedEvents: CalendarEvent[] = []
-    
-    // Normalize line endings and handle line continuations
-    const normalizedContent = content
-      .replace(/\r\n /g, '') // Remove line continuations
-      .replace(/\r\n/g, '\n') // Normalize line endings
-      .replace(/\n /g, '') // Remove remaining line continuations
-    
-    console.log('Normalized content:', normalizedContent)
-    
-    const lines = normalizedContent.split('\n')
+    const events: CalendarEvent[] = []
     let currentEvent: Partial<CalendarEvent> | null = null
     let inEvent = false
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim()
-      console.log('Processing line:', line)
-      
+    // Normalize line endings and handle line continuations
+    const normalizedContent = content
+      .replace(/\r\n/g, '\n')
+      .replace(/\n /g, '')
+      .split('\n')
+
+    normalizedContent.forEach(line => {
       if (line === 'BEGIN:VEVENT') {
-        console.log('Found VEVENT start')
         inEvent = true
         currentEvent = {}
-      } else if (line === 'END:VEVENT' && currentEvent) {
-        console.log('Found VEVENT end, current event:', currentEvent)
-        inEvent = false
-        if (currentEvent.summary && currentEvent.start && currentEvent.end) {
-          parsedEvents.push({
-            id: currentEvent.id || `event_${Math.random().toString(36).substr(2, 9)}`,
-            summary: currentEvent.summary,
-            start: currentEvent.start,
-            end: currentEvent.end,
-            location: currentEvent.location,
-            description: currentEvent.description,
-            status: currentEvent.status || 'pending'
-          })
+      } else if (line === 'END:VEVENT') {
+        if (currentEvent && currentEvent.id && currentEvent.start && currentEvent.end) {
+          events.push(currentEvent as CalendarEvent)
         }
+        inEvent = false
         currentEvent = null
       } else if (inEvent && currentEvent) {
-        // Split on first colon to handle property parameters
-        const colonIndex = line.indexOf(':')
-        if (colonIndex === -1) continue
+        const [fullKey, ...valueParts] = line.split(':')
+        const value = valueParts.join(':')
+        const [key, ...params] = fullKey.split(';')
         
-        const fullKey = line.substring(0, colonIndex)
-        const value = line.substring(colonIndex + 1)
-        
-        // Get the base property name (before any semicolon)
-        const key = fullKey.split(';')[0]
-        
-        console.log('Processing event property:', { key, fullKey, value })
-
-        switch (key) {
-          case 'SUMMARY':
-            currentEvent.summary = value
-            break
-          case 'DTSTART':
-            // Handle both date-only and date-time formats with timezone
-            const startMatch = value.match(/(\d{8}(?:T\d{6})?)/)
-            console.log('DTSTART match:', startMatch)
-            if (startMatch) {
-              const dateTime = startMatch[1]
-              console.log('DTSTART parsed:', { dateTime })
-              // Format: YYYYMMDDTHHMMSS
-              const year = dateTime.substring(0, 4)
-              const month = dateTime.substring(4, 6)
-              const day = dateTime.substring(6, 8)
-              const hour = dateTime.substring(9, 11) || '00'
-              const minute = dateTime.substring(11, 13) || '00'
-              const second = dateTime.substring(13, 15) || '00'
-              
-              const dateStr = `${year}-${month}-${day}T${hour}:${minute}:${second}`
-              console.log('DTSTART formatted:', dateStr)
-              const startDate = new Date(dateStr)
-              if (!isNaN(startDate.getTime())) {
-                currentEvent.start = startDate
-                console.log('DTSTART set:', startDate)
-              } else {
-                console.log('Invalid DTSTART date:', dateStr)
-              }
-            }
-            break
-          case 'DTEND':
-            // Handle both date-only and date-time formats with timezone
-            const endMatch = value.match(/(\d{8}(?:T\d{6})?)/)
-            console.log('DTEND match:', endMatch)
-            if (endMatch) {
-              const dateTime = endMatch[1]
-              console.log('DTEND parsed:', { dateTime })
-              // Format: YYYYMMDDTHHMMSS
-              const year = dateTime.substring(0, 4)
-              const month = dateTime.substring(4, 6)
-              const day = dateTime.substring(6, 8)
-              const hour = dateTime.substring(9, 11) || '00'
-              const minute = dateTime.substring(11, 13) || '00'
-              const second = dateTime.substring(13, 15) || '00'
-              
-              const dateStr = `${year}-${month}-${day}T${hour}:${minute}:${second}`
-              console.log('DTEND formatted:', dateStr)
-              const endDate = new Date(dateStr)
-              if (!isNaN(endDate.getTime())) {
-                currentEvent.end = endDate
-                console.log('DTEND set:', endDate)
-              } else {
-                console.log('Invalid DTEND date:', dateStr)
-              }
-            }
-            break
-          case 'LOCATION':
-            currentEvent.location = value
-            break
-          case 'DESCRIPTION':
-            currentEvent.description = value
-            break
-          case 'UID':
-            currentEvent.id = value
-            break
+        if (key === 'DTSTART') {
+          const dateTime = value.match(/(\d{8}T\d{6})/)?.[1]
+          if (dateTime) {
+            const [date, time] = [dateTime.slice(0, 8), dateTime.slice(9)]
+            const dateStr = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}T${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4)}`
+            currentEvent.start = new Date(dateStr)
+          }
+        } else if (key === 'DTEND') {
+          const dateTime = value.match(/(\d{8}T\d{6})/)?.[1]
+          if (dateTime) {
+            const [date, time] = [dateTime.slice(0, 8), dateTime.slice(9)]
+            const dateStr = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}T${time.slice(0, 2)}:${time.slice(2, 4)}:${time.slice(4)}`
+            currentEvent.end = new Date(dateStr)
+          }
+        } else if (key === 'SUMMARY') {
+          currentEvent.summary = value
+        } else if (key === 'LOCATION') {
+          currentEvent.location = value
+        } else if (key === 'UID') {
+          currentEvent.id = value
         }
       }
-    }
+    })
 
-    console.log('Parsed events:', parsedEvents)
-    return parsedEvents
+    return events
   }
 
   const loadDefaultCalendar = async () => {
-    console.log('Loading default calendar...')
-    isLoading.value = true
-    error.value = null
-
     try {
       const response = await fetch('/data/calendar.ics')
       if (!response.ok) {
-        throw new Error(`Failed to load calendar: ${response.statusText}`)
+        throw new Error('Failed to load default calendar')
       }
-
       const content = await response.text()
-      console.log('Loaded ICS content:', content.substring(0, 100) + '...')
-      
       const parsedEvents = parseICS(content)
       if (parsedEvents.length === 0) {
         throw new Error('No events found in calendar')
       }
-
       events.value = parsedEvents
-      console.log('Default calendar loaded:', parsedEvents)
     } catch (err) {
-      console.error('Error loading calendar:', err)
       error.value = err instanceof Error ? err.message : 'Failed to load calendar'
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 

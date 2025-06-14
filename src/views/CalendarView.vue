@@ -82,25 +82,35 @@ const {
 // Group events by date
 const groupedEvents = computed(() => {
   const grouped: Record<string, CalendarEvent[]> = {}
+  
   events.value.forEach(event => {
-    const date = event.start instanceof Date 
-      ? event.start.toISOString().split('T')[0]
-      : new Date(event.start).toISOString().split('T')[0]
-    if (!grouped[date]) {
-      grouped[date] = []
+    // Get the date part of the start time, ensuring we use local timezone
+    const startDate = event.start instanceof Date ? event.start : new Date(event.start)
+    // Format the date in YYYY-MM-DD format using local timezone
+    const dateKey = startDate.toLocaleDateString('en-CA') // This gives YYYY-MM-DD format
+    
+    if (!grouped[dateKey]) {
+      grouped[dateKey] = []
     }
-    grouped[date].push(event)
+    grouped[dateKey].push(event)
   })
+  
+  // Sort events within each day by start time
+  Object.keys(grouped).forEach(date => {
+    grouped[date].sort((a, b) => {
+      const aStart = a.start instanceof Date ? a.start : new Date(a.start)
+      const bStart = b.start instanceof Date ? b.start : new Date(b.start)
+      return aStart.getTime() - bStart.getTime()
+    })
+  })
+  
   return grouped
 })
 
 // Custom ICS file handling
 const handleFileImport = async (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) {
-    console.log('No file selected')
-    return
-  }
+  if (!file) return
 
   try {
     await handleImportedCalendar(file)
@@ -153,15 +163,9 @@ const formatTime = (date: Date | string) => {
 }
 
 onMounted(async () => {
-  console.log('CalendarView mounted')
   try {
-    console.log('Loading default calendar...')
     await loadDefaultCalendar()
-    console.log('Default calendar loaded:', events.value)
-    
-    console.log('Initializing from store...')
     initializeFromStore()
-    console.log('Store initialized, all events:', events.value)
   } catch (err) {
     console.error('Error in onMounted:', err)
   }
