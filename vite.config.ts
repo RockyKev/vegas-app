@@ -132,6 +132,7 @@ export default defineConfig({
   build: {
     sourcemap: process.env.NODE_ENV === 'development',
     rollupOptions: {
+      external: ['fsevents'],
       output: {
         manualChunks: {
           'vendor': ['vue', 'vue-router', 'pinia'],
