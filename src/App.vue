@@ -2,6 +2,7 @@
 import ErrorBoundary from './components/ErrorBoundary.vue'
 import OfflineIndicator from './components/OfflineIndicator.vue'
 import InstallPrompt from './components/InstallPrompt.vue'
+import BottomMenu from './components/BottomMenu.vue'
 
 // Get build time from environment variable, with a fallback that's clearly wrong
 const buildTime = import.meta.env.VITE_BUILD_TIME 
@@ -12,25 +13,25 @@ const buildTime = import.meta.env.VITE_BUILD_TIME
 <template>
   <ErrorBoundary>
     <div class="app">
- 
-      <main class="main">
-        <router-view></router-view>
-      </main>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
       <OfflineIndicator />
       <InstallPrompt />
-      <div class="build-info">
-        Last updated: {{ buildTime }}
-      </div>
+      <BottomMenu />
     </div>
   </ErrorBoundary>
 </template>
 
 <style>
 :root {
-  --primary-color: #42b883;
-  --primary-color-dark: #348e61;
+  --primary-color: #4a90e2;
+  --primary-color-rgb: 74, 144, 226;
+  --primary-color-dark: #357abd;
   --text-color: #2c3e50;
-  --background-color: #f8f9fa;
+  --background-color: #f5f7fa;
 }
 
 * {
@@ -149,5 +150,15 @@ body {
   color: #666;
   background: #f8f9fa;
   border-top: 1px solid #eee;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
