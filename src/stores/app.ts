@@ -14,6 +14,7 @@ interface ExtendedAppState extends AppState {
     contacts?: any[]
     networking?: any[]
   }
+  homeCompletedItems?: Record<string, boolean>
 }
 
 export const useAppStore = defineStore('app', {
@@ -23,7 +24,8 @@ export const useAppStore = defineStore('app', {
     calendarDone: {},
     peopleStatus: {},
     errors: [],
-    customData: {}
+    customData: {},
+    homeCompletedItems: {}
   }),
 
   actions: {
@@ -73,7 +75,8 @@ export const useAppStore = defineStore('app', {
         calendarDone: this.calendarDone,
         peopleStatus: this.peopleStatus,
         errors: this.errors,
-        customData: this.customData
+        customData: this.customData,
+        homeCompletedItems: this.homeCompletedItems
       }
       localStorage.setItem('vegas-app-state', JSON.stringify(state))
     },
@@ -88,6 +91,7 @@ export const useAppStore = defineStore('app', {
         this.peopleStatus = state.peopleStatus || {}
         this.errors = state.errors || []
         this.customData = state.customData || {}
+        this.homeCompletedItems = state.homeCompletedItems || {}
       }
     },
 
@@ -98,7 +102,8 @@ export const useAppStore = defineStore('app', {
         tipsStarred: this.tipsStarred,
         calendarDone: this.calendarDone,
         peopleStatus: this.peopleStatus,
-        customData: this.customData
+        customData: this.customData,
+        homeCompletedItems: this.homeCompletedItems
       }
       return JSON.stringify(state, null, 2)
     },
@@ -118,6 +123,7 @@ export const useAppStore = defineStore('app', {
         this.calendarDone = state.calendarDone || {}
         this.peopleStatus = state.peopleStatus || {}
         this.customData = state.customData || {}
+        this.homeCompletedItems = state.homeCompletedItems || {}
         
         // Save to localStorage
         this.saveToLocalStorage()
@@ -141,7 +147,8 @@ export const useAppStore = defineStore('app', {
         typeof state.tipsStarred === 'object' &&
         typeof state.calendarDone === 'object' &&
         typeof state.peopleStatus === 'object' &&
-        (!state.customData || typeof state.customData === 'object')
+        (!state.customData || typeof state.customData === 'object') &&
+        (!state.homeCompletedItems || typeof state.homeCompletedItems === 'object')
       )
     }
   }

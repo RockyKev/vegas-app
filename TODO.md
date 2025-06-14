@@ -63,6 +63,11 @@
   - [x] The contacts I imported are saved in localStorage in "customData > networking" 
 
 ## Phase 5: PWA Features
+- [ ] Set up Vite PWA plugin
+  - [ ] Install vite-plugin-pwa
+  - [ ] Configure PWA plugin in vite.config.ts
+  - [ ] Set up basic caching strategies
+- [ ] Fix the HomeView Export State/import State
 - [ ] Service Worker implementation
   - [ ] Cache user state
   - [ ] Cache uploaded files

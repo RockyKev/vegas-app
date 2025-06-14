@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useChecklistState } from '../composables/useChecklistState'
 
 interface TodoSection {
   type: 'recurring' | 'one-time'
@@ -40,27 +41,9 @@ interface TodoSection {
 
 const loading = ref(true)
 const todoData = ref<TodoSection[]>([])
-const completedItems = ref<Record<string, boolean>>({})
 const currentDate = ref(new Date().toISOString().split('T')[0])
 
-// Load completed items from app state
-const loadCompletedItems = () => {
-  const savedState = localStorage.getItem('vegas-app-state')
-  if (savedState) {
-    const state = JSON.parse(savedState)
-    if (state.homeCompletedItems) {
-      completedItems.value = state.homeCompletedItems
-    }
-  }
-}
-
-// Save completed items to app state
-const saveCompletedItems = () => {
-  const savedState = localStorage.getItem('vegas-app-state')
-  const state = savedState ? JSON.parse(savedState) : {}
-  state.homeCompletedItems = completedItems.value
-  localStorage.setItem('vegas-app-state', JSON.stringify(state))
-}
+const { toggleItem, isItemCompleted } = useChecklistState()
 
 // Compare dates in YYYY-MM-DD format
 const compareDates = (date1: string, date2: string) => {
@@ -85,19 +68,6 @@ const visibleSections = computed(() => {
   })
 })
 
-// Toggle item completion
-const toggleItem = (sectionTitle: string, itemText: string) => {
-  const key = `${sectionTitle}-${itemText}`
-  completedItems.value[key] = !completedItems.value[key]
-  saveCompletedItems()
-}
-
-// Check if item is completed
-const isItemCompleted = (sectionTitle: string, itemText: string) => {
-  const key = `${sectionTitle}-${itemText}`
-  return completedItems.value[key] || false
-}
-
 // Load todo data from JSON file
 const loadTodoData = async () => {
   try {
@@ -112,7 +82,6 @@ const loadTodoData = async () => {
 }
 
 onMounted(async () => {
-  loadCompletedItems()
   await loadTodoData()
 })
 </script>
