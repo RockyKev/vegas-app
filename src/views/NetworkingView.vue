@@ -60,15 +60,15 @@
           </div>
 
           <div class="target-details">
-            <div v-if="target.connections && target.connections.length" class="target-section">
-              <h3>Connections:
-                <span v-for="(connection, index) in target.connections" :key="index">
+            <div v-if="target.connections && target.connections.length" class="target-section basis-full">
+              <p class="connections-title">Connections:
+                <span v-for="(connection, index) in target.connections" :key="index" class="connection-item">
                   {{ connection }},
                 </span>
-              </h3>
+              </p>
             </div>
 
-            <div v-if="target.personal_details && target.personal_details.length" class="target-section">
+            <div v-if="target.personal_details && target.personal_details.length" class="target-section basis-half">
               <h3>Personal Details:</h3>
               <ul>
                 <li v-for="(detail, index) in target.personal_details" :key="index">
@@ -77,7 +77,7 @@
               </ul>
             </div>
 
-            <div v-if="target.work_details && target.work_details.length" class="target-section">
+            <div v-if="target.work_details && target.work_details.length" class="target-section basis-half">
               <h3>Work Details:</h3>
               <ul>
                 <li v-for="(detail, index) in target.work_details" :key="index">
@@ -86,7 +86,7 @@
               </ul>
             </div>
 
-            <div v-if="target.questions && target.questions.length" class="target-section">
+            <div v-if="target.questions && target.questions.length" class="target-section basis-full">
               <h3>Questions:</h3>
               <ul>
                 <li v-for="(question, index) in target.questions" :key="index">
@@ -190,6 +190,7 @@ h2 {
 
 h3 {
   text-align: left;
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .target-header { 
@@ -210,7 +211,14 @@ h3 {
 }
 
 
+.connections-title {
+  font-weight: bold;
+  text-align: left;
+}
 
+.connection-item {
+  font-weight: normal;
+}
 
 
 .loading-message {
@@ -250,9 +258,18 @@ h3 {
   font-size: 0.875rem;
   color: var(--text-color);
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
+
+.basis-half {
+  flex-basis: 50%;
+}
+
+.basis-full {
+  flex-basis: 100%;
+}
+
 
 .target-section {
   display: flex;
@@ -263,6 +280,7 @@ h3 {
 .target-section ul {
   margin: 0;
   padding-left: 1.5rem;
+  text-align: left;
 }
 
 .target-section li {
