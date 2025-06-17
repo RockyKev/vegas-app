@@ -16,6 +16,7 @@ interface ExtendedAppState extends AppState {
   }
   homeCompletedItems?: Record<string, boolean>
   useDefaultData?: boolean
+  tipsHidden?: Record<string, boolean>
 }
 
 export const useAppStore = defineStore('app', {
@@ -27,7 +28,8 @@ export const useAppStore = defineStore('app', {
     errors: [],
     customData: {},
     homeCompletedItems: {},
-    useDefaultData: true // Default to true to maintain current behavior
+    useDefaultData: true, // Default to true to maintain current behavior
+    tipsHidden: {}
   }),
 
   actions: {
@@ -39,6 +41,14 @@ export const useAppStore = defineStore('app', {
 
     toggleTipStar(tipId: string) {
       this.tipsStarred[tipId] = !this.tipsStarred[tipId]
+      this.saveToLocalStorage()
+    },
+
+    toggleTipHidden(tipId: string) {
+      if (!this.tipsHidden) {
+        this.tipsHidden = {}
+      }
+      this.tipsHidden[tipId] = !this.tipsHidden[tipId]
       this.saveToLocalStorage()
     },
 
@@ -85,7 +95,8 @@ export const useAppStore = defineStore('app', {
         errors: this.errors,
         customData: this.customData,
         homeCompletedItems: this.homeCompletedItems,
-        useDefaultData: this.useDefaultData
+        useDefaultData: this.useDefaultData,
+        tipsHidden: this.tipsHidden
       }
       localStorage.setItem('vegas-app-state', JSON.stringify(state))
     },
@@ -102,6 +113,7 @@ export const useAppStore = defineStore('app', {
         this.customData = state.customData || {}
         this.homeCompletedItems = state.homeCompletedItems || {}
         this.useDefaultData = state.useDefaultData !== undefined ? state.useDefaultData : true
+        this.tipsHidden = state.tipsHidden || {}
       }
     },
 
@@ -114,7 +126,8 @@ export const useAppStore = defineStore('app', {
         peopleStatus: this.peopleStatus,
         customData: this.customData,
         homeCompletedItems: this.homeCompletedItems,
-        useDefaultData: this.useDefaultData
+        useDefaultData: this.useDefaultData,
+        tipsHidden: this.tipsHidden
       }
       return JSON.stringify(state, null, 2)
     },
@@ -136,6 +149,7 @@ export const useAppStore = defineStore('app', {
         this.customData = state.customData || {}
         this.homeCompletedItems = state.homeCompletedItems || {}
         this.useDefaultData = state.useDefaultData !== undefined ? state.useDefaultData : true
+        this.tipsHidden = state.tipsHidden || {}
         
         // Save to localStorage
         this.saveToLocalStorage()
@@ -161,7 +175,8 @@ export const useAppStore = defineStore('app', {
         typeof state.peopleStatus === 'object' &&
         (!state.customData || typeof state.customData === 'object') &&
         (!state.homeCompletedItems || typeof state.homeCompletedItems === 'object') &&
-        (state.useDefaultData === undefined || typeof state.useDefaultData === 'boolean')
+        (state.useDefaultData === undefined || typeof state.useDefaultData === 'boolean') &&
+        (!state.tipsHidden || typeof state.tipsHidden === 'object')
       )
     }
   }

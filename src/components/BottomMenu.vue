@@ -48,7 +48,7 @@ const isActive = (path: string) => {
   justify-content: space-around;
   padding: 0.5rem 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 500;
 }
 
 .menu-item {

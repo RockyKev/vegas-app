@@ -10,9 +10,12 @@ export interface Contact {
 // Networking Tip interface
 export interface NetworkingTip {
   id: string
+  tipID?: string // For backward compatibility with existing data
   content: string
   source?: string
   source_link?: string
+  sourceLink?: string // For backward compatibility with existing data
+  tags?: string[]
 }
 
 // Networking Target interface
