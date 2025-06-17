@@ -13,6 +13,7 @@
             <li>Connected: After meeting them</li>
             <li>Followed Up: After sending a follow-up</li>
           </ul>
+          <p>Use the filters to show/hide targets by status or filter by department.</p>
           <p>If you don't import any targets, default targets will be shown.</p>
         </HelpToggle>
       </div>
@@ -34,6 +35,33 @@
         </div>
       </div>
 
+      <!-- Filter Controls -->
+      <div class="filter-controls">
+        <div class="filter-row">
+          <label class="filter-label">
+            <input type="checkbox" v-model="showNotMet" class="filter-checkbox">
+            Show not met
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" v-model="showConnected" class="filter-checkbox">
+            Show connected
+          </label>
+          <label class="filter-label">
+            <input type="checkbox" v-model="showFollowedUp" class="filter-checkbox">
+            Show followed up
+          </label>
+        </div>
+        
+        <!-- Department Filter -->
+        <div class="department-filter">
+          <label class="filter-label">Filter by department:</label>
+          <select v-model="selectedDepartment" class="department-select">
+            <option value="">All departments</option>
+            <option v-for="dept in allDepartments" :key="dept" :value="dept">{{ dept }}</option>
+          </select>
+        </div>
+      </div>
+
       <!-- Loading State -->
       <div v-if="isLoading" class="loading-message">
         Loading networking Contacts...
@@ -46,7 +74,7 @@
 
       <!-- Targets List -->
       <div v-else class="targets-list">
-        <div v-for="target in allData" :key="target.id" class="target-item">
+        <div v-for="target in filteredTargets" :key="target.id" class="target-item">
           <div class="target-header">
             <h2>{{ target.name }}
               <span v-if="target.title" class="target-title"> | {{ target.title }}</span>
@@ -95,13 +123,18 @@
             </div>
           </div>
         </div>
+
+        <!-- No Results Message -->
+        <div v-if="filteredTargets.length === 0" class="no-results">
+          No networking targets match your current filters.
+        </div>
       </div>
     </div>
   </Container>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import Container from '../components/Container.vue'
 import HelpToggle from '../components/HelpToggle.vue'
 import type { NetworkingTarget } from '../types/types'
@@ -112,6 +145,48 @@ import { useLoadingState } from '../composables/useLoadingState'
 import { useTargetStatus } from '../composables/useTargetStatus'
 
 const networkingTargets = ref<NetworkingTarget[]>([])
+
+// Filter state
+const showNotMet = ref(true)
+const showConnected = ref(true)
+const showFollowedUp = ref(true)
+const selectedDepartment = ref('')
+
+// Get all unique departments from targets
+const allDepartments = computed(() => {
+  const departments = new Set<string>()
+  allData.value.forEach(target => {
+    if (target.department) {
+      departments.add(target.department)
+    }
+  })
+  return Array.from(departments).sort()
+})
+
+// Filter targets based on current filters
+const filteredTargets = computed(() => {
+  let targets = allData.value
+
+  // Filter by status
+  const statusFilters: string[] = []
+  if (showNotMet.value) statusFilters.push('not-met')
+  if (showConnected.value) statusFilters.push('connected')
+  if (showFollowedUp.value) statusFilters.push('followed-up')
+
+  if (statusFilters.length > 0) {
+    targets = targets.filter(target => {
+      const status = getTargetStatus(target)
+      return statusFilters.includes(status)
+    })
+  }
+
+  // Filter by department
+  if (selectedDepartment.value) {
+    targets = targets.filter(target => target.department === selectedDepartment.value)
+  }
+
+  return targets
+})
 
 // Type guard for NetworkingTarget array
 const isNetworkingTargetArray = (data: unknown): data is NetworkingTarget[] => {
@@ -202,12 +277,9 @@ h3 {
   padding: 1rem 0;
 }
 
-
-
 .file-input {
   display: none;
 }
-
 
 .connections-title {
   font-weight: bold;
@@ -218,13 +290,10 @@ h3 {
   font-weight: normal;
 }
 
-
 .loading-message {
   background-color: #f8f9fa;
   color: #666;
 }
-
-
 
 .targets-list {
   display: flex;
@@ -242,8 +311,6 @@ h3 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e9ecef;
 }
-
-
 
 .target-title,
 .target-department {
@@ -267,7 +334,6 @@ h3 {
 .basis-full {
   flex-basis: 100%;
 }
-
 
 .target-section {
   display: flex;
@@ -316,5 +382,37 @@ h3 {
 .status-followed-up {
   background: #17a2b8;
   color: white;
+}
+
+.filter-controls {
+  margin-bottom: 1rem;
+}
+
+.filter-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+}
+
+.filter-checkbox {
+  margin-right: 0.5rem;
+}
+
+.department-filter {
+  margin-top: 0.5rem;
+}
+
+.department-select {
+  margin-left: 0.5rem;
+}
+
+.no-results {
+  text-align: center;
+  color: #666;
+  margin-top: 1rem;
 }
 </style>
