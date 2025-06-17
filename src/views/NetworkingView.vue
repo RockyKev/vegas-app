@@ -22,19 +22,18 @@
         <div class="import-section">
           <input type="file" accept=".json" @change="handleFileImport" class="file-input" id="targets-import">
           <label for="targets-import" class="import-button">
-            Import Networking Contacts (json)
+            Import Networking Contacts (JSON)
           </label>
           <span v-if="importError" class="error-message">{{ importError }}</span>
         </div>
 
         <div class="download-section">
-          <a href="/data/networking_tips.json" class="download-button">
-            Download template (json)
+          <a href="/data/networking_opportunities.json" download="/data/networking_opportunities.json" class="download-button">
+            Download Template (JSON)
           </a>
         </div>
-
-
       </div>
+
       <!-- Loading State -->
       <div v-if="isLoading" class="loading-message">
         Loading networking Contacts...
@@ -142,7 +141,7 @@ const {
   handleImportedData,
   initializeFromStore
 } = useImportableData<NetworkingTarget>({
-  defaultDataPath: '/data/networking_targets.json',
+  defaultDataPath: '/data/networking_opportunities.json',
   storeKey: 'networking',
   validator: isNetworkingTargetArray,
   processImportedData: processImportedTargets
@@ -182,7 +181,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-
 h2 {
   border: none;
   margin: 0;
@@ -193,7 +191,7 @@ h3 {
   border-bottom: 1px solid var(--primary-color);
 }
 
-.target-header { 
+.target-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

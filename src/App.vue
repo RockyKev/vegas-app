@@ -142,6 +142,8 @@ button:focus-visible {
 
 .import-button:hover,
 .download-button:hover {
+  color: white;
+  text-decoration: none;
   background-color: var(--primary-color-dark);
 }
 

@@ -19,7 +19,7 @@
         <div class="import-section">
           <input type="file" accept=".json" @change="handleFileImport" class="file-input" id="tip-import">
           <label for="tip-import" class="import-button">
-            Import Custom Tips (json)
+            Import Custom Tips  (JSON)
           </label>
           <span v-if="importError" class="error-message">{{ importError }}</span>
         </div>
@@ -27,8 +27,8 @@
 
         <!-- Download networking_tips.json -->
         <div class="download-section">
-          <a href="/data/networking_tips.json" class="download-button">
-            Download template (json)
+          <a href="/data/networking_tips.json" download="/data/networking_tips.json" class="download-button">
+            Download template  (JSON)
           </a>
         </div>
 
@@ -235,12 +235,14 @@ onMounted(async () => {
   color: var(--text-color);
   line-height: 1.6;
   flex: 1;
+  text-align: left;
 }
 
 .tip-source {
   margin: 0;
   color: var(--text-color);
-  font-size: 0.875rem;
+  font-size: 0.75rem;
+  text-align: left;
 }
 
 .tip-actions {
