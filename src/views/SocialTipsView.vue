@@ -197,7 +197,7 @@ const filteredTips = computed(() => {
     tips = tips.filter(tip => store.tipsStarred[tip.id])
   }
 
-  // Filter by completed status
+  // Filter by completed status - hide completed tips by default
   if (!showCompletedTips.value) {
     tips = tips.filter(tip => !store.tipsRead[tip.id])
   }
@@ -224,14 +224,26 @@ const setupInfiniteScroll = () => {
     }
   }, { threshold: 0.1 })
 
-  watch(tipsListRef, (newRef) => {
-    if (newRef) {
-      // Observe the last tip item for infinite scroll
-      const tipItems = newRef.querySelectorAll('.tip-item')
+  // Set up observer after tips are rendered
+  nextTick(() => {
+    if (tipsListRef.value) {
+      const tipItems = tipsListRef.value.querySelectorAll('.tip-item')
       if (tipItems.length > 0) {
         observer.observe(tipItems[tipItems.length - 1])
       }
     }
+  })
+
+  // Watch for changes in visible tips and re-observe
+  watch(visibleTips, () => {
+    nextTick(() => {
+      if (tipsListRef.value) {
+        const tipItems = tipsListRef.value.querySelectorAll('.tip-item')
+        if (tipItems.length > 0) {
+          observer.observe(tipItems[tipItems.length - 1])
+        }
+      }
+    })
   })
 }
 
@@ -256,7 +268,14 @@ const isTipStarred = (tipId: string) => {
 }
 
 const markTipAsRead = (tipId: string) => {
+  console.log('Marking tip as read:', tipId)
   store.markTipAsRead(tipId)
+  console.log('Store tipsRead after marking:', store.tipsRead)
+  console.log('Filtered tips count:', filteredTips.value.length)
+  // Force reactive update to hide the tip immediately
+  nextTick(() => {
+    console.log('After nextTick - filtered tips count:', filteredTips.value.length)
+  })
 }
 
 const toggleTipStar = (tipId: string) => {
