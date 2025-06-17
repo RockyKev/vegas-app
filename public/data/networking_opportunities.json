@@ -1,0 +1,632 @@
+[
+  {
+    "id": "taylor_brown_0",
+    "name": "Taylor Brown",
+    "title": "Marketing Strategist",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Loves baking",
+      "Is obsessed with crossword puzzles",
+      "Lives in Portland"
+    ],
+    "work_details": [
+      "Published a piece on company blog",
+      "Advocates for better documentation"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Comment on recent initiative"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "morgan_brown_1",
+    "name": "Morgan Brown",
+    "title": "Content Manager",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Speaks three languages",
+      "Drinks too much coffee"
+    ],
+    "work_details": [
+      "Working on a new onboarding flow",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Comment on recent initiative"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "casey_white_2",
+    "name": "Casey White",
+    "title": "Visual Designer",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Has a backyard chicken coop",
+      "Drinks too much coffee",
+      "Climbed Mount Kilimanjaro"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Mention your team's goals"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "casey_white_3",
+    "name": "Casey White",
+    "title": "SEO Specialist",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Drinks too much coffee",
+      "Collects vinyl",
+      "Is obsessed with crossword puzzles"
+    ],
+    "work_details": [
+      "Helps mentor junior staff",
+      "Published a piece on company blog"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Bring up shared interest in Y"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "taylor_lee_4",
+    "name": "Taylor Lee",
+    "title": "Visual Designer",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Speaks three languages",
+      "Collects vinyl"
+    ],
+    "work_details": [
+      "Redesigned the dashboard interface",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Mention upcoming talk"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jordan_white_5",
+    "name": "Jordan White",
+    "title": "Design Lead",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Is obsessed with crossword puzzles",
+      "Collects vinyl",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Published a piece on company blog",
+      "Recently moved teams"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Ask how they learned X"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "sam_lee_6",
+    "name": "Sam Lee",
+    "title": "HR Specialist",
+    "department": "People Ops",
+    "connections": [],
+    "personal_details": [
+      "Is learning piano",
+      "Loves baking",
+      "Is obsessed with crossword puzzles"
+    ],
+    "work_details": [
+      "Gave a talk at last year's summit",
+      "Recently moved teams"
+    ],
+    "questions": [
+      "Bring up shared interest in Y",
+      "Ask about latest side project"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "morgan_white_7",
+    "name": "Morgan White",
+    "title": "SEO Specialist",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Lives in Portland",
+      "Climbed Mount Kilimanjaro",
+      "Has a dog"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Mention your team's goals"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jamie_lee_8",
+    "name": "Jamie Lee",
+    "title": "Software Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Speaks three languages",
+      "Drinks too much coffee",
+      "Is learning piano"
+    ],
+    "work_details": [
+      "Advocates for better documentation",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Ask about tools they love"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "alex_white_9",
+    "name": "Alex White",
+    "title": "Visual Designer",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Collects vinyl",
+      "Has a dog"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Gave a talk at last year's summit"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Ask about tools they love"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "morgan_white_10",
+    "name": "Morgan White",
+    "title": "Content Manager",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Has a dog",
+      "Loves baking",
+      "Lives in Portland"
+    ],
+    "work_details": [
+      "Working on a new onboarding flow",
+      "Published a piece on company blog"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Bring up shared interest in Y"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "casey_lee_11",
+    "name": "Casey Lee",
+    "title": "Software Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Drinks too much coffee",
+      "Is obsessed with crossword puzzles",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Working on a new onboarding flow",
+      "Gave a talk at last year's summit"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Comment on recent initiative"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jordan_brown_12",
+    "name": "Jordan Brown",
+    "title": "SEO Specialist",
+    "department": "Marketing",
+    "connections": [],
+    "personal_details": [
+      "Has a backyard chicken coop",
+      "Drinks too much coffee",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Managing cross-functional priorities",
+      "Advocates for better documentation"
+    ],
+    "questions": [
+      "Mention your team's goals",
+      "Ask about latest side project"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jamie_nguyen_13",
+    "name": "Jamie Nguyen",
+    "title": "Technical PM",
+    "department": "Product",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Drinks too much coffee",
+      "Is learning piano"
+    ],
+    "work_details": [
+      "Published a piece on company blog",
+      "Redesigned the dashboard interface"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Mention upcoming talk"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "alex_brown_14",
+    "name": "Alex Brown",
+    "title": "Product Manager",
+    "department": "Product",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Drinks too much coffee",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Ask how they learned X"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jamie_brown_15",
+    "name": "Jamie Brown",
+    "title": "Product Owner",
+    "department": "Product",
+    "connections": [],
+    "personal_details": [
+      "Speaks three languages",
+      "Loves baking",
+      "Has a dog"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Redesigned the dashboard interface"
+    ],
+    "questions": [
+      "Bring up shared interest in Y",
+      "Ask about tools they love"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "morgan_white_16",
+    "name": "Morgan White",
+    "title": "Frontend Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Collects vinyl",
+      "Drinks too much coffee",
+      "Lives in Portland"
+    ],
+    "work_details": [
+      "Advocates for better documentation",
+      "Redesigned the dashboard interface"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Mention upcoming talk"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "sam_brown_17",
+    "name": "Sam Brown",
+    "title": "Recruiter",
+    "department": "People Ops",
+    "connections": [],
+    "personal_details": [
+      "Speaks three languages",
+      "Has a dog",
+      "Climbed Mount Kilimanjaro"
+    ],
+    "work_details": [
+      "Redesigned the dashboard interface",
+      "Published a piece on company blog"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Mention your team's goals"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "alex_nguyen_18",
+    "name": "Alex Nguyen",
+    "title": "Product Owner",
+    "department": "Product",
+    "connections": [],
+    "personal_details": [
+      "Collects vinyl",
+      "Lives in Portland",
+      "Has a dog"
+    ],
+    "work_details": [
+      "Published a piece on company blog",
+      "Working on a new onboarding flow"
+    ],
+    "questions": [
+      "Bring up shared interest in Y",
+      "Ask how they learned X"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jamie_kim_19",
+    "name": "Jamie Kim",
+    "title": "Software Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Lives in Portland",
+      "Climbed Mount Kilimanjaro",
+      "Has a backyard chicken coop"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Published a piece on company blog"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Ask about latest side project"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jordan_brown_20",
+    "name": "Jordan Brown",
+    "title": "Employee Experience Lead",
+    "department": "People Ops",
+    "connections": [],
+    "personal_details": [
+      "Is learning piano",
+      "Has a dog",
+      "Has a backyard chicken coop"
+    ],
+    "work_details": [
+      "Advocates for better documentation",
+      "Gave a talk at last year's summit"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Bring up shared interest in Y"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "jamie_patel_21",
+    "name": "Jamie Patel",
+    "title": "Visual Designer",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Drinks too much coffee",
+      "Has a backyard chicken coop",
+      "Has a dog"
+    ],
+    "work_details": [
+      "Redesigned the dashboard interface",
+      "Working on a new onboarding flow"
+    ],
+    "questions": [
+      "Comment on recent initiative",
+      "Mention upcoming talk"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "alex_white_22",
+    "name": "Alex White",
+    "title": "HR Specialist",
+    "department": "People Ops",
+    "connections": [],
+    "personal_details": [
+      "Is learning piano",
+      "Climbed Mount Kilimanjaro",
+      "Lives in Portland"
+    ],
+    "work_details": [
+      "Helps mentor junior staff",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Bring up shared interest in Y",
+      "Comment on recent initiative"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "casey_white_23",
+    "name": "Casey White",
+    "title": "Sales Manager",
+    "department": "Sales",
+    "connections": [],
+    "personal_details": [
+      "Is learning piano",
+      "Speaks three languages",
+      "Loves baking"
+    ],
+    "work_details": [
+      "Working on a new onboarding flow",
+      "Redesigned the dashboard interface"
+    ],
+    "questions": [
+      "Ask about latest side project",
+      "Ask how they learned X"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "taylor_nguyen_24",
+    "name": "Taylor Nguyen",
+    "title": "Sales Manager",
+    "department": "Sales",
+    "connections": [],
+    "personal_details": [
+      "Is learning piano",
+      "Drinks too much coffee",
+      "Loves baking"
+    ],
+    "work_details": [
+      "Recently moved teams",
+      "Published a piece on company blog"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Bring up shared interest in Y"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "taylor_kim_25",
+    "name": "Taylor Kim",
+    "title": "Account Executive",
+    "department": "Sales",
+    "connections": [],
+    "personal_details": [
+      "Drinks too much coffee",
+      "Has a dog",
+      "Is learning piano"
+    ],
+    "work_details": [
+      "Advocates for better documentation",
+      "Working on a new onboarding flow"
+    ],
+    "questions": [
+      "Bring up shared interest in Y",
+      "Mention upcoming talk"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "sam_brown_26",
+    "name": "Sam Brown",
+    "title": "Account Executive",
+    "department": "Sales",
+    "connections": [],
+    "personal_details": [
+      "Drinks too much coffee",
+      "Is learning piano",
+      "Is obsessed with crossword puzzles"
+    ],
+    "work_details": [
+      "Gave a talk at last year's summit",
+      "Redesigned the dashboard interface"
+    ],
+    "questions": [
+      "Ask how they learned X",
+      "Comment on recent initiative"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "morgan_white_27",
+    "name": "Morgan White",
+    "title": "Software Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Is obsessed with crossword puzzles",
+      "Collects vinyl",
+      "Lives in Portland"
+    ],
+    "work_details": [
+      "Gave a talk at last year's summit",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Mention upcoming talk",
+      "Ask about latest side project"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "alex_nguyen_28",
+    "name": "Alex Nguyen",
+    "title": "Visual Designer",
+    "department": "Design",
+    "connections": [],
+    "personal_details": [
+      "Climbed Mount Kilimanjaro",
+      "Collects vinyl",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Helps mentor junior staff",
+      "Managing cross-functional priorities"
+    ],
+    "questions": [
+      "Ask about tools they love",
+      "Ask how they learned X"
+    ],
+    "status": "not-met"
+  },
+  {
+    "id": "casey_white_29",
+    "name": "Casey White",
+    "title": "Frontend Engineer",
+    "department": "Engineering",
+    "connections": [],
+    "personal_details": [
+      "Lives in Portland",
+      "Is obsessed with crossword puzzles",
+      "Speaks three languages"
+    ],
+    "work_details": [
+      "Redesigned the dashboard interface",
+      "Advocates for better documentation"
+    ],
+    "questions": [
+      "Mention upcoming talk",
+      "Ask about latest side project"
+    ],
+    "status": "not-met"
+  }
+]

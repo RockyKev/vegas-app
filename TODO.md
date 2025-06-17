@@ -59,7 +59,7 @@
   - [x] I can import my own contacts in the json format, and it follows the shape of contacts.json
   - [x] The contacts I imported are saved in localStorage in "customData > contacts" 
 - [x] Networking Targets
-  - [x] I can import my own networking targets in the json format, and it follows the shape of networking_targets.json
+  - [x] I can import my own networking targets in the json format, and it follows the shape of networking_opportunities.json
   - [x] The contacts I imported are saved in localStorage in "customData > networking" 
 
 ## Phase 5: PWA Features

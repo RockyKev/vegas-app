@@ -1,12 +1,945 @@
 [
   {
-    "id": "tip1",
-    "content": "Make eye contact, but don't stare. Look away every so often.",
-    "source": "madeup",
-    "source_link": "#"
+    "tipID": "tip_01",
+    "content": "When you greet someone, let your smile spread slowly instead of flashing it instantly. It feels more genuine and memorable.",
+    "source": "How to Talk to Anyone by Leil Lowndes",
+    "sourceLink": "https://www.penguinrandomhouse.com/books/100507/how-to-talk-to-anyone-by-leil-lowndes/",
+    "tags": [
+      "confidence"
+    ]
   },
   {
-    "id": "tip2",
-    "content": "Ask others about their journey to the event — it's universal."
+    "tipID": "tip_02",
+    "content": "Don\u2019t keep score. Offer help freely \u2014 most strong networks are built on generosity, not transactions.",
+    "source": "Never Eat Alone by Keith Ferrazzi",
+    "sourceLink": "https://www.keithferrazzi.com/never-eat-alone/",
+    "tags": [
+      "mindset",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_03",
+    "content": "Confidence isn\u2019t about faking it. Train your brain and body to associate presence with calm power.",
+    "source": "The Charisma Myth by Olivia Fox Cabane",
+    "sourceLink": "https://www.penguinrandomhouse.com/books/311788/the-charisma-myth-by-olivia-fox-cabane/",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_04",
+    "content": "Talk in terms of the other person\u2019s interests \u2014 people listen better when they feel understood first.",
+    "source": "How to Win Friends and Influence People by Dale Carnegie",
+    "sourceLink": "https://www.dalecarnegie.com/en/books/how-to-win-friends-and-influence-people",
+    "tags": [
+      "connection",
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_05",
+    "content": "The most valuable connectors lift others up \u2014 your influence grows when you help others succeed.",
+    "source": "Give and Take by Adam Grant",
+    "sourceLink": "https://www.adamgrant.net/book/give-and-take/",
+    "tags": [
+      "identity",
+      "mindset",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_06",
+    "content": "Don\u2019t aim for radical overnight changes. Show up consistently \u2014 habits win over willpower.",
+    "source": "Atomic Habits by James Clear",
+    "sourceLink": "https://jamesclear.com/atomic-habits",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_07",
+    "content": "Use open palms, genuine smiles, and eye contact to build trust nonverbally before you speak.",
+    "source": "The Like Switch by Jack Schafer",
+    "sourceLink": "https://www.simonandschuster.com/books/The-Like-Switch/Jack-Schafer/9781476754482",
+    "tags": [
+      "confidence",
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_08",
+    "content": "People make snap judgments in seconds \u2014 dress, posture, and tone matter more than you think.",
+    "source": "Thinking, Fast and Slow by Daniel Kahneman",
+    "sourceLink": "https://us.macmillan.com/books/9780374533557/thinkingfastandslow",
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_09",
+    "content": "Prepare a few go-to questions that show real interest \u2014 it\u2019s the best way to avoid awkward silences.",
+    "source": "The Fine Art of Small Talk by Debra Fine",
+    "sourceLink": "https://www.debrafine.com/books/the-fine-art-of-small-talk/",
+    "tags": [
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_10",
+    "content": "Tell stories that spark emotion \u2014 people remember how you made them feel, not your facts.",
+    "source": "Talk Like TED by Carmine Gallo",
+    "sourceLink": "https://www.carminegallo.com/book/talk-like-ted/",
+    "tags": [
+      "communication",
+      "emotional_intelligence",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_11",
+    "content": "Don\u2019t multitask when you\u2019re with someone. Deep conversation starts with full attention.",
+    "source": "Reclaiming Conversation by Sherry Turkle",
+    "sourceLink": "https://www.penguinrandomhouse.com/books/235847/reclaiming-conversation-by-sherry-turkle/",
+    "tags": [
+      "confidence",
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_12",
+    "content": "Use clarity in your digital messages \u2014 tone doesn\u2019t travel through text, so over-communicate respect.",
+    "source": "Digital Body Language by Erica Dhawan",
+    "sourceLink": "https://ericadhawan.com/digitalbodylanguage/",
+    "tags": [
+      "clarity",
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_13",
+    "content": "Everyone can be a connector. Introduce two people with a short, kind reason they should meet.",
+    "source": "The Connector\u2019s Advantage by Michelle Tillis Lederman",
+    "sourceLink": "https://michelletillislederman.com/books/the-connectors-advantage/",
+    "tags": [
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_14",
+    "content": "Make it a habit to reach out to someone every day \u2014 it keeps your network alive without being spammy.",
+    "source": "Reach Out by Molly Beck",
+    "sourceLink": "https://mollibeck.com/reach-out/",
+    "tags": [
+      "connection",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_15",
+    "content": "Before a big event or convo, strike a power pose privately to center your confidence and presence.",
+    "source": "Presence by Amy Cuddy",
+    "sourceLink": "https://amy-cuddy.com/presence/",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_16",
+    "content": "Pay attention to micro-expressions \u2014 people often reveal how they feel before they say a word.",
+    "source": "Captivate: The Science of Succeeding with People by Vanessa Van Edwards",
+    "sourceLink": "https://www.scienceofpeople.com/captivate/",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_17",
+    "content": "When mingling, find a small group that\u2019s already open and say something light \u2014 it\u2019s easier than approaching pairs.",
+    "source": "The Art of Mingling by Jeanne Martinet",
+    "sourceLink": "https://www.jeannemartinet.com/the-art-of-mingling/",
+    "tags": [
+      "confidence",
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_18",
+    "content": "Introverts succeed in social settings by preparing \u2014 rehearse questions and give yourself time to recharge.",
+    "source": "Quiet: The Power of Introverts in a World That Can't Stop Talking by Susan Cain",
+    "sourceLink": "https://www.quietrev.com/book/",
+    "tags": [
+      "confidence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_19",
+    "content": "Create memorable social moments by combining elevation (fun), insight, and personal connection.",
+    "source": "The Power of Moments by Chip & Dan Heath",
+    "sourceLink": "https://heathbrothers.com/books/the-power-of-moments/",
+    "tags": [
+      "connection",
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_20",
+    "content": "Charm isn\u2019t perfection \u2014 it\u2019s confidence with a wink. Be the person who owns their quirks.",
+    "source": "The Charmer\u2019s Almanac by Neil Patrick Harris",
+    "sourceLink": "https://neilpatrickharrisbooks.com/",
+    "tags": [
+      "confidence",
+      "identity",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_21",
+    "content": "Understand the personality color types \u2014 adapting your style helps others feel more at ease.",
+    "source": "Surrounded by Idiots by Thomas Erikson",
+    "sourceLink": "https://www.simonandschuster.com/books/Surrounded-by-Idiots/Thomas-Erikson/9781250179944",
+    "tags": [
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_22",
+    "content": "Don\u2019t aim to be smooth \u2014 aim to be present. Social skills improve when you're not faking anything.",
+    "source": "The Social Skills Guidebook by Chris MacLeod",
+    "sourceLink": "https://www.succeedsocially.com/book",
+    "tags": [
+      "confidence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_23",
+    "content": "Exposure is the antidote to social anxiety \u2014 doing one scary social thing per week builds real confidence.",
+    "source": "Sorry I\u2019m Late, I Didn\u2019t Want to Come by Jessica Pan",
+    "sourceLink": "https://www.goodreads.com/book/show/41150334-sorry-i-m-late-i-didn-t-want-to-come",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_24",
+    "content": "The best way to beat self-doubt is to talk to yourself like you would a close friend \u2014 encouraging and patient.",
+    "source": "How to Be Yourself by Ellen Hendriksen",
+    "sourceLink": "https://us.macmillan.com/books/9781250161703/howtobeyourself",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_25",
+    "content": "Practice reflective listening \u2014 summarize what someone said before replying to show you\u2019re fully tuned in.",
+    "source": "Listen Like You Mean It by Ximena Vengoechea",
+    "sourceLink": "https://www.ximenavengoechea.com/book",
+    "tags": [
+      "conversation",
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_26",
+    "content": "Persuade by aligning your logic with emotion and credibility \u2014 people follow those they respect and trust.",
+    "source": "Rhetoric & Ethics \u2013 Aristotle",
+    "sourceLink": "https://plato.stanford.edu/entries/aristotle-rhetoric/",
+    "tags": [
+      "communication",
+      "influence"
+    ]
+  },
+  {
+    "tipID": "tip_27",
+    "content": "Ask genuine, curious questions \u2014 the best conversations come from interest, not from being interesting.",
+    "source": "The Socratic Method \u2013 Socrates",
+    "sourceLink": "https://plato.stanford.edu/entries/socrates/#SocrMeth",
+    "tags": [
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_28",
+    "content": "Focus only on what you can control \u2014 your words, reactions, and presence matter more than outcomes.",
+    "source": "Stoic Self-Mastery \u2013 Epictetus",
+    "sourceLink": "https://en.wikisource.org/wiki/The_Enchiridion_(Epictetus)",
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_29",
+    "content": "Emotions are like storms \u2014 acknowledge them but don\u2019t let them steer your response in conversation.",
+    "source": "Letters on Emotional Control \u2013 Seneca",
+    "sourceLink": "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
+    "tags": [
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_30",
+    "content": "Win without direct confrontation \u2014 presence and timing can shift a room more than force ever could.",
+    "source": "Strategic Presence \u2013 Sun Tzu",
+    "sourceLink": "https://suntzusaid.com/",
+    "tags": [
+      "confidence",
+      "influence",
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_31",
+    "content": "Don\u2019t force conversation \u2014 let it flow. Sometimes silence creates the space for something real to emerge.",
+    "source": "The Power of Non-Forcing \u2013 Laozi (Lao Tzu)",
+    "sourceLink": "https://terebess.hu/english/tao/laotzu.html",
+    "tags": [
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_32",
+    "content": "Great communicators balance logic, emotion, and rhythm \u2014 speak to the head, the heart, and the ear.",
+    "source": "Blending Logic, Emotion & Style \u2013 Cicero",
+    "sourceLink": "https://en.wikisource.org/wiki/On_the_Orator",
+    "tags": [
+      "confidence",
+      "influence",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_33",
+    "content": "What people remember most is how you made them feel \u2014 reputation is built through everyday moments.",
+    "source": "Virtue and Reputation \u2013 Plutarch",
+    "sourceLink": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Plutarch/home.html",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_34",
+    "content": "You don\u2019t need to control the room \u2014 just show up as your best self and stay aligned with your values.",
+    "source": "Meditations on Showing Up \u2013 Marcus Aurelius",
+    "sourceLink": "https://en.wikisource.org/wiki/The_Meditations_of_the_Emperor_Marcus_Antoninus",
+    "tags": [
+      "confidence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_35",
+    "content": "Radical honesty disarms people \u2014 but pair it with kindness, not contempt.",
+    "source": "Radical Honesty & Detachment \u2013 Diogenes",
+    "sourceLink": "https://plato.stanford.edu/entries/diogenes/",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_36",
+    "content": "Your speech reflects your character \u2014 speak as if every word builds your reputation.",
+    "source": "Speech as Reputation \u2013 Isocrates",
+    "sourceLink": "https://en.wikisource.org/wiki/Against_the_Sophists_(Isocrates)",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_37",
+    "content": "Speak less, listen more \u2014 humility earns trust faster than dominance.",
+    "source": "Respectful Listening & Humility \u2013 Confucius",
+    "sourceLink": "https://ctext.org/analects",
+    "tags": [
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_38",
+    "content": "Let your identity evolve to fit the moment \u2014 you\u2019re not faking, you\u2019re adapting.",
+    "source": "Adaptability & Identity \u2013 Zhuangzi",
+    "sourceLink": "https://terebess.hu/english/chuangtzu.html",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_39",
+    "content": "Wisdom grows when shared \u2014 meaningful relationships are built through learning together.",
+    "source": "Wisdom Through Community \u2013 The Talmud",
+    "sourceLink": "https://www.sefaria.org/texts/Talmud",
+    "tags": [
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_40",
+    "content": "True insight comes from balancing reason with emotion \u2014 check your inner state before you speak.",
+    "source": "Inner Balance & Emotional Insight \u2013 Avicenna (Ibn Sina)",
+    "sourceLink": "https://plato.stanford.edu/entries/avicenna/",
+    "tags": [
+      "emotional_intelligence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_41",
+    "content": "Speak with humility \u2014 words can elevate or wound, and the best conversations leave others uplifted.",
+    "source": "Humility in Dialogue \u2013 Al-Ghazali",
+    "sourceLink": "https://plato.stanford.edu/entries/al-ghazali/",
+    "tags": []
+  },
+  {
+    "tipID": "tip_42",
+    "content": "Before you introduce yourself or your project, clarify your 'why' \u2014 it helps people connect with your purpose.",
+    "source": "Start With Why \u2013 Simon Sinek",
+    "sourceLink": "https://simonsinek.com/product/start-with-why/",
+    "tags": [
+      "clarity",
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_43",
+    "content": "Real connection comes from sharing your imperfections \u2014 vulnerability invites authenticity.",
+    "source": "The Power of Vulnerability \u2013 Bren\u00e9 Brown",
+    "sourceLink": "https://brenebrown.com/podcast/the-power-of-vulnerability/",
+    "tags": [
+      "connection",
+      "emotional_intelligence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_44",
+    "content": "Use tactical empathy \u2014 show someone you understand their perspective before negotiating anything.",
+    "source": "Tactical Empathy & Negotiation \u2013 Chris Voss",
+    "sourceLink": "https://www.blackswanltd.com/our-team/chris-voss",
+    "tags": [
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_45",
+    "content": "People judge you before you speak \u2014 your body language and tone do most of the talking.",
+    "source": "Charisma & Communication Science \u2013 Vanessa Van Edwards",
+    "sourceLink": "https://www.scienceofpeople.com/",
+    "tags": [
+      "communication",
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_46",
+    "content": "Be present, be curious, and stop multitasking \u2014 most conversations fail from lack of attention.",
+    "source": "Mastering Conversation \u2013 Celeste Headlee",
+    "sourceLink": "https://www.ted.com/talks/celeste_headlee_10_ways_to_have_a_better_conversation",
+    "tags": [
+      "confidence",
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_47",
+    "content": "Use vocal variety, pacing, and pauses \u2014 the human voice is your most powerful communication tool.",
+    "source": "Speaking with Purpose \u2013 Julian Treasure",
+    "sourceLink": "https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
+    "tags": [
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_48",
+    "content": "Don't assume tone over text \u2014 add clarity and warmth in digital communication to avoid misreading.",
+    "source": "Digital Body Language \u2013 Erica Dhawan",
+    "sourceLink": "https://ericadhawan.com/digitalbodylanguage/",
+    "tags": [
+      "clarity",
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_49",
+    "content": "Instead of saying 'you\u2019re wrong', try 'what I hear is...' \u2014 nonviolent language keeps conversations open.",
+    "source": "Nonviolent Communication \u2013 Marshall Rosenberg",
+    "sourceLink": "https://www.cnvc.org/",
+    "tags": [
+      "communication",
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_50",
+    "content": "Labeling your emotions helps you respond wisely \u2014 agility is more powerful than forced positivity.",
+    "source": "Emotional Agility \u2013 Susan David",
+    "sourceLink": "https://www.susandavid.com/book/emotional-agility",
+    "tags": [
+      "emotional_intelligence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_51",
+    "content": "In any room, control your reaction \u2014 staying grounded is the most persuasive thing you can do.",
+    "source": "Modern Stoicism for Life & Work \u2013 Ryan Holiday",
+    "sourceLink": "https://dailystoic.com/books/",
+    "tags": [
+      "confidence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_52",
+    "content": "Start with safety \u2014 people won\u2019t engage honestly until they feel emotionally safe in a conversation.",
+    "source": "The Art of Difficult Conversations \u2013 Crucial Conversations (Kerry Patterson et al.)",
+    "sourceLink": "https://www.cruciallearning.com/book-crucial-conversations/",
+    "tags": [
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_53",
+    "content": "Curiosity is magnetic \u2014 ask questions that make people feel like experts, not interviewees.",
+    "source": "Curiosity-Driven Networking \u2013 Jordan Harbinger",
+    "sourceLink": "https://www.jordanharbinger.com/",
+    "tags": [
+      "conversation",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_54",
+    "content": "Scarcity, social proof, and authority all shape decisions \u2014 but trust beats tricks in the long run.",
+    "source": "The Psychology of Influence \u2013 Robert Cialdini",
+    "sourceLink": "https://www.influenceatwork.com/books/influence/",
+    "tags": [
+      "connection",
+      "influence"
+    ]
+  },
+  {
+    "tipID": "tip_55",
+    "content": "Don\u2019t market to everyone \u2014 invite the people who already believe what you believe to join your circle.",
+    "source": "Community & Permission-Based Marketing \u2013 Seth Godin",
+    "sourceLink": "https://www.sethgodin.com/books/permission-marketing/",
+    "tags": [
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_56",
+    "content": "Mental models help you stay clear under pressure \u2014 clarity is more persuasive than speed.",
+    "source": "Mental Models & Clear Thinking \u2013 Shane Parrish (Farnam Street)",
+    "sourceLink": "https://fs.blog/mental-models/",
+    "tags": [
+      "clarity",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_57",
+    "content": "Don\u2019t multitask while talking \u2014 be present, listen fully, and let curiosity guide the flow.",
+    "source": "10 Ways to Have a Better Conversation \u2013 Celeste Headlee (TED Talk)",
+    "sourceLink": "https://www.ted.com/talks/celeste_headlee_10_ways_to_have_a_better_conversation",
+    "tags": [
+      "conversation"
+    ]
+  },
+  {
+    "tipID": "tip_58",
+    "content": "Speak with warmth and depth \u2014 your vocal tone is as important as your words.",
+    "source": "How to Speak So People Want to Listen \u2013 Julian Treasure (TED Talk)",
+    "sourceLink": "https://www.ted.com/talks/julian_treasure_how_to_speak_so_that_people_want_to_listen",
+    "tags": [
+      "communication",
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_59",
+    "content": "Charisma is a skill \u2014 mirror body language, speak with intention, and own your space.",
+    "source": "Charisma Breakdowns & Social Skills \u2013 Charisma on Command (YouTube)",
+    "sourceLink": "https://www.youtube.com/c/Charismaoncommand",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_60",
+    "content": "People crave emotional understanding more than advice \u2014 speak to feelings, not just ideas.",
+    "source": "Emotional Intelligence & Modern Philosophy \u2013 The School of Life (YouTube)",
+    "sourceLink": "https://www.youtube.com/c/schooloflifechannel",
+    "tags": [
+      "connection",
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_61",
+    "content": "We\u2019re more persuadable than we think \u2014 frame your ideas with clarity, not pressure.",
+    "source": "Persuasion & Influence Science \u2013 Big Think (YouTube)",
+    "sourceLink": "https://www.youtube.com/user/bigthink",
+    "tags": [
+      "influence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_62",
+    "content": "Behavior is shaped by invisible forces \u2014 be mindful of context when evaluating people.",
+    "source": "The Hidden Forces of Behavior \u2013 Veritasium (YouTube)",
+    "sourceLink": "https://www.youtube.com/user/1veritasium",
+    "tags": [
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_63",
+    "content": "Micro-expressions, posture, and eye contact reveal more than words \u2014 learn to read the room.",
+    "source": "Trust, Empathy & Nonverbal Cues \u2013 Vanessa Van Edwards (YouTube/Talks at Google)",
+    "sourceLink": "https://www.youtube.com/watch?v=VgDSGe3Z3OY",
+    "tags": [
+      "communication",
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_64",
+    "content": "Use punctuation and clarity in digital chats \u2014 tone doesn\u2019t travel, so make intent obvious.",
+    "source": "Digital Body Language & Remote Presence \u2013 Erica Dhawan (YouTube/TEDx)",
+    "sourceLink": "https://www.youtube.com/watch?v=OYVYjdQZphI",
+    "tags": [
+      "clarity",
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_65",
+    "content": "Confidence is a mindset shift \u2014 reframe anxiety as excitement and act accordingly.",
+    "source": "Mindset & Social Confidence \u2013 Improvement Pill (YouTube)",
+    "sourceLink": "https://www.youtube.com/c/ImprovementPill",
+    "tags": [
+      "confidence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_66",
+    "content": "Start by making others feel smart \u2014 curiosity is the most underestimated networking tool.",
+    "source": "Curiosity, Influence & Social Proof \u2013 Derek Sivers (Talks/Interviews)",
+    "sourceLink": "https://sive.rs/tt",
+    "tags": [
+      "conversation",
+      "influence",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_67",
+    "content": "Being quiet doesn\u2019t mean you\u2019re not confident \u2014 let your actions and reflections speak louder.",
+    "source": "Quiet Confidence for Creators \u2013 Nathaniel Drew (YouTube)",
+    "sourceLink": "https://www.youtube.com/c/NathanielDrew",
+    "tags": [
+      "confidence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_68",
+    "content": "Simplify your message \u2014 clear thinkers don\u2019t just know more, they say less.",
+    "source": "Clear Thinking & Life Strategy \u2013 Ali Abdaal (YouTube)",
+    "sourceLink": "https://www.youtube.com/c/aliabdaal",
+    "tags": [
+      "clarity",
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_69",
+    "content": "Power isn't loud \u2014 it's quiet confidence, eye contact, and knowing when to stay silent.",
+    "source": "Power & Status Games \u2013 Succession",
+    "sourceLink": "https://www.hbo.com/succession",
+    "tags": [
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_70",
+    "content": "Don\u2019t corner someone at the copier \u2014 bad networking is interruptive and awkward. Timing matters.",
+    "source": "How Not to Network \u2013 The Office",
+    "sourceLink": "https://www.nbc.com/the-office",
+    "tags": [
+      "networking",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_71",
+    "content": "Your image is part of your persuasion toolkit \u2014 dress and speak like the outcome already belongs to you.",
+    "source": "Image, Persuasion & Control \u2013 Mad Men",
+    "sourceLink": "https://www.amc.com/shows/mad-men",
+    "tags": [
+      "identity",
+      "influence"
+    ]
+  },
+  {
+    "tipID": "tip_72",
+    "content": "Be earnest. People trust those who show up with good intentions and remember small details.",
+    "source": "Relatable Warmth & Earnestness \u2013 Parks and Recreation",
+    "sourceLink": "https://www.peacocktv.com/stream-tv/parks-and-recreation",
+    "tags": [
+      "connection",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_73",
+    "content": "Wearing a mask too long disconnects you from others \u2014 authenticity is scary but magnetic.",
+    "source": "Disconnected Personas \u2013 Severance",
+    "sourceLink": "https://tv.apple.com/us/show/severance/umc.cmc.1rp4zqv3aqo0xnzk65f9ccz5n",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_74",
+    "content": "Exposure builds social muscle \u2014 awkward interactions today make for confident moments tomorrow.",
+    "source": "Surface-Level Relationships & Exposure Therapy \u2013 Love is Blind",
+    "sourceLink": "https://www.netflix.com/title/80996601",
+    "tags": [
+      "confidence",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_75",
+    "content": "Observe the room before speaking \u2014 alliances form fast, and early signals matter.",
+    "source": "Group Dynamics & Social Positioning \u2013 Survivor",
+    "sourceLink": "https://www.cbs.com/shows/survivor/",
+    "tags": [
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_76",
+    "content": "Charisma under pressure means staying calm, being clear, and keeping others engaged even in high stakes.",
+    "source": "Charisma Under Pressure \u2013 Shark Tank",
+    "sourceLink": "https://abc.com/shows/shark-tank",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_77",
+    "content": "Owning your personality \u2014 loud, quiet, weird \u2014 gives you power others can\u2019t copy.",
+    "source": "Social Strategy & Playfulness \u2013 RuPaul\u2019s Drag Race",
+    "sourceLink": "https://www.paramountplus.com/shows/rupauls-drag-race/",
+    "tags": [
+      "confidence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_78",
+    "content": "Charm without sincerity manipulates \u2014 relationships built on lies can\u2019t hold weight.",
+    "source": "Charm as Disguise \u2013 The Talented Mr. Ripley",
+    "sourceLink": "https://www.imdb.com/title/tt0134119/",
+    "tags": [
+      "connection",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_79",
+    "content": "Make people feel like they belong \u2014 genuine friendships outlast every status game.",
+    "source": "Friendship & Found Family \u2013 Ted Lasso",
+    "sourceLink": "https://tv.apple.com/us/show/ted-lasso/umc.cmc.vtoh0mn0xn7t3c643xqonfzy",
+    "tags": [
+      "connection"
+    ]
+  },
+  {
+    "tipID": "tip_80",
+    "content": "Emotional intelligence shines when things fall apart \u2014 respond with grace, not panic.",
+    "source": "High Emotional EQ in Chaos \u2013 Everything Everywhere All At Once",
+    "sourceLink": "https://a24films.com/films/everything-everywhere-all-at-once",
+    "tags": [
+      "emotional_intelligence",
+      "style"
+    ]
+  },
+  {
+    "tipID": "tip_81",
+    "content": "Sincerity cuts through manipulation \u2014 when everyone\u2019s playing a game, honesty becomes power.",
+    "source": "Sincerity vs. Manipulation \u2013 The White Lotus",
+    "sourceLink": "https://www.hbo.com/the-white-lotus",
+    "tags": [
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_82",
+    "content": "Introverts lead best when they embrace focus, strategy, and stillness \u2014 not by pretending to be extroverts.",
+    "source": "Introvert\u2019s Guide to Leadership \u2013 The Queen\u2019s Gambit",
+    "sourceLink": "https://www.netflix.com/title/80234304",
+    "tags": [
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_83",
+    "content": "Empathy isn\u2019t soft \u2014 it\u2019s disarming. Kindness in tension diffuses almost anything.",
+    "source": "Empathy as a Superpower \u2013 Paddington (1 & 2)",
+    "sourceLink": "https://www.imdb.com/title/tt1109624/",
+    "tags": [
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_84",
+    "content": "People form opinions in seconds \u2014 your first words, posture, and tone matter more than your intro.",
+    "source": "First Impressions & Thin-Slicing \u2013 Malcolm Gladwell / Nalini Ambady",
+    "sourceLink": "https://en.wikipedia.org/wiki/Thin-slicing",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_85",
+    "content": "Ask someone for a small favor \u2014 they'll often like you more afterward due to the Ben Franklin Effect.",
+    "source": "The Ben Franklin Effect",
+    "sourceLink": "https://en.wikipedia.org/wiki/Ben_Franklin_effect",
+    "tags": [
+      "identity",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_86",
+    "content": "A small, relatable mistake can make you more likable \u2014 especially if you seem competent overall.",
+    "source": "The Pratfall Effect",
+    "sourceLink": "https://en.wikipedia.org/wiki/Pratfall_effect",
+    "tags": [
+      "confidence",
+      "identity"
+    ]
+  },
+  {
+    "tipID": "tip_87",
+    "content": "You're not being watched as closely as you think \u2014 let go of overthinking and lean into connection.",
+    "source": "The Spotlight Effect",
+    "sourceLink": "https://en.wikipedia.org/wiki/Spotlight_effect",
+    "tags": [
+      "confidence",
+      "mindset"
+    ]
+  },
+  {
+    "tipID": "tip_88",
+    "content": "Mirror body language subtly \u2014 people feel more understood when you reflect their tone and posture.",
+    "source": "Mirroring & Nonverbal Mimicry",
+    "sourceLink": "https://en.wikipedia.org/wiki/Mirroring_(psychology)",
+    "tags": [
+      "communication",
+      "connection",
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_89",
+    "content": "Give first. Even small acts of kindness activate a deep human drive to reciprocate.",
+    "source": "The Reciprocity Principle",
+    "sourceLink": "https://en.wikipedia.org/wiki/Reciprocity_(social_psychology)",
+    "tags": [
+      "connection",
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_90",
+    "content": "We can only maintain about 150 meaningful relationships \u2014 focus on quality over quantity.",
+    "source": "Dunbar\u2019s Number",
+    "sourceLink": "https://en.wikipedia.org/wiki/Dunbar%27s_number",
+    "tags": [
+      "networking"
+    ]
+  },
+  {
+    "tipID": "tip_91",
+    "content": "In a high-stress moment, simplify your language \u2014 cognitive load makes complex speech hard to process.",
+    "source": "Cognitive Load & Conversation Flow",
+    "sourceLink": "https://en.wikipedia.org/wiki/Cognitive_load",
+    "tags": [
+      "clarity",
+      "communication"
+    ]
+  },
+  {
+    "tipID": "tip_92",
+    "content": "Standing tall, arms open \u2014 even for two minutes \u2014 can help you feel and appear more confident.",
+    "source": "Power Posing (debated)",
+    "sourceLink": "https://en.wikipedia.org/wiki/Power_posing",
+    "tags": [
+      "confidence"
+    ]
+  },
+  {
+    "tipID": "tip_93",
+    "content": "Ask for something small first \u2014 people are more likely to say yes to a bigger ask later.",
+    "source": "Foot-in-the-Door Technique",
+    "sourceLink": "https://en.wikipedia.org/wiki/Foot-in-the-door_technique",
+    "tags": [
+      "influence"
+    ]
+  },
+  {
+    "tipID": "tip_94",
+    "content": "We judge others by traits but excuse ourselves by circumstances \u2014 slow down and get context.",
+    "source": "Fundamental Attribution Error",
+    "sourceLink": "https://en.wikipedia.org/wiki/Fundamental_attribution_error",
+    "tags": [
+      "emotional_intelligence"
+    ]
+  },
+  {
+    "tipID": "tip_95",
+    "content": "We take social cues from others \u2014 if the group approves, we tend to follow.",
+    "source": "Social Proof & Conformity Bias",
+    "sourceLink": "https://en.wikipedia.org/wiki/Conformity",
+    "tags": [
+      "influence",
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_96",
+    "content": "Emotions are contagious \u2014 check your energy before walking into a room.",
+    "source": "Emotional Contagion",
+    "sourceLink": "https://en.wikipedia.org/wiki/Emotional_contagion",
+    "tags": [
+      "emotional_intelligence",
+      "strategy"
+    ]
+  },
+  {
+    "tipID": "tip_97",
+    "content": "The first thing someone hears shapes how they hear everything else \u2014 open with intention.",
+    "source": "Anchoring Effect",
+    "sourceLink": "https://en.wikipedia.org/wiki/Anchoring",
+    "tags": [
+      "conversation",
+      "influence"
+    ]
+  },
+  {
+    "tipID": "tip_98",
+    "content": "Use someone\u2019s name in conversation \u2014 it\u2019s one of the quickest ways to build connection.",
+    "source": "Name-Calling Effect",
+    "sourceLink": "https://hbr.org/2013/09/the-power-of-using-someone-s-name",
+    "tags": [
+      "connection"
+    ]
   }
 ]

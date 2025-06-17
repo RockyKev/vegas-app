@@ -12,21 +12,26 @@
         </HelpToggle>
       </div>
 
-      <!-- Import Section -->
-      <div class="import-section">
-        <input 
-          type="file" 
-          accept=".json" 
-          @change="handleFileImport" 
-          class="file-input"
-          id="contacts-import"
-        >
-        <label for="contacts-import" class="import-button">
-          Import Contacts (JSON)
-        </label>
-        <span v-if="importError" class="error-message">{{ importError }}</span>
+      <div class="buttons-row">
+
+        <!-- Import Section -->
+        <div class="import-section">
+          <input type="file" accept=".json" @change="handleFileImport" class="file-input" id="contacts-import">
+          <label for="contacts-import" class="import-button">
+            Import Contacts (JSON)
+          </label>
+          <span v-if="importError" class="error-message">{{ importError }}</span>
+        </div>
+
+
+        <div class="download-section">
+          <a href="/data/contacts.json" download="/data/contacts.json" class="download-button">
+            Download template (JSON)
+          </a>
+        </div>
       </div>
-      
+
+
       <!-- Loading State -->
       <div v-if="isLoading" class="loading-message">
         Loading contacts...
@@ -42,18 +47,10 @@
         <div v-for="contact in allData" :key="contact.id" class="contact-item">
           <span class="contact-name">{{ contact.name }}</span>
           <span class="contact-title">{{ contact.title }}</span>
-          <a 
-            v-if="contact.email" 
-            :href="`mailto:${contact.email}`"
-            class="contact-link"
-          >
+          <a v-if="contact.email" :href="`mailto:${contact.email}`" class="contact-link">
             📧
           </a>
-          <a 
-            v-if="contact.phone" 
-            :href="`tel:${contact.phone}`"
-            class="contact-link"
-          >
+          <a v-if="contact.phone" :href="`tel:${contact.phone}`" class="contact-link">
             📱
           </a>
         </div>
@@ -74,9 +71,9 @@ import { useLoadingState } from '../composables/useLoadingState'
 
 // Type guard for Contact array
 const isContactArray = (data: unknown): data is Contact[] => {
-  return Array.isArray(data) && data.every(item => 
-    typeof item === 'object' && 
-    item !== null && 
+  return Array.isArray(data) && data.every(item =>
+    typeof item === 'object' &&
+    item !== null &&
     'name' in item
   )
 }
@@ -127,7 +124,7 @@ onMounted(async () => {
     console.log('Loading default data...')
     await withLoading(loadDefaultData())
     console.log('Default data loaded:', allData.value)
-    
+
     console.log('Initializing from store...')
     initializeFromStore()
     console.log('Store initialized, all data:', allData.value)
@@ -166,7 +163,7 @@ onMounted(async () => {
 .contact-name {
   font-weight: 500;
   color: var(--text-color);
-  min-width: 150px;
+  /* min-width: 150px; */
 }
 
 .contact-title {
@@ -185,5 +182,4 @@ onMounted(async () => {
 .contact-link:hover {
   opacity: 0.8;
 }
-
-</style> 
+</style>

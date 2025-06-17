@@ -142,6 +142,8 @@ button:focus-visible {
 
 .import-button:hover,
 .download-button:hover {
+  color: white;
+  text-decoration: none;
   background-color: var(--primary-color-dark);
 }
 
@@ -153,7 +155,7 @@ button:focus-visible {
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.5rem;
   text-align: center;
   min-height: 100vh;
 }
