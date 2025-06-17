@@ -163,7 +163,7 @@ onMounted(async () => {
 .contact-name {
   font-weight: 500;
   color: var(--text-color);
-  min-width: 150px;
+  /* min-width: 150px; */
 }
 
 .contact-title {
