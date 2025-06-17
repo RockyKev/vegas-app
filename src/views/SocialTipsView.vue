@@ -268,14 +268,7 @@ const isTipStarred = (tipId: string) => {
 }
 
 const markTipAsRead = (tipId: string) => {
-  console.log('Marking tip as read:', tipId)
   store.markTipAsRead(tipId)
-  console.log('Store tipsRead after marking:', store.tipsRead)
-  console.log('Filtered tips count:', filteredTips.value.length)
-  // Force reactive update to hide the tip immediately
-  nextTick(() => {
-    console.log('After nextTick - filtered tips count:', filteredTips.value.length)
-  })
 }
 
 const toggleTipStar = (tipId: string) => {
@@ -352,31 +345,6 @@ onMounted(async () => {
   background-color: white;
 }
 
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.tag {
-  padding: 0.25rem 0.75rem;
-  background-color: #e9ecef;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.tag:hover {
-  background-color: #dee2e6;
-}
-
-.tag.active {
-  background-color: var(--primary-color);
-  color: white;
-}
-
 .tips-list {
   display: flex;
   flex-direction: column;
@@ -390,11 +358,6 @@ onMounted(async () => {
   gap: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
-}
-
-.tip-item.hidden-tip {
-  opacity: 0.6;
-  background-color: #f8f9fa;
 }
 
 .tip-content-container {
