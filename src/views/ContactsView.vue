@@ -143,57 +143,11 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: var(--text-color);
-}
-
-.import-section {
-  margin-bottom: 2rem;
-}
 
 .file-input {
   display: none;
 }
 
-.import-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.import-button:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.loading-message,
-.error-message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.loading-message {
-  background-color: #f8f9fa;
-  color: #666;
-}
-
-.error-message {
-  background-color: #fee;
-  color: #c00;
-}
 
 .contacts-list {
   display: flex;
@@ -232,10 +186,4 @@ h1 {
   opacity: 0.8;
 }
 
-/* Tablet and up */
-@media (min-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
 </style> 

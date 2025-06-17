@@ -59,17 +59,6 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: var(--text-color);
-}
 
 .info-grid {
   display: flex;
@@ -89,13 +78,6 @@ h1 {
 .info-section:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  color: var(--text-color);
-  font-weight: 600;
 }
 
 .map-image {
@@ -119,10 +101,6 @@ h2 {
 
 /* Tablet and up */
 @media (min-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-
   .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

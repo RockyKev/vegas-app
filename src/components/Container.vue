@@ -13,18 +13,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-}
 
-@media (min-width: 768px) {
-  .container {
-    padding: 0 2rem;
-  }
 }
 
 /* Tablet and up */
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
+    width: 100vw;
   }
 }
 
@@ -41,4 +37,12 @@
     max-width: 1140px;
   }
 }
+
+/* Extra large desktop and up */
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
 </style> 

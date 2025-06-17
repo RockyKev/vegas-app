@@ -12,33 +12,40 @@
           <p>If you don't import any tips, default tips will be shown.</p>
         </HelpToggle>
       </div>
-      
-      <!-- Import Section -->
-      <div class="import-section">
-        <input 
-          type="file" 
-          accept=".json" 
-          @change="handleFileImport" 
-          class="file-input"
-          id="tip-import"
-        >
-        <label for="tip-import" class="import-button">
-          Import Custom Tips
-        </label>
-        <span v-if="importError" class="error-message">{{ importError }}</span>
-      </div>
 
+      <div class="buttons-row">
+
+        <!-- Import Section -->
+        <div class="import-section">
+          <input type="file" accept=".json" @change="handleFileImport" class="file-input" id="tip-import">
+          <label for="tip-import" class="import-button">
+            Import Custom Tips (json)
+          </label>
+          <span v-if="importError" class="error-message">{{ importError }}</span>
+        </div>
+
+
+        <!-- Download networking_tips.json -->
+        <div class="download-section">
+          <a href="/data/networking_tips.json" class="download-button">
+            Download template (json)
+          </a>
+        </div>
+
+      </div>
       <!-- Error State -->
       <div v-if="error" class="error-message">
         {{ error }}
       </div>
+
 
       <!-- Tips List -->
       <div v-else class="tips-list" ref="tipsListRef">
         <div v-for="tip in visibleTips" :key="tip.id" class="tip-item">
           <div class="tip-content-container">
             <p class="tip-content">{{ tip.content }}</p>
-            <p v-if="tip.source" class="tip-source">Source: <a :href="tip.source_link" target="_blank">{{ tip.source }}</a></p>
+            <p v-if="tip.source" class="tip-source">Source: <a :href="tip.source_link" target="_blank">{{ tip.source
+                }}</a></p>
           </div>
 
           <div class="tip-actions">
@@ -74,9 +81,9 @@ import { useLoadingState } from '../composables/useLoadingState'
 
 // Type guard for NetworkingTip array
 const isNetworkingTipArray = (data: unknown): data is NetworkingTip[] => {
-  return Array.isArray(data) && data.every(item => 
-    typeof item === 'object' && 
-    item !== null && 
+  return Array.isArray(data) && data.every(item =>
+    typeof item === 'object' &&
+    item !== null &&
     'content' in item
   )
 }
@@ -179,7 +186,7 @@ onMounted(async () => {
     console.log('Loading default data...')
     await withLoading(loadDefaultData())
     console.log('Default data loaded:', allTips.value)
-    
+
     console.log('Initializing from store...')
     initializeFromStore()
     console.log('Store initialized, all data:', allTips.value)
@@ -194,52 +201,19 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
+
+
 .social-tips {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: var(--text-color);
-}
-
-.import-section {
-  margin-bottom: 2rem;
-}
 
 .file-input {
   display: none;
 }
 
-.import-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
 
-.import-button:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.error-message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  text-align: center;
-  background-color: #fee;
-  color: #c00;
-}
 
 .tips-list {
   display: flex;
@@ -294,10 +268,4 @@ h1 {
   color: #666;
 }
 
-/* Tablet and up */
-@media (min-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-</style> 
+</style>

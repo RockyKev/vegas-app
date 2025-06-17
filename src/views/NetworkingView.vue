@@ -5,7 +5,8 @@
         <h1>Networking</h1>
         <HelpToggle>
           <h3>Networking Help</h3>
-          <p>Import your networking targets by clicking the "Import Networking Contacts" button and selecting a JSON file.</p>
+          <p>Import your networking targets by clicking the "Import Networking Contacts" button and selecting a JSON
+            file.</p>
           <p>Track your progress with each contact using the status buttons:</p>
           <ul>
             <li>Not Met: Initial state</li>
@@ -16,21 +17,24 @@
         </HelpToggle>
       </div>
 
-      <!-- Import Section -->
-      <div class="import-section">
-        <input 
-          type="file" 
-          accept=".json" 
-          @change="handleFileImport" 
-          class="file-input"
-          id="targets-import"
-        >
-        <label for="targets-import" class="import-button">
-          Import Networking Contacts (JSON)
-        </label>
-        <span v-if="importError" class="error-message">{{ importError }}</span>
-      </div>
+      <div class="buttons-row">
+        <!-- Import Section -->
+        <div class="import-section">
+          <input type="file" accept=".json" @change="handleFileImport" class="file-input" id="targets-import">
+          <label for="targets-import" class="import-button">
+            Import Networking Contacts (json)
+          </label>
+          <span v-if="importError" class="error-message">{{ importError }}</span>
+        </div>
 
+        <div class="download-section">
+          <a href="/data/networking_tips.json" class="download-button">
+            Download template (json)
+          </a>
+        </div>
+
+
+      </div>
       <!-- Loading State -->
       <div v-if="isLoading" class="loading-message">
         Loading networking Contacts...
@@ -44,7 +48,7 @@
       <!-- Targets List -->
       <div v-else class="targets-list">
         <div v-for="target in allData" :key="target.id" class="target-item">
-          <div class="target-info">
+          <div class="target-header">
             <h2>{{ target.name }}
               <span v-if="target.title" class="target-title"> | {{ target.title }}</span>
               <span v-if="target.department" class="target-department"> | {{ target.department }} Dept</span>
@@ -112,9 +116,9 @@ const networkingTargets = ref<NetworkingTarget[]>([])
 
 // Type guard for NetworkingTarget array
 const isNetworkingTargetArray = (data: unknown): data is NetworkingTarget[] => {
-  return Array.isArray(data) && data.every(item => 
-    typeof item === 'object' && 
-    item !== null && 
+  return Array.isArray(data) && data.every(item =>
+    typeof item === 'object' &&
+    item !== null &&
     'name' in item
   )
 }
@@ -166,7 +170,7 @@ onMounted(async () => {
     console.log('Loading default data...')
     await withLoading(loadDefaultData())
     console.log('Default data loaded:', allData.value)
-    
+
     console.log('Initializing from store...')
     initializeFromStore()
     console.log('Store initialized, all data:', allData.value)
@@ -178,61 +182,43 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
+h2 {
+  border: none;
+  margin: 0;
+}
+
+h3 {
+  text-align: left;
+}
+
+.target-header { 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--primary-color);
+}
+
 .networking {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
 
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: var(--text-color);
-}
-
-.import-section {
-  margin-bottom: 2rem;
-}
 
 .file-input {
   display: none;
 }
 
-.import-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
 
-.import-button:hover {
-  background-color: var(--primary-color-dark);
-}
 
-.loading-message,
-.error-message {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  text-align: center;
-}
+
 
 .loading-message {
   background-color: #f8f9fa;
   color: #666;
 }
 
-.error-message {
-  background-color: #fee;
-  color: #c00;
-}
+
 
 .targets-list {
   display: flex;
@@ -251,23 +237,7 @@ h1 {
   border: 1px solid #e9ecef;
 }
 
-.target-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
 
-h2 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--text-color);
-}
-
-h3 {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
-}
 
 .target-title,
 .target-department {
@@ -331,11 +301,4 @@ h3 {
   background: #17a2b8;
   color: white;
 }
-
-/* Tablet and up */
-@media (min-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-</style> 
+</style>

@@ -100,12 +100,6 @@ onMounted(async () => {
 
 
 
-h2 {
-  margin: 0 0 1rem;
-  font-size: 1.25rem;
-  color: var(--primary-color);
-}
-
 .checklist {
   list-style: none;
   padding: 0;

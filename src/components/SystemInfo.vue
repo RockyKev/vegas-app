@@ -178,12 +178,6 @@ const handleFileSelect = async (event: Event) => {
   margin: 1rem;
 }
 
-h2 {
-  margin: 0 0 1rem;
-  font-size: 1.25rem;
-  color: var(--text-color);
-}
-
 .flex {
   display: flex;
   flex-direction: row;
@@ -223,14 +217,6 @@ h2 {
   opacity: 0.9;
 }
 
-.error-message {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background: #fee;
-  color: #c00;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-}
 
 .info-section {
   border-top: 1px solid #eee;

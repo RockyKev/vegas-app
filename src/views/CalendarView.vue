@@ -157,39 +157,12 @@ onMounted(async () => {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
 
-h1 {
-  margin: 0;
-  font-size: 1.75rem;
-  color: var(--text-color);
-}
-
-.import-section {
-  margin-bottom: 2rem;
-}
 
 .file-input {
   display: none;
 }
 
-.import-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.import-button:hover {
-  background-color: var(--primary-color-dark);
-}
 
 .calendar-content {
   display: flex;
@@ -202,14 +175,6 @@ h1 {
   padding: 1.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-h2 {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  color: var(--text-color);
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 0.5rem;
 }
 
 .events-list {
@@ -245,11 +210,7 @@ h2 {
   flex: 1;
 }
 
-h3 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--text-color);
-}
+
 
 .event-location {
   margin: 0.25rem 0 0;
@@ -278,9 +239,6 @@ h3 {
 
 /* Tablet and up */
 @media (min-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
 
   .calendar-content {
     display: grid;

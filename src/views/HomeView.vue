@@ -62,20 +62,6 @@ onMounted(() => {
   padding: 1rem 0;
 }
 
-.header-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 2rem;
-  color: var(--text-color);
-  text-align: center;
-}
-
 .checklist-section-wrapper {
   margin-bottom: 2rem;
 }
@@ -101,17 +87,6 @@ h1 {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-h2 {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
-  color: var(--primary-color);
-}
-
-p {
-  margin: 0;
-  color: var(--text-color);
-  opacity: 0.8;
-}
 
 /* Tablet and up */
 @media (min-width: 768px) {

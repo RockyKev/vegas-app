@@ -94,7 +94,18 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: /\.(?:js|css|html|json|ics)$/,
+            urlPattern: /\.css$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'css-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 // 1 hour
+              }
+            }
+          },
+          {
+            urlPattern: /\.(?:js|html|json|ics)$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'static-resources',
