@@ -134,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import Container from '../components/Container.vue'
 import HelpToggle from '../components/HelpToggle.vue'
 import type { NetworkingTarget } from '../types/types'
